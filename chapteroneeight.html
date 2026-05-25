@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChapterOneEight — C18 · Joshua 1:8</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --alabaster:#F9F6F1;
+  --sand:#D9C9A8;
+  --gold:#B8965A;
+  --gold-light:#D9C9A8;
+  --tan:#C8BBA0;
+  --jet:#141210;
+  --deep:#0C0A08;
+  --muted:#7A7060;
+  --border:rgba(20,18,16,0.1);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--alabaster);color:var(--jet);font-weight:300;overflow-x:hidden;}
+
+/* ── SCROLL ANIMATION BASE ── */
+.reveal{opacity:0;transform:translateY(48px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1);}
+.reveal.up{transform:translateY(48px);}
+.reveal.left{transform:translateX(-48px);}
+.reveal.right{transform:translateX(48px);}
+.reveal.scale{transform:scale(0.94);}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-d1{transition-delay:0.1s;}
+.reveal-d2{transition-delay:0.2s;}
+.reveal-d3{transition-delay:0.3s;}
+.reveal-d4{transition-delay:0.4s;}
+.reveal-d5{transition-delay:0.5s;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 4rem;
+  background:rgba(249,246,241,0.88);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:0.5px solid var(--border);
+  transition:padding 0.4s ease,background 0.4s ease;
+}
+nav.scrolled{padding:1rem 4rem;background:rgba(249,246,241,0.97);}
+.nav-logo{font-family:var(--serif);font-size:1.05rem;font-weight:400;letter-spacing:0.08em;color:var(--jet);text-decoration:none;}
+.nav-logo em{font-style:italic;color:var(--gold);}
+.nav-links{display:flex;gap:2.2rem;list-style:none;align-items:center;}
+.nav-links a{font-size:0.68rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--jet);}
+.nav-cta{color:var(--jet)!important;border:0.5px solid var(--jet);padding:0.5rem 1.3rem;transition:background 0.2s,color 0.2s!important;}
+.nav-cta:hover{background:var(--jet)!important;color:var(--alabaster)!important;}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.nav-hamburger span{display:block;width:22px;height:1px;background:var(--jet);}
+
+/* ── ANNOUNCE ── */
+.announce{
+  background:var(--jet);color:var(--sand);
+  text-align:center;padding:0.8rem 2rem;
+  font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;
+  margin-top:65px;
+}
+.announce a{color:var(--gold);text-decoration:none;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:grid;grid-template-columns:1fr 1fr;
+  overflow:hidden;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:8rem 4rem 6rem;
+  position:relative;z-index:2;
+}
+.hero-eyebrow{
+  font-size:0.62rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.8rem;
+  display:flex;align-items:center;gap:0.8rem;
+  opacity:0;transform:translateY(20px);
+  animation:heroIn 1s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:0.5px;background:var(--gold);}
+.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(3.5rem,5.5vw,6rem);
+  font-weight:300;line-height:1.02;
+  color:var(--jet);
+  opacity:0;transform:translateY(30px);
+  animation:heroIn 1.1s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+}
+.hero-title em{font-style:italic;color:var(--gold);display:block;}
+.hero-verse{
+  font-family:var(--serif);font-size:0.95rem;font-style:italic;
+  color:var(--muted);line-height:1.75;
+  margin:2rem 0 2.5rem;padding-left:1.2rem;
+  border-left:1px solid var(--tan);max-width:360px;
+  opacity:0;
+  animation:heroIn 1s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+}
+.hero-verse cite{
+  display:block;margin-top:0.5rem;font-style:normal;
+  font-family:var(--sans);font-size:0.62rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);
+}
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  opacity:0;
+  animation:heroIn 1s cubic-bezier(0.16,1,0.3,1) 0.7s forwards;
+}
+@keyframes heroIn{to{opacity:1;transform:none;}}
+
+.hero-right{position:relative;overflow:hidden;}
+.hero-slideshow{position:absolute;inset:0;}
+.hero-slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center top;
+  opacity:0;
+  transition:opacity 1.8s cubic-bezier(0.4,0,0.2,1), transform 8s ease-out;
+  transform:scale(1.06);
+}
+.hero-slide.active{opacity:1;transform:scale(1);}
+.hero-slide.prev{opacity:0;transform:scale(1.02);}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,var(--alabaster) 0%,transparent 30%);
+  z-index:1;
+}
+.hero-parallax-text{
+  position:absolute;bottom:3rem;right:3rem;z-index:2;
+  font-family:var(--serif);font-size:0.75rem;font-style:italic;
+  color:rgba(255,255,255,0.6);letter-spacing:0.08em;
+  text-align:right;line-height:1.6;
+}
+.hero-slide-dots{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;z-index:3;
+}
+.hero-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(255,255,255,0.3);
+  transition:background 0.3s, transform 0.3s;cursor:pointer;
+}
+.hero-dot.active{background:var(--gold);transform:scale(1.3);}
+
+/* BUTTONS */
+.btn-dark{
+  font-family:var(--sans);font-size:0.68rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--alabaster);background:var(--jet);
+  border:none;padding:0.95rem 2rem;cursor:pointer;text-decoration:none;
+  display:inline-block;transition:background 0.25s,transform 0.15s;
+}
+.btn-dark:hover{background:var(--deep);transform:translateY(-1px);}
+.btn-outline{
+  font-family:var(--sans);font-size:0.68rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--jet);background:transparent;
+  border:0.5px solid var(--jet);padding:0.95rem 2rem;cursor:pointer;
+  text-decoration:none;display:inline-block;transition:all 0.25s;
+}
+.btn-outline:hover{background:var(--jet);color:var(--alabaster);}
+.btn-gold{
+  font-family:var(--sans);font-size:0.68rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--jet);background:var(--gold);
+  border:none;padding:0.95rem 2rem;cursor:pointer;text-decoration:none;
+  display:inline-block;transition:opacity 0.2s;
+}
+.btn-gold:hover{opacity:0.85;}
+
+/* ── SCROLL INDICATOR ── */
+.scroll-cue{
+  position:absolute;bottom:2.5rem;left:4rem;z-index:10;
+  display:flex;align-items:center;gap:0.7rem;
+  font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);
+  opacity:0;animation:heroIn 1s ease 1.2s forwards;
+}
+.scroll-line{width:36px;height:0.5px;background:var(--tan);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scaleX(1);}50%{opacity:0.3;transform:scaleX(0.5);}}
+
+/* ── MISSION STRIP ── */
+.mission{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:70vh;overflow:hidden;
+}
+.mission-img-wrap{position:relative;overflow:hidden;min-height:500px;}
+.mission-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;}
+.mission-img-wrap:hover .mission-img{transform:scale(1.03);}
+.mission-img-tint{position:absolute;inset:0;background:rgba(12,10,8,0.25);}
+.mission-text{
+  background:var(--jet);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:6rem 4rem;
+}
+.eyebrow{
+  font-size:0.62rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:0.7rem;
+}
+.eyebrow::before{content:'';display:block;width:22px;height:0.5px;background:var(--gold);}
+.section-title{
+  font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);
+  font-weight:300;line-height:1.1;color:var(--jet);margin-bottom:1.2rem;
+}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-title.light{color:rgba(249,246,241,0.9);}
+.section-body{font-size:0.9rem;line-height:1.85;color:var(--muted);max-width:520px;}
+.section-body.light{color:rgba(249,246,241,0.45);}
+.pull-quote{
+  font-family:var(--serif);font-size:1.5rem;font-weight:300;
+  font-style:italic;color:rgba(249,246,241,0.8);
+  line-height:1.5;margin-top:2.5rem;padding-top:2.5rem;
+  border-top:0.5px solid rgba(249,246,241,0.1);
+}
+.pull-quote cite{
+  display:block;margin-top:0.8rem;font-style:normal;
+  font-family:var(--sans);font-size:0.62rem;letter-spacing:0.25em;
+  text-transform:uppercase;color:var(--gold);
+}
+
+/* ── COMMUNITY PHOTO GRID ── */
+.community{padding:7rem 4rem;background:var(--alabaster);}
+.community-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;}
+.photo-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  grid-template-rows:280px 280px;
+  gap:12px;
+}
+.photo-cell{overflow:hidden;position:relative;cursor:pointer;}
+.photo-cell img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);}
+.photo-cell:hover img{transform:scale(1.05);}
+.photo-cell.tall{grid-row:span 2;}
+.photo-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(12,10,8,0.75),transparent);
+  padding:1.5rem 1.2rem 1rem;
+  font-family:var(--serif);font-style:italic;
+  font-size:0.88rem;color:rgba(249,246,241,0.85);
+  opacity:0;transition:opacity 0.3s;
+}
+.photo-cell:hover .photo-caption{opacity:1;}
+
+/* ── PILLARS ── */
+.pillars{padding:7rem 4rem;background:var(--alabaster);}
+.pillars-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:0.5px solid var(--border);margin-top:4rem;
+}
+.pillar{
+  padding:3rem 2.5rem;border-right:0.5px solid var(--border);
+  text-decoration:none;color:inherit;display:block;
+  transition:background 0.3s;position:relative;
+}
+.pillar:last-child{border-right:none;}
+.pillar:hover{background:#F2EDE4;}
+.pillar-num{
+  font-family:var(--serif);font-size:3.5rem;font-weight:300;
+  color:var(--sand);line-height:1;margin-bottom:1.5rem;
+}
+.pillar-title{
+  font-family:var(--serif);font-size:1.4rem;font-weight:400;
+  color:var(--jet);margin-bottom:0.8rem;line-height:1.2;
+}
+.pillar-title em{font-style:italic;}
+.pillar-desc{font-size:0.83rem;line-height:1.8;color:var(--muted);margin-bottom:2rem;}
+.pillar-arrow{
+  font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:0.5rem;
+}
+.pillar-arrow::after{content:'→';transition:transform 0.2s;}
+.pillar:hover .pillar-arrow::after{transform:translateX(5px);}
+.badge-members{
+  display:inline-block;font-size:0.55rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);
+  border:0.5px solid var(--sand);padding:0.28rem 0.7rem;
+  margin-bottom:1rem;
+}
+
+/* ── SWORD SECTION ── */
+.sword-section{background:var(--jet);padding:7rem 4rem;}
+.sword-list{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-top:0.5px solid rgba(249,246,241,0.07);
+  margin-top:3.5rem;
+}
+.sword-item{
+  padding:1.8rem 0;
+  border-bottom:0.5px solid rgba(249,246,241,0.07);
+  display:flex;justify-content:space-between;align-items:flex-start;gap:1.5rem;
+}
+.sword-item:nth-child(odd){padding-right:3rem;}
+.sword-item:nth-child(even){padding-left:3rem;border-left:0.5px solid rgba(249,246,241,0.07);}
+.sword-ref{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--gold);flex-shrink:0;}
+.sword-desc{font-size:0.8rem;line-height:1.7;color:rgba(249,246,241,0.4);text-align:right;max-width:260px;}
+
+/* ── TALEH ── */
+.taleh{display:grid;grid-template-columns:1fr 1fr;min-height:65vh;}
+.taleh-dark{
+  background:var(--deep);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;min-height:500px;
+}
+.taleh-bg-word{
+  position:absolute;font-family:var(--serif);font-size:18rem;
+  font-weight:300;color:rgba(255,255,255,0.025);
+  letter-spacing:-0.02em;user-select:none;
+  transform:translateX(-10%);
+}
+.taleh-center{text-align:center;position:relative;z-index:1;}
+.taleh-wordmark{
+  font-family:var(--serif);font-size:3.8rem;font-weight:300;
+  letter-spacing:0.4em;color:rgba(249,246,241,0.9);text-transform:uppercase;
+}
+.taleh-sub{
+  font-family:var(--sans);font-size:0.58rem;letter-spacing:0.5em;
+  text-transform:uppercase;color:var(--gold);margin-top:0.5rem;font-weight:200;
+}
+.taleh-rule{width:36px;height:0.5px;background:var(--gold);margin:1.5rem auto;}
+.taleh-tm{
+  font-family:var(--sans);font-size:0.55rem;letter-spacing:0.2em;
+  color:rgba(255,255,255,0.2);text-transform:uppercase;
+}
+.taleh-text{
+  background:var(--alabaster);
+  display:flex;flex-direction:column;justify-content:center;padding:6rem 4rem;
+}
+.taleh-verse-block{
+  font-family:var(--serif);font-style:italic;font-size:1.05rem;
+  color:var(--jet);line-height:1.65;
+  margin:2rem 0 0.5rem;padding-left:1.2rem;
+  border-left:1px solid var(--tan);
+}
+.taleh-verse-block cite{
+  display:block;margin-top:0.5rem;font-style:normal;
+  font-family:var(--sans);font-size:0.6rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);
+}
+.coming-soon{
+  display:inline-block;margin-top:2.5rem;font-size:0.6rem;
+  letter-spacing:0.3em;text-transform:uppercase;color:var(--jet);
+  border:0.5px solid var(--jet);padding:0.6rem 1.4rem;
+}
+
+/* ── CONTENT FEED ── */
+.feed{padding:7rem 4rem;background:#F2EDE4;}
+.feed-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;}
+.feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.feed-card{
+  aspect-ratio:9/14;background:var(--jet);
+  position:relative;overflow:hidden;cursor:pointer;
+}
+.feed-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  opacity:0.7;
+}
+.feed-card:hover img{transform:scale(1.06);}
+.feed-gradient{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(12,10,8,0.9) 30%,transparent 70%);
+  z-index:1;
+}
+.feed-content{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;z-index:2;}
+.feed-tag{font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.feed-title{font-family:var(--serif);font-size:1rem;font-weight:300;color:rgba(249,246,241,0.9);line-height:1.35;}
+.feed-play{
+  position:absolute;top:1.2rem;right:1.2rem;
+  width:34px;height:34px;border:0.5px solid rgba(255,255,255,0.3);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2;
+}
+.play-tri{
+  width:0;height:0;border-style:solid;
+  border-width:5px 0 5px 9px;
+  border-color:transparent transparent transparent rgba(255,255,255,0.8);
+  margin-left:2px;
+}
+.tiktok-link{
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  display:flex;align-items:center;gap:0.5rem;transition:color 0.2s;
+}
+.tiktok-link:hover{color:var(--jet);}
+
+/* ── MONDAY MEETING ── */
+.meeting{
+  background:var(--jet);padding:7rem 4rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;
+}
+.meeting-detail{display:flex;align-items:flex-start;gap:1rem;margin-top:2rem;}
+.detail-line{width:20px;height:0.5px;background:var(--gold);margin-top:0.7rem;flex-shrink:0;}
+.detail-text{font-family:var(--serif);font-size:1.05rem;color:rgba(249,246,241,0.8);line-height:1.5;}
+.detail-text span{
+  display:block;font-family:var(--sans);font-size:0.6rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:0.2rem;font-style:normal;
+}
+.meeting-box{border:0.5px solid rgba(249,246,241,0.1);padding:3rem;}
+.meeting-box-title{
+  font-family:var(--serif);font-size:1.5rem;font-weight:300;
+  color:rgba(249,246,241,0.85);line-height:1.4;margin-bottom:1.2rem;
+}
+.lock-note{
+  font-size:0.72rem;color:rgba(249,246,241,0.3);
+  line-height:1.65;margin-top:1.2rem;
+  display:flex;gap:0.6rem;align-items:flex-start;
+}
+.meeting-btns{display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--deep);padding:5rem 4rem 2rem;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;
+}
+.footer-brand{
+  font-family:var(--serif);font-size:1.2rem;font-weight:300;
+  color:rgba(249,246,241,0.8);letter-spacing:0.06em;margin-bottom:1rem;
+}
+.footer-brand em{font-style:italic;color:var(--gold);}
+.footer-tagline{font-size:0.78rem;line-height:1.75;color:rgba(249,246,241,0.22);max-width:220px;}
+.footer-col-label{
+  font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;
+}
+.footer-links{list-style:none;}
+.footer-links li{margin-bottom:0.65rem;}
+.footer-links a{
+  font-size:0.8rem;color:rgba(249,246,241,0.3);
+  text-decoration:none;transition:color 0.2s;
+}
+.footer-links a:hover{color:rgba(249,246,241,0.7);}
+.footer-bottom{
+  background:var(--deep);padding:1.5rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:0.5px solid rgba(249,246,241,0.04);
+}
+.footer-bottom p{font-size:0.62rem;letter-spacing:0.08em;color:rgba(249,246,241,0.15);}
+.footer-bottom a{color:rgba(249,246,241,0.22);text-decoration:none;}
+
+/* ── STICKY SECTION LABEL (Apple style) ── */
+.sticky-label{
+  position:sticky;top:80px;
+  font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--gold);padding:0.5rem 0;align-self:start;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.sticky-label::before{content:'';display:block;width:18px;height:0.5px;background:var(--gold);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:1.2rem 1.5rem;}
+  .nav-links{display:none;}
+  .nav-hamburger{display:flex;}
+  .hero,
+  .mission,
+  .taleh,
+  .meeting{grid-template-columns:1fr;}
+  .hero-left{padding:5rem 1.5rem 3rem;}
+  .hero-right{min-height:55vw;}
+  .hero-overlay{background:linear-gradient(to bottom,var(--alabaster) 0%,transparent 40%);}
+  .mission-img-wrap{min-height:55vw;}
+  .mission-text,.taleh-text{padding:4rem 1.5rem;}
+  .taleh-dark{min-height:55vw;}
+  .community,.pillars,.sword-section,.feed,.meeting,section{padding:5rem 1.5rem;}
+  .photo-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .photo-cell.tall{grid-row:span 1;}
+  .pillars-grid{grid-template-columns:1fr;}
+  .pillar{border-right:none;border-bottom:0.5px solid var(--border);}
+  .sword-list{grid-template-columns:1fr;}
+  .sword-item:nth-child(even){border-left:none;padding-left:0;}
+  .feed-grid{grid-template-columns:1fr 1fr;}
+  .community-header,.feed-header{flex-direction:column;gap:1rem;align-items:flex-start;}
+  footer{grid-template-columns:1fr 1fr;padding:3rem 1.5rem 2rem;}
+  .footer-bottom{padding:1.2rem 1.5rem;flex-direction:column;gap:0.5rem;text-align:center;}
+  .meeting-box{padding:2rem 1.5rem;}
+  .scroll-cue{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#"><em>Chapter</em>OneEight</a>
+  <ul class="nav-links">
+    <li><a href="c18-sword.html">Our Sword</a></li>
+    <li><a href="c18-resources.html">Resources</a></li>
+    <li><a href="#meeting">Monday Meeting</a></li>
+    <li><a href="#taleh">Taleh</a></li>
+    <li><a href="#" class="nav-cta">Sign In</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span>
+  </div>
+</nav>
+
+<!-- ANNOUNCE -->
+<div class="announce">
+  ChapterOneEight · C18 — Weekly Bible Study · Mondays 7:30 pm EST &nbsp;·&nbsp;
+  <a href="#meeting">Join Us →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">C18 · Joshua 1:8</p>
+    <h1 class="hero-title">
+      Rooted in<br>
+      <em>His Word.</em>
+    </h1>
+    <blockquote class="hero-verse">
+      "Study this Book of Instruction continually. Meditate on it day and night so you will be sure to obey everything written in it."
+      <cite>Joshua 1:8 NLT</cite>
+    </blockquote>
+    <div class="hero-actions">
+      <a href="c18-sword.html" class="btn-dark">Explore Our Sword</a>
+      <a href="#meeting" class="btn-outline">Join the Study</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-slideshow" id="heroSlideshow">
+      <div class="hero-slide active" style="background:linear-gradient(135deg,#1a1510 0%,#2a1f14 100%)" aria-label="Woman of faith"></div>
+      <div class="hero-slide" style="background:linear-gradient(135deg,#141210 0%,#1e1a15 100%)" aria-label="Woman studying"></div>
+      <div class="hero-slide" style="background:linear-gradient(135deg,#1c1710 0%,#251e14 100%)" aria-label="Woman portrait"></div>
+      <div class="hero-slide" style="background:linear-gradient(135deg,#161210 0%,#201a13 100%)" aria-label="Woman smiling"></div>
+      <div class="hero-slide" style="background:linear-gradient(135deg,#18130e 0%,#221c14 100%)" aria-label="Women together"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-slide-dots" id="heroSlideshow" aria-hidden="true"></div>
+    <div class="hero-parallax-text">
+      "Let's grow." 🌱
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span class="scroll-line"></span>
+    Scroll
+  </div>
+</section>
+
+<!-- MISSION -->
+<div class="mission">
+  <div class="mission-img-wrap reveal left">
+    <img
+      class="mission-img"
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='700'%3E%3Crect fill='%23141210' width='900' height='700'/%3E%3Ctext x='50%25' y='48%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='18' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='13'%3EMission Panel%3C/text%3E%3C/svg%3E"
+      alt="Woman reading the Bible in natural light"
+    />
+    <div class="mission-img-tint"></div>
+  </div>
+  <div class="mission-text">
+    <p class="eyebrow" style="color:var(--gold);">Our Mission</p>
+    <h2 class="section-title light">A small group rooted in <em>big faith.</em></h2>
+    <p class="section-body light">ChapterOneEight is a women's Bible study community committed to growing deep in God's Word and walking in purpose together. Everything you need for your spiritual growth is right here.</p>
+    <blockquote class="pull-quote">
+      "In the kingdom of God, His Word is an active, living weapon."
+      <cite>Ephesians 6:17</cite>
+    </blockquote>
+  </div>
+</div>
+
+<!-- COMMUNITY PHOTO GRID -->
+<section class="community" id="community">
+  <div class="community-header">
+    <div>
+      <p class="eyebrow reveal">The C18 Community</p>
+      <h2 class="section-title reveal reveal-d1">Sisters growing <em>together.</em></h2>
+    </div>
+    <p class="section-body reveal" style="max-width:300px;text-align:right;">
+      A safe space for millennial women of faith to study, question, and rise together.
+    </p>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-cell tall reveal scale">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='1100'%3E%3Crect fill='%231a1510' width='800' height='1100'/%3E%3Ctext x='50%25' y='48%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='18' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='13'%3ECommunity · Tall Cell%3C/text%3E%3C/svg%3E"
+        alt="Women of color in Bible study"
+        loading="lazy"
+      />
+      <div class="photo-caption">Studying the Word together</div>
+    </div>
+    <div class="photo-cell reveal scale reveal-d1">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='280'%3E%3Crect fill='%23201a12' width='600' height='280'/%3E%3Ctext x='50%25' y='46%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='16' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='12'%3ECommunity · Cell 2%3C/text%3E%3C/svg%3E"
+        alt="Woman praying"
+        loading="lazy"
+      />
+      <div class="photo-caption">Prayer & presence</div>
+    </div>
+    <div class="photo-cell reveal scale reveal-d2">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='280'%3E%3Crect fill='%23221c12' width='600' height='280'/%3E%3Ctext x='50%25' y='46%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='16' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='12'%3ECommunity · Cell 3%3C/text%3E%3C/svg%3E"
+        alt="Open Bible with highlighted verses"
+        loading="lazy"
+      />
+      <div class="photo-caption">His Word, our weapon</div>
+    </div>
+    <div class="photo-cell reveal scale reveal-d3">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='280'%3E%3Crect fill='%231c1610' width='600' height='280'/%3E%3Ctext x='50%25' y='46%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='16' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='12'%3ECommunity · Cell 4%3C/text%3E%3C/svg%3E"
+        alt="Community gathering"
+        loading="lazy"
+      />
+      <div class="photo-caption">Community & connection</div>
+    </div>
+    <div class="photo-cell reveal scale reveal-d4">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='280'%3E%3Crect fill='%23181410' width='600' height='280'/%3E%3Ctext x='50%25' y='46%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='16' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='12'%3ECommunity · Cell 5%3C/text%3E%3C/svg%3E"
+        alt="Morning devotionals"
+        loading="lazy"
+      />
+      <div class="photo-caption">Daily devotionals</div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars" id="resources">
+  <div style="max-width:540px;">
+    <p class="eyebrow reveal">What's Inside</p>
+    <h2 class="section-title reveal reveal-d1">Everything for your <em>growth.</em></h2>
+  </div>
+  <div class="pillars-grid">
+    <a href="c18-sword.html" class="pillar reveal up">
+      <div class="pillar-num">01</div>
+      <h3 class="pillar-title">Our <em>Sword</em></h3>
+      <p class="pillar-desc">Your Psalm-by-Psalm guide to spiritual warfare. Find the scripture you need for any situation and declare God's truth over your life.</p>
+      <span class="pillar-arrow">Open freely</span>
+    </a>
+    <a href="c18-resources.html" class="pillar reveal up reveal-d2">
+      <div class="badge-members">Members only</div>
+      <div class="pillar-num">02</div>
+      <h3 class="pillar-title"><em>Resources</em></h3>
+      <p class="pillar-desc">Gospel Harmony media kit, reading plan, C18 worship playlists for Apple Music & Spotify, book recommendations.</p>
+      <span class="pillar-arrow">Sign in to access</span>
+    </a>
+    <a href="#meeting" class="pillar reveal up reveal-d4">
+      <div class="badge-members">Members only</div>
+      <div class="pillar-num">03</div>
+      <h3 class="pillar-title">Monday <em>Meeting</em></h3>
+      <p class="pillar-desc">Every Monday at 7:30 pm EST via Google Meet. Grow together, study together, rise together.</p>
+      <span class="pillar-arrow">Sign in to join</span>
+    </a>
+  </div>
+</section>
+
+<!-- SWORD SECTION -->
+<section class="sword-section" id="sword">
+  <div style="max-width:600px;">
+    <p class="eyebrow reveal" style="color:var(--gold);">The Sword of the Spirit</p>
+    <h2 class="section-title light reveal reveal-d1">Your <em>weapon</em> for every battle.</h2>
+    <p class="section-body light reveal reveal-d2">When the enemy attacks your mind with anxiety, doubt, or toxic lies — don't fight in your own strength. Stand on scripture and declare, "It is written!"</p>
+  </div>
+  <div class="sword-list">
+    <div class="sword-item reveal up">
+      <div class="sword-ref">Psalms 1:1–6</div>
+      <div class="sword-desc">Choosing the right counsel to flourish like a tree by living waters.</div>
+    </div>
+    <div class="sword-item reveal up reveal-d1">
+      <div class="sword-ref">Psalms 3:1–8</div>
+      <div class="sword-desc">Sleeping in peace surrounded by enemies. God as the lifter of your head.</div>
+    </div>
+    <div class="sword-item reveal up reveal-d1">
+      <div class="sword-ref">Psalms 4:1–8</div>
+      <div class="sword-desc">Finding deep rest when facing distress and false accusations.</div>
+    </div>
+    <div class="sword-item reveal up reveal-d2">
+      <div class="sword-ref">Psalms 5:1–12</div>
+      <div class="sword-desc">A morning prayer for divine favor to surround you like a shield.</div>
+    </div>
+    <div class="sword-item reveal up reveal-d2">
+      <div class="sword-ref">Psalms 6:1–10</div>
+      <div class="sword-desc">Crying out for healing when bone-weary and facing grief.</div>
+    </div>
+    <div class="sword-item reveal up reveal-d3">
+      <div class="sword-ref">Psalms 8:1–9</div>
+      <div class="sword-desc">Reclaiming your divine identity and authority in the face of the enemy.</div>
+    </div>
+  </div>
+  <div style="margin-top:3rem;" class="reveal">
+    <a href="#" class="btn-gold">Search All Psalms</a>
+  </div>
+</section>
+
+<!-- TALEH -->
+<div class="taleh" id="taleh">
+  <div class="taleh-dark">
+    <div class="taleh-bg-word">T</div>
+    <div class="taleh-center reveal scale">
+      <div class="taleh-wordmark">Taleh</div>
+      <div class="taleh-sub">Luxury Activewear</div>
+      <div class="taleh-rule"></div>
+      <div class="taleh-tm">™ Trademarked</div>
+    </div>
+  </div>
+  <div class="taleh-text">
+    <p class="eyebrow reveal">The Taleh Brand</p>
+    <h2 class="section-title reveal reveal-d1">Wear your <em>calling.</em></h2>
+    <p class="section-body reveal reveal-d2">Taleh — Hebrew for lamb — is a luxury activewear brand born from faith and purpose. Designed for women who move with intention and wear their identity in Christ.</p>
+    <blockquote class="taleh-verse-block reveal reveal-d3">
+      "Feed my lambs… Take care of my sheep… Feed my sheep."
+      <cite>John 21:15–17</cite>
+    </blockquote>
+    <p class="section-body reveal reveal-d4" style="margin-top:1.5rem;">Every piece carries meaning. Every collection tells a story of who God says you are.</p>
+    <a href="#" class="coming-soon reveal reveal-d5">Coming Soon — Join the Waitlist</a>
+  </div>
+</div>
+
+<!-- CONTENT FEED -->
+<section class="feed" id="content">
+  <div class="feed-header">
+    <div>
+      <p class="eyebrow reveal">Sermons &amp; Content</p>
+      <h2 class="section-title reveal reveal-d1">Watch. <em>Grow.</em> Share.</h2>
+    </div>
+    <a href="#" class="tiktok-link reveal">Follow on TikTok →</a>
+  </div>
+  <div class="feed-grid">
+    <div class="feed-card reveal up">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23141210' width='400' height='600'/%3E%3Ctext x='50%25' y='47%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='15' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='11'%3EContent · Sermon%3C/text%3E%3C/svg%3E"
+        alt="Sermon content"
+        loading="lazy"
+      />
+      <div class="feed-gradient"></div>
+      <div class="feed-play"><div class="play-tri"></div></div>
+      <div class="feed-content">
+        <div class="feed-tag">Sermon</div>
+        <div class="feed-title">The Word as your weapon — standing firm in spiritual warfare</div>
+      </div>
+    </div>
+    <div class="feed-card reveal up reveal-d2">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%231a1510' width='400' height='600'/%3E%3Ctext x='50%25' y='47%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='15' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='11'%3EContent · Bible Study%3C/text%3E%3C/svg%3E"
+        alt="Bible study content"
+        loading="lazy"
+      />
+      <div class="feed-gradient"></div>
+      <div class="feed-play"><div class="play-tri"></div></div>
+      <div class="feed-content">
+        <div class="feed-tag">Bible Study</div>
+        <div class="feed-title">Psalms for anxiety: what to declare when fear comes knocking</div>
+      </div>
+    </div>
+    <div class="feed-card reveal up reveal-d4">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%231c1812' width='400' height='600'/%3E%3Ctext x='50%25' y='47%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='15' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='11'%3EContent · Podcast%3C/text%3E%3C/svg%3E"
+        alt="Podcast content"
+        loading="lazy"
+      />
+      <div class="feed-gradient"></div>
+      <div class="feed-play"><div class="play-tri"></div></div>
+      <div class="feed-content">
+        <div class="feed-tag">Podcast</div>
+        <div class="feed-title">Identity in Christ: your calling is more powerful than your past</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MONDAY MEETING -->
+<section class="meeting" id="meeting">
+  <div class="reveal left">
+    <p class="eyebrow" style="color:var(--gold);">Join the Study</p>
+    <h2 class="section-title light">Monday <em>Meeting.</em></h2>
+    <p class="section-body light">We gather every Monday evening to dig into God's Word together — a safe space for sisters to grow, ask hard questions, and walk in faith.</p>
+    <div class="meeting-detail">
+      <div class="detail-line"></div>
+      <div class="detail-text"><span>When</span>Mondays at 7:30 pm EST</div>
+    </div>
+    <div class="meeting-detail">
+      <div class="detail-line"></div>
+      <div class="detail-text"><span>Where</span>Google Meet — link inside</div>
+    </div>
+    <div class="meeting-detail">
+      <div class="detail-line"></div>
+      <div class="detail-text"><span>Who</span>All sisters welcome</div>
+    </div>
+  </div>
+  <div class="meeting-box reveal right">
+    <p class="meeting-box-title">Create a free account to access the meeting link and all member resources.</p>
+    <div class="lock-note">
+      <span>✦</span>
+      <span>Meeting link, resources, and member content are available to signed-in members. Free to join.</span>
+    </div>
+    <div class="meeting-btns">
+      <a href="#" class="btn-gold">Create Free Account</a>
+      <a href="#" class="btn-outline" style="color:rgba(249,246,241,0.6);border-color:rgba(249,246,241,0.2);">Sign In</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand"><em>Chapter</em>OneEight</div>
+    <p class="footer-tagline">A women's Bible study community rooted in God's Word. Growing deep in faith and purpose — together. C18 · Joshua 1:8</p>
+  </div>
+  <div>
+    <p class="footer-col-label">Navigate</p>
+    <ul class="footer-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="c18-sword.html">Our Sword</a></li>
+      <li><a href="c18-resources.html">Resources</a></li>
+      <li><a href="#meeting">Monday Meeting</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="footer-col-label">Taleh</p>
+    <ul class="footer-links">
+      <li><a href="#taleh">About Taleh</a></li>
+      <li><a href="#">Waitlist</a></li>
+      <li><a href="#">Store</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="footer-col-label">Connect</p>
+    <ul class="footer-links">
+      <li><a href="#">TikTok</a></li>
+      <li><a href="#">Podcast</a></li>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2026 ChapterOneEight · Taleh™ is a registered trademark</p>
+  <p><a href="#">Privacy</a> · <a href="#">Terms</a></p>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Hero slideshow
+(function() {
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsWrap = document.querySelector('.hero-slide-dots');
+  let current = 0;
+  let timer;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    slides[current].classList.add('prev');
+    setTimeout(() => slides[current].classList.remove('prev'), 2000);
+    document.querySelectorAll('.hero-dot')[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.hero-dot')[current].classList.add('active');
+  }
+
+  function next() { goTo((current + 1) % slides.length); }
+
+  timer = setInterval(next, 5000);
+
+  // Pause on hover
+  const right = document.querySelector('.hero-right');
+  right.addEventListener('mouseenter', () => clearInterval(timer));
+  right.addEventListener('mouseleave', () => { timer = setInterval(next, 5000); });
+})();
+</script>
+</body>
+</html>

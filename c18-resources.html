@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resources — ChapterOneEight</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --alabaster:#F9F6F1;
+  --sand:#D9C9A8;
+  --gold:#B8965A;
+  --tan:#C8BBA0;
+  --jet:#141210;
+  --deep:#0C0A08;
+  --muted:#7A7060;
+  --border:rgba(20,18,16,0.1);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--alabaster);color:var(--jet);font-weight:300;overflow-x:hidden;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.3rem 4rem;
+  background:rgba(249,246,241,0.93);
+  backdrop-filter:blur(18px);
+  border-bottom:0.5px solid var(--border);
+}
+.nav-logo{font-family:var(--serif);font-size:1rem;font-weight:400;letter-spacing:0.08em;color:var(--jet);text-decoration:none;}
+.nav-logo em{font-style:italic;color:var(--gold);}
+.nav-back{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s;}
+.nav-back:hover{color:var(--jet);}
+.nav-back::before{content:'←';}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);}
+.reveal.visible{opacity:1;transform:none;}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}.d4{transition-delay:0.4s;}
+
+/* RESOURCES HUB PAGE */
+.hub{display:none;}
+.hub.active{display:block;}
+
+/* PAGE HERO */
+.page-hero{
+  min-height:55vh;background:var(--jet);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:5rem 4rem 4rem;margin-top:65px;
+  position:relative;overflow:hidden;
+}
+.page-hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#141210 0%,#1e1a12 100%);
+  background-size:cover;background-position:center;
+  opacity:0.18;
+}
+.page-hero-eyebrow{
+  font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:0.7rem;position:relative;z-index:1;
+}
+.page-hero-eyebrow::before{content:'';display:block;width:22px;height:0.5px;background:var(--gold);}
+.page-hero-title{
+  font-family:var(--serif);font-size:clamp(3rem,6vw,6rem);
+  font-weight:300;line-height:1.0;color:rgba(249,246,241,0.92);
+  position:relative;z-index:1;
+}
+.page-hero-title em{font-style:italic;color:var(--gold);}
+.page-hero-sub{
+  font-size:0.88rem;line-height:1.75;color:rgba(249,246,241,0.4);
+  max-width:500px;margin-top:1.5rem;position:relative;z-index:1;
+}
+.locked-note{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  margin-top:2rem;font-size:0.65rem;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--gold);
+  border:0.5px solid rgba(184,150,90,0.3);padding:0.6rem 1.2rem;
+  position:relative;z-index:1;
+}
+
+/* RESOURCE CARDS GRID */
+.resources-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:0.5px solid var(--border);
+  margin:4rem;
+}
+.resource-card{
+  background:var(--alabaster);padding:3rem 2.5rem;
+  cursor:pointer;transition:background 0.3s;
+  display:flex;flex-direction:column;
+}
+.resource-card:hover{background:#F2EDE4;}
+.resource-num{
+  font-family:var(--serif);font-size:3rem;font-weight:300;
+  color:var(--sand);line-height:1;margin-bottom:1.5rem;
+}
+.resource-label{
+  font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.8rem;
+}
+.resource-title{
+  font-family:var(--serif);font-size:1.5rem;font-weight:400;
+  color:var(--jet);line-height:1.2;margin-bottom:0.8rem;
+}
+.resource-title em{font-style:italic;}
+.resource-desc{font-size:0.82rem;line-height:1.8;color:var(--muted);flex:1;margin-bottom:2rem;}
+.resource-cta{
+  font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:0.5rem;
+}
+.resource-cta::after{content:'→';transition:transform 0.2s;}
+.resource-card:hover .resource-cta::after{transform:translateX(4px);}
+
+/* ── ARTICLE PAGES ── */
+.article-page{display:none;min-height:100vh;}
+.article-page.active{display:block;}
+
+.article-hero{
+  min-height:60vh;background:var(--jet);
+  display:grid;grid-template-columns:1fr 1fr;
+  margin-top:65px;overflow:hidden;
+}
+.article-hero-text{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4rem;position:relative;z-index:1;
+}
+.article-eyebrow{
+  font-size:0.58rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.article-eyebrow::before{content:'';display:block;width:18px;height:0.5px;background:var(--gold);}
+.article-title{
+  font-family:var(--serif);font-size:clamp(2.5rem,4vw,4.5rem);
+  font-weight:300;line-height:1.0;color:rgba(249,246,241,0.92);
+}
+.article-title em{font-style:italic;color:var(--gold);}
+.article-sub{
+  font-size:0.85rem;line-height:1.8;
+  color:rgba(249,246,241,0.38);margin-top:1.2rem;max-width:380px;
+}
+.article-hero-img{overflow:hidden;position:relative;}
+.article-hero-img img{width:100%;height:100%;object-fit:cover;opacity:0.5;}
+.article-hero-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right,var(--jet) 0%,transparent 40%);
+}
+
+/* ARTICLE BODY */
+.article-body{max-width:780px;margin:0 auto;padding:5rem 2rem 7rem;}
+
+.article-intro{
+  font-family:var(--serif);font-size:1.25rem;font-weight:300;
+  line-height:1.75;color:var(--jet);
+  border-left:2px solid var(--gold);padding-left:2rem;
+  margin-bottom:4rem;
+}
+
+.writer-section{margin-bottom:5rem;padding-bottom:5rem;border-bottom:0.5px solid var(--border);}
+.writer-section:last-child{border-bottom:none;}
+.writer-label{
+  font-size:0.58rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.writer-label::before{content:'';display:block;width:16px;height:0.5px;background:var(--gold);}
+.writer-name{
+  font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);
+  font-weight:300;line-height:1.05;color:var(--jet);margin-bottom:2rem;
+}
+.writer-name em{font-style:italic;color:var(--gold);}
+.writer-body p{
+  font-size:0.95rem;line-height:1.9;color:var(--jet);
+  margin-bottom:1.4rem;opacity:0.85;
+}
+.writer-pull{
+  font-family:var(--serif);font-size:1.3rem;font-weight:300;
+  font-style:italic;color:var(--jet);line-height:1.5;
+  padding:2rem 2rem 2rem 2.5rem;
+  border-left:2px solid var(--gold);
+  background:#F2EDE4;margin:2.5rem 0;
+}
+.section-heading{
+  font-family:var(--serif);font-size:1.1rem;font-weight:400;
+  color:var(--jet);margin:2.5rem 0 1rem;
+}
+.unique-list{list-style:none;margin:1rem 0 1.5rem;}
+.unique-list li{
+  font-size:0.88rem;line-height:1.75;color:var(--muted);
+  padding:0.7rem 0 0.7rem 1.5rem;
+  border-bottom:0.5px solid var(--border);
+  position:relative;
+}
+.unique-list li::before{
+  content:'—';position:absolute;left:0;color:var(--gold);font-size:0.8rem;
+}
+.sources-block{
+  margin-top:2rem;padding:1.5rem 2rem;
+  background:#F2EDE4;border-left:2px solid var(--sand);
+}
+.sources-title{
+  font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:0.8rem;
+}
+.sources-block ol{padding-left:1.2rem;}
+.sources-block li{font-size:0.75rem;line-height:1.65;color:var(--muted);margin-bottom:0.3rem;}
+.sources-block a{color:var(--gold);text-decoration:none;}
+
+/* READING PLAN */
+.prayer-block{
+  background:var(--jet);padding:3rem 4rem;margin:0 0 4rem;
+  position:relative;overflow:hidden;
+}
+.prayer-block::before{
+  content:'"';font-family:var(--serif);font-size:18rem;font-weight:300;
+  color:rgba(255,255,255,0.03);position:absolute;top:-3rem;left:1rem;
+  line-height:1;user-select:none;
+}
+.prayer-eyebrow{font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.prayer-text{
+  font-family:var(--serif);font-size:1.1rem;font-style:italic;
+  color:rgba(249,246,241,0.75);line-height:1.75;max-width:620px;
+  position:relative;z-index:1;
+}
+.prayer-text strong{font-style:normal;color:rgba(249,246,241,0.9);font-weight:400;}
+
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);}
+.week-card{background:var(--alabaster);padding:2.2rem 2rem;transition:background 0.25s;}
+.week-card:hover{background:#F2EDE4;}
+.week-num{font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.week-date{font-family:var(--serif);font-size:0.78rem;color:var(--muted);margin-bottom:0.3rem;font-style:italic;}
+.week-theme{
+  font-family:var(--serif);font-size:1.25rem;font-weight:400;
+  color:var(--jet);line-height:1.2;margin-bottom:1rem;
+}
+.week-readings{list-style:none;}
+.week-readings li{
+  font-size:0.8rem;line-height:1.6;color:var(--muted);
+  padding:0.3rem 0;border-bottom:0.5px solid var(--border);
+}
+.week-readings li:last-child{border-bottom:none;}
+
+/* CHECKLIST */
+.checklist-intro{
+  font-family:var(--serif);font-size:1.15rem;font-weight:300;
+  line-height:1.75;color:var(--jet);max-width:600px;
+  border-left:2px solid var(--gold);padding-left:2rem;
+  margin-bottom:3.5rem;
+}
+.check-items{display:flex;flex-direction:column;gap:1px;}
+.check-item{
+  background:var(--alabaster);padding:2.5rem 3rem;
+  display:flex;align-items:flex-start;gap:2rem;
+  border-bottom:0.5px solid var(--border);
+  transition:background 0.25s;
+}
+.check-item:hover{background:#F2EDE4;}
+.check-circle{
+  width:36px;height:36px;border:1px solid var(--tan);
+  border-radius:50%;flex-shrink:0;margin-top:0.2rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background 0.2s,border-color 0.2s;
+}
+.check-circle.done{background:var(--gold);border-color:var(--gold);}
+.check-circle.done::after{content:'✓';color:#fff;font-size:0.75rem;}
+.check-content{}
+.check-title{
+  font-family:var(--serif);font-size:1.3rem;font-weight:400;
+  color:var(--jet);margin-bottom:0.5rem;
+}
+.check-title em{font-style:italic;}
+.check-desc{font-size:0.88rem;line-height:1.8;color:var(--muted);}
+
+/* WELCOME ARTICLE */
+.mustard-pull{
+  font-family:var(--serif);font-size:1.6rem;font-weight:300;
+  font-style:italic;color:var(--jet);line-height:1.45;
+  padding:3rem 3rem 3rem 4rem;background:#F2EDE4;
+  border-left:3px solid var(--gold);margin:3rem 0;
+}
+
+/* BACK LINK */
+.back-to-resources{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;margin:3rem 0 0 0;
+  transition:color 0.2s;
+}
+.back-to-resources:hover{color:var(--jet);}
+.back-to-resources::before{content:'←';}
+
+/* NOTE BLOCK */
+.note-block{
+  padding:2rem 2.5rem;background:#F2EDE4;
+  border-left:2px solid var(--sand);margin-bottom:3rem;
+}
+.note-block p{font-size:0.88rem;line-height:1.8;color:var(--muted);}
+.note-block strong{color:var(--jet);font-weight:400;}
+
+@media(max-width:900px){
+  nav{padding:1.1rem 1.5rem;}
+  .page-hero,.article-body{padding:4rem 1.5rem 3rem;}
+  .resources-grid{grid-template-columns:1fr;margin:2rem 1.5rem;}
+  .article-hero{grid-template-columns:1fr;}
+  .article-hero-img{min-height:40vw;}
+  .article-hero-text{padding:4rem 1.5rem;}
+  .plan-grid{grid-template-columns:1fr;}
+  .check-item{padding:2rem 1.5rem;gap:1.2rem;}
+  .prayer-block{padding:2.5rem 1.5rem;}
+  .mustard-pull{padding:2rem 1.5rem 2rem 2rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="chapteroneeight.html"><em>Chapter</em>OneEight</a>
+  <a class="nav-back" href="chapteroneeight.html" id="nav-back-btn">Back to Home</a>
+</nav>
+
+<!-- ════════════════════════════════════════
+     HUB PAGE
+════════════════════════════════════════ -->
+<div class="hub active" id="hub-page">
+
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <p class="page-hero-eyebrow reveal">Members · Gospel Harmony</p>
+    <h1 class="page-hero-title reveal">Study <em>Resources.</em></h1>
+    <p class="page-hero-sub reveal">Everything you need for our Gospel Harmony Bible study — articles, reading plans, and your first meeting checklist.</p>
+    <div class="locked-note reveal">✦ &nbsp; Members only — sign in to access all content</div>
+  </div>
+
+  <div class="resources-grid">
+    <div class="resource-card reveal" onclick="showPage('welcome')">
+      <div class="resource-num">01</div>
+      <div class="resource-label">Welcome</div>
+      <h2 class="resource-title">Welcome to <em>Bible Study</em></h2>
+      <p class="resource-desc">At ChapterOneEight we do not just read the Bible — we experience it. Start here to understand our approach, the Gospel Harmony method, and what to expect.</p>
+      <span class="resource-cta">Read article</span>
+    </div>
+    <div class="resource-card reveal d1" onclick="showPage('writers')">
+      <div class="resource-num">02</div>
+      <div class="resource-label">Gospel Harmony · Meet the Writers</div>
+      <h2 class="resource-title">Matthew, Mark, <em>Luke & John</em></h2>
+      <p class="resource-desc">Who were the four men God chose to tell the story of Jesus? Their backgrounds, audiences, and what makes each Gospel unique before you begin reading.</p>
+      <span class="resource-cta">Read article</span>
+    </div>
+    <div class="resource-card reveal d2" onclick="showPage('readingplan')">
+      <div class="resource-num">03</div>
+      <div class="resource-label">Gospel Harmony · Reading Plan</div>
+      <h2 class="resource-title">May – June <em>2026</em></h2>
+      <p class="resource-desc">Your weekly reading plan following the actual timeline of Jesus' life across all four Gospels simultaneously — with a word on prayer to begin each session.</p>
+      <span class="resource-cta">View plan</span>
+    </div>
+    <div class="resource-card reveal d1" onclick="showPage('checklist')">
+      <div class="resource-num">04</div>
+      <div class="resource-label">First Meeting</div>
+      <h2 class="resource-title">Before Our First <em>Meeting</em></h2>
+      <p class="resource-desc">Here is everything we ask you to do before we gather together for the first time. Simple, meaningful, and you are going to love it.</p>
+      <span class="resource-cta">View checklist</span>
+    </div>
+    <div class="resource-card reveal d2" onclick="alert('C18 Playlist — Apple Music link coming soon!')">
+      <div class="resource-num">05</div>
+      <div class="resource-label">C18 Playlist</div>
+      <h2 class="resource-title">Apple Music <em>Playlist</em></h2>
+      <p class="resource-desc">Our ChapterOneEight worship playlist — intentional, curated to worship, motivate and remind you of who God says you are. Let this be the soundtrack to your growth.</p>
+      <span class="resource-cta">Open playlist</span>
+    </div>
+    <div class="resource-card reveal d3" onclick="alert('C18 Playlist — Spotify link coming soon!')">
+      <div class="resource-num">06</div>
+      <div class="resource-label">C18 Playlist</div>
+      <h2 class="resource-title">Spotify <em>Playlist</em></h2>
+      <p class="resource-desc">Our ChapterOneEight worship playlist on Spotify — the same curated soundtrack to your growth, available wherever you listen.</p>
+      <span class="resource-cta">Open playlist</span>
+    </div>
+  </div>
+
+</div><!-- /hub -->
+
+
+<!-- ════════════════════════════════════════
+     ARTICLE: WELCOME
+════════════════════════════════════════ -->
+<div class="article-page" id="welcome-page">
+  <div class="article-hero">
+    <div class="article-hero-text">
+      <p class="article-eyebrow">Welcome · ChapterOneEight</p>
+      <h1 class="article-title">Welcome to <em>Bible Study.</em></h1>
+      <p class="article-sub">At ChapterOneEight we do not just read the Bible — we experience it.</p>
+    </div>
+    <div class="article-hero-img">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='600'%3E%3Crect fill='%231a1510' width='900' height='600'/%3E%3Ctext x='50%25' y='48%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='18' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='57%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='13'%3EWelcome Article · Hero%3C/text%3E%3C/svg%3E" alt="Women in Bible study" loading="lazy"/>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <a class="back-to-resources reveal" onclick="showPage('hub')" href="#">Back to Resources</a>
+
+    <div style="margin-top:3rem;">
+      <p class="article-eyebrow reveal">How We Will Read Together</p>
+    </div>
+
+    <blockquote class="article-intro reveal">
+      At ChapterOneEight we do not just read the Bible — we experience it. That is why we are beginning our journey in the Gospels — the foundation of everything.
+    </blockquote>
+
+    <div class="writer-body reveal">
+      <p>The Gospels are the first four books of the New Testament — Matthew, Mark, Luke and John. Each one was written by a different author, for a different audience, with a different perspective — but together they tell one complete story: the life, ministry, death and resurrection of Jesus Christ.</p>
+      <p>As we walk this life in faith — in hope — we have to know who we are believing in. The Gospels introduce us to Jesus — not just as a historical figure but as a living, breathing, miracle working, promise keeping Son of God. The more we know Him the more our faith — and our hope — grows. And not just grows UP — but grows DOWN.</p>
+    </div>
+
+    <blockquote class="mustard-pull reveal">
+      Deep into the ground. Unshakeable. Unmovable. Impossible to uproot.
+    </blockquote>
+
+    <div class="writer-body reveal">
+      <p>Think about the mustard seed. It is one of the smallest seeds that exists — yet it grows into one of the largest trees. But what makes it powerful is not just its height. It is the depth of its roots. Roots so deep that no storm, no wind and no force can pull it out of the ground. That is the kind of faith we are building here at ChapterOneEight.</p>
+      <p>That is why we are starting here. Not to just feel good about God — but to know Him so deeply that our faith becomes a ROOT. Something that holds us when life tries to shake us. Something that feeds us when seasons get dry. Something that cannot be moved no matter what comes.</p>
+      <p>To do this we will be using an approach called <strong>Gospel Harmony</strong> — rather than reading one Gospel at a time we will walk through all four together following the actual timeline of Jesus' life and bringing in each writer as their account aligns. Same story. Four perspectives. One complete and unshakeable picture of Jesus.</p>
+      <p style="font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--jet);">Get ready sis. Your roots are about to go DEEP.</p>
+    </div>
+
+    <div style="border-top:0.5px solid var(--border);margin-top:4rem;padding-top:3rem;" class="reveal">
+      <p class="article-eyebrow">What Is Included</p>
+      <h3 class="section-heading" style="font-size:1.4rem;margin-top:0.5rem;">Your study packet contains three articles:</h3>
+      <ul class="unique-list" style="margin-top:1.5rem;">
+        <li><strong style="color:var(--jet);font-weight:400;">Gospel Harmony — Meet the Writers</strong> — an introduction to Matthew, Mark, Luke and John. Who they were, who they wrote for and what makes each one unique.</li>
+        <li><strong style="color:var(--jet);font-weight:400;">Gospel Harmony Reading Plan</strong> — May 2026 through June 2026 — your weekly reading plan following the timeline of Jesus' life across all four Gospels simultaneously.</li>
+        <li><strong style="color:var(--jet);font-weight:400;">First Meeting Checklist</strong> — everything you need to do before we gather together.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     ARTICLE: MEET THE WRITERS
+════════════════════════════════════════ -->
+<div class="article-page" id="writers-page">
+  <div class="article-hero">
+    <div class="article-hero-text">
+      <p class="article-eyebrow">Gospel Harmony · Meet the Writers</p>
+      <h1 class="article-title">Four voices. <em>One story.</em></h1>
+      <p class="article-sub">Who were the men God chose to tell the story of Jesus? Understand them before you read their words.</p>
+    </div>
+    <div class="article-hero-img">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='600'%3E%3Crect fill='%23221c12' width='900' height='600'/%3E%3Ctext x='50%25' y='48%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='18' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='57%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='13'%3EMeet the Writers · Hero%3C/text%3E%3C/svg%3E" alt="Open Bible" loading="lazy"/>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <a class="back-to-resources reveal" onclick="showPage('hub')" href="#">Back to Resources</a>
+
+    <div class="note-block reveal" style="margin-top:3rem;">
+      <p><strong>A note before you read:</strong> The information shared here has been gathered from trusted Bible study resources. This is a starting point — a foundation to help you understand who wrote each Gospel, why they wrote it, and the unique perspective each writer brings to the story of Jesus. Every source is cited so you can explore further. The goal is not to be the final word — but to open the door to a greater hunger for God's Word.</p>
+      <p style="margin-top:0.8rem;font-family:var(--serif);font-style:italic;color:var(--jet);">"Study this Book of Instruction continually." — Joshua 1:8 NLT</p>
+    </div>
+
+    <!-- MATTHEW -->
+    <div class="writer-section reveal">
+      <p class="writer-label">The Gospel of Matthew</p>
+      <h2 class="writer-name">Matthew — <em>Gift of God</em></h2>
+      <div class="writer-body">
+        <h3 class="section-heading">Who Was Matthew?</h3>
+        <p>Matthew, whose name means "Gift of God," was a Jewish tax collector also known as Levi before Jesus called him to be a disciple. As a tax collector Matthew was considered an outcast and a traitor by his fellow Jews because he collected taxes on behalf of the Roman government. Yet it was this very man — despised and rejected by his own people — that Jesus looked at and said "Follow me." Matthew left everything immediately and followed.</p>
+        <p>As a former tax collector Matthew was uniquely qualified to write an account of Jesus' life and teachings. A tax collector of that day was required to know Greek and be a literate, well organized man. Some scholars believe Matthew may have been the designated recorder among the disciples — taking careful notes of Jesus' teachings.</p>
+        <blockquote class="writer-pull">"Matthew nobly used his literary skill to become the first man ever to compile an account of the teaching of Jesus." — William Barclay, historian</blockquote>
+        <h3 class="section-heading">Who Did Matthew Write For?</h3>
+        <p>Matthew wrote primarily for a Jewish audience. His entire Gospel is built around proving one central truth — Jesus is the promised Messiah. He references Old Testament prophecy more than any other Gospel writer — scholars have documented over 60 direct Old Testament quotations showing how Jesus fulfilled every single one.</p>
+        <h3 class="section-heading">What Makes Matthew Unique?</h3>
+        <ul class="unique-list">
+          <li>Opens with the lineage of Jesus tracing back to Abraham — the father of the Jewish faith</li>
+          <li>Contains the Sermon on the Mount — the most complete collection of Jesus' teachings</li>
+          <li>Emphasizes Jesus as King — the fulfillment of the Jewish royal line of David</li>
+          <li>Ends with the Great Commission — "Go and make disciples of all nations"</li>
+        </ul>
+        <div class="sources-block">
+          <p class="sources-title">Sources</p>
+          <ol>
+            <li><a href="https://www.gotquestions.org/Matthew-in-the-Bible.html" target="_blank">GotQuestions.org — Matthew in the Bible</a></li>
+            <li>Matthew 9:9 NLT</li>
+            <li>EnduringWord.com — Matthew 1 Commentary, David Guzik</li>
+            <li><a href="https://www.catholic-resources.org/Bible/Matthew-Prophecy.htm" target="_blank">Catholic-Resources.org — Matthew Old Testament Quotations</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARK -->
+    <div class="writer-section reveal">
+      <p class="writer-label">The Gospel of Mark</p>
+      <h2 class="writer-name">Mark — <em>God's Servant</em></h2>
+      <div class="writer-body">
+        <h3 class="section-heading">Who Was Mark?</h3>
+        <p>The Gospel of Mark was written by John Mark — believed by the majority of scholars to be the earliest Gospel written. Although Mark was not one of the original 12 disciples he was deeply connected to the inner circle of the early church. The early church met in his mother's home and John Mark traveled as a companion of both Paul and Barnabas. According to early church tradition, Mark wrote his Gospel using the testimony of Peter delivered in sermons — making this Gospel essentially Peter's eyewitness account of Jesus written through Mark.</p>
+        <p>Mark's journey was not without struggle. He deserted Paul and Barnabas during their first missionary journey — yet God's grace was evident in his life. Paul later commended Mark fully and by the end of Paul's life the two were fully reconciled.</p>
+        <h3 class="section-heading">Who Did Mark Write For?</h3>
+        <p>In contrast to Matthew's Jewish focused approach, Mark targeted a non-Jewish audience. He wrote with a Roman reader in mind — people of action who valued power and results. This is why Mark provides explanations of Jewish customs that a Jewish reader would already know, and why his Gospel moves at a rapid, urgent pace. Mark portrays Jesus primarily as God's servant.</p>
+        <h3 class="section-heading">What Makes Mark Unique?</h3>
+        <ul class="unique-list">
+          <li>Considered by most scholars to be the earliest Gospel written</li>
+          <li>No birth story and no lineage — jumps straight into the ministry of Jesus</li>
+          <li>Most action oriented Gospel — fast paced, concise and urgent</li>
+          <li>Written from Peter's perspective — Peter is the first and last disciple mentioned in the text</li>
+          <li>Portrays Jesus as God's Servant, distinct from Matthew's emphasis on Jesus as King</li>
+        </ul>
+        <div class="sources-block">
+          <p class="sources-title">Sources</p>
+          <ol>
+            <li><a href="https://www.gotquestions.org/who-wrote-Mark.html" target="_blank">GotQuestions.org — Who wrote the book of Mark?</a></li>
+            <li>Acts 13:13 NLT &nbsp;·&nbsp; Philemon 1:23–24 NLT &nbsp;·&nbsp; 2 Timothy 4:11 NLT</li>
+            <li>Mark 1:16 NLT & Mark 16:7 NLT</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- LUKE -->
+    <div class="writer-section reveal">
+      <p class="writer-label">The Gospel of Luke</p>
+      <h2 class="writer-name">Luke — <em>Savior of All</em></h2>
+      <div class="writer-body">
+        <h3 class="section-heading">Who Was Luke?</h3>
+        <p>The Gospel of Luke does not identify its author by name — however from the earliest days of the church, tradition has consistently attributed it to Luke, a physician and close companion of the Apostle Paul. This would make Luke the only Gentile to write any book of Scripture. Paul himself confirms Luke's role in his letters — calling him "our dear friend Luke, the doctor" and noting that "only Luke is with me."</p>
+        <p>Luke never personally met Jesus during His earthly ministry — but he conducted extensive and careful research, interviewing eyewitnesses to compile his account. He states this himself at the very opening of his Gospel: "I myself have carefully investigated everything from the beginning." He addressed his Gospel to Theophilus — described as "most excellent Theophilus" suggesting a person of honor or high rank, possibly a Roman official or wealthy benefactor.</p>
+        <h3 class="section-heading">Who Did Luke Write For?</h3>
+        <p>Luke wrote with a Gentile audience in mind — emphasizing Jesus as the Savior of ALL people, not just the Jewish nation. His Gospel is unique in that it is a meticulous history — an orderly account consistent with Luke's medical mind — often giving details the other Gospels omit. Luke's history emphasizes Jesus' ministry to and compassion for Gentiles, Samaritans, women, children, tax collectors, sinners, and others regarded as outcasts in Israel.</p>
+        <h3 class="section-heading">What Makes Luke Unique?</h3>
+        <ul class="unique-list">
+          <li>Written with the precision of a physician and the heart of a historian — carefully investigated and orderly</li>
+          <li>Only Gentile author in the entire New Testament</li>
+          <li>Emphasizes Jesus' compassion for outcasts, women, the poor and the marginalized</li>
+          <li>Contains the most parables of any Gospel — including the Prodigal Son and Good Samaritan</li>
+          <li>Includes a lineage of Jesus tracing back to Adam — showing Jesus as Savior of all humanity</li>
+          <li>Written close enough to the events that many eyewitnesses were still alive</li>
+        </ul>
+        <div class="sources-block">
+          <p class="sources-title">Sources</p>
+          <ol>
+            <li><a href="https://www.gotquestions.org/Gospel-of-Luke.html" target="_blank">GotQuestions.org — Summary of the Gospel of Luke</a></li>
+            <li>Colossians 4:14 NLT &nbsp;·&nbsp; 2 Timothy 4:11 NLT &nbsp;·&nbsp; Luke 1:3 NLT &nbsp;·&nbsp; Luke 3:23–38 NLT</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOHN -->
+    <div class="writer-section reveal">
+      <p class="writer-label">The Gospel of John</p>
+      <h2 class="writer-name">John — <em>The Beloved</em></h2>
+      <div class="writer-body">
+        <h3 class="section-heading">Who Was John?</h3>
+        <p>The Gospel of John does not explicitly name its author — but at every mention of himself the author refers to himself as "the disciple whom Jesus loved." Based on the fact that he was leaning against Jesus at the Last Supper he was clearly part of Jesus' inner circle along with Peter and James. Since Peter is mentioned separately and James was martyred early in church history, that leaves John as the author — a conclusion the early church uniformly affirmed.</p>
+        <p>John was a fisherman — the son of Zebedee. He and his brother James were called by Jesus while mending their nets and left everything to follow Him. John lived the longest of all the apostles and wrote his Gospel last — after decades of deep reflection on the life of Jesus. Most scholars believe John wrote between AD 85 and 90.</p>
+        <h3 class="section-heading">Who Did John Write For?</h3>
+        <p>John wrote his Gospel to persuade both believers and non-believers alike to trust in Jesus for salvation. His purpose is stated clearly: "These are written so that you may believe that Jesus is the Messiah, the Son of God, and that by believing you may have life in his name." John also wrote to address theological issues faced by a newer generation of Christians as false teachers had begun questioning core beliefs of Christianity.</p>
+        <h3 class="section-heading">What Makes John Unique?</h3>
+        <ul class="unique-list">
+          <li>No birth story, no lineage, no baptism account — begins before creation with "In the beginning was the Word"</li>
+          <li>Most theologically rich and reflective of all four Gospels — written after decades of contemplation</li>
+          <li>Contains the famous "I AM" statements of Jesus — I AM the bread of life, the light of the world, the good shepherd, the resurrection and the life, the way the truth and the life</li>
+          <li>Contains John 3:16 — one of the most well known verses in the entire Bible</li>
+          <li>Emphasizes Jesus as the Son of God — fully divine — more loudly than any other Gospel</li>
+          <li>Highlights 7 miraculous signs emphasizing teachings and events not in Matthew, Mark and Luke</li>
+          <li>Written from a place of deep personal intimacy — John was an eyewitness</li>
+        </ul>
+        <div class="sources-block">
+          <p class="sources-title">Sources</p>
+          <ol>
+            <li><a href="https://www.gotquestions.org/who-wrote-John.html" target="_blank">GotQuestions.org — Who wrote the book of John?</a></li>
+            <li>Acts 12:2 NLT &nbsp;·&nbsp; Matthew 4:21–22 NLT &nbsp;·&nbsp; John 20:31 NLT &nbsp;·&nbsp; John 1:1 NLT</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /article-body -->
+</div><!-- /writers-page -->
+
+
+<!-- ════════════════════════════════════════
+     ARTICLE: READING PLAN
+════════════════════════════════════════ -->
+<div class="article-page" id="readingplan-page">
+  <div class="article-hero">
+    <div class="article-hero-text">
+      <p class="article-eyebrow">Gospel Harmony · Reading Plan</p>
+      <h1 class="article-title">May – June <em>2026.</em></h1>
+      <p class="article-sub">Seven weeks. Four Gospels. One unshakeable picture of Jesus.</p>
+    </div>
+    <div class="article-hero-img">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='600'%3E%3Crect fill='%23181410' width='900' height='600'/%3E%3Ctext x='50%25' y='48%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='18' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='57%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='13'%3EReading Plan · Hero%3C/text%3E%3C/svg%3E" alt="Reading and studying" loading="lazy"/>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <a class="back-to-resources reveal" onclick="showPage('hub')" href="#">Back to Resources</a>
+
+    <div class="prayer-block reveal" style="margin-top:3rem;">
+      <p class="prayer-eyebrow">Before You Read — A Word on Prayer</p>
+      <p class="prayer-text">Our Bible study will be based off of the New Living Translation (NLT). Before you open your Bible I want to encourage you to always begin with prayer. Reading the Bible is not like reading any other book — it is a conversation with God. When you come to His Word with an open heart and an expectant spirit He will meet you right there on the page.</p>
+      <p class="prayer-text" style="margin-top:1.5rem;"><strong>"Lord I want to learn more about You. Please lead and guide me as I read. Reveal things to me that will help me in my walk with You. Answer the questions I may have — and if not during this reading please reveal it to me soon in Your perfect timing. I trust You and I am ready to receive. Amen."</strong></p>
+    </div>
+
+    <div class="plan-grid reveal">
+      <div class="week-card">
+        <p class="week-num">Week 1</p>
+        <p class="week-date">May 18, 2026</p>
+        <h3 class="week-theme">In the Beginning</h3>
+        <ul class="week-readings">
+          <li>Luke 1:1–4</li>
+          <li>John 1:1–18</li>
+        </ul>
+      </div>
+      <div class="week-card">
+        <p class="week-num">Week 2</p>
+        <p class="week-date">May 25, 2026</p>
+        <h3 class="week-theme">The Announcement</h3>
+        <ul class="week-readings">
+          <li>Luke 1:5–25</li>
+          <li>Luke 1:26–38</li>
+          <li>Luke 1:39–56</li>
+          <li>Luke 1:57–80</li>
+        </ul>
+      </div>
+      <div class="week-card">
+        <p class="week-num">Week 3</p>
+        <p class="week-date">June 1, 2026</p>
+        <h3 class="week-theme">The Birth of Jesus</h3>
+        <ul class="week-readings">
+          <li>Matthew 1:1–17</li>
+          <li>Luke 3:23–38</li>
+          <li>Matthew 1:18–25</li>
+          <li>Luke 2:1–7</li>
+        </ul>
+      </div>
+      <div class="week-card">
+        <p class="week-num">Week 4</p>
+        <p class="week-date">June 8, 2026</p>
+        <h3 class="week-theme">The Early Days</h3>
+        <ul class="week-readings">
+          <li>Luke 2:8–20</li>
+          <li>Luke 2:21–40</li>
+          <li>Matthew 2:1–12</li>
+          <li>Matthew 2:13–23</li>
+          <li>Luke 2:41–52</li>
+        </ul>
+      </div>
+      <div class="week-card">
+        <p class="week-num">Week 5</p>
+        <p class="week-date">June 15, 2026</p>
+        <h3 class="week-theme">Preparation for Ministry</h3>
+        <ul class="week-readings">
+          <li>Luke 3:1–20</li>
+          <li>Matthew 3:1–12</li>
+          <li>Mark 1:1–8</li>
+        </ul>
+      </div>
+      <div class="week-card">
+        <p class="week-num">Week 6</p>
+        <p class="week-date">June 22, 2026</p>
+        <h3 class="week-theme">Baptism & Temptation</h3>
+        <ul class="week-readings">
+          <li>Matthew 3:13–17</li>
+          <li>Mark 1:9–11</li>
+          <li>Luke 3:21–22</li>
+          <li>Matthew 4:1–11</li>
+          <li>Mark 1:12–13</li>
+          <li>Luke 4:1–13</li>
+        </ul>
+      </div>
+      <div class="week-card" style="grid-column:1/-1;">
+        <p class="week-num">Week 7</p>
+        <p class="week-date">June 29, 2026</p>
+        <h3 class="week-theme">Jesus Begins His Ministry</h3>
+        <ul class="week-readings" style="display:grid;grid-template-columns:1fr 1fr;gap:0 2rem;">
+          <li>John 1:19–34</li>
+          <li>John 1:35–51</li>
+          <li>John 2:1–12</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     ARTICLE: CHECKLIST
+════════════════════════════════════════ -->
+<div class="article-page" id="checklist-page">
+  <div class="article-hero">
+    <div class="article-hero-text">
+      <p class="article-eyebrow">First Meeting · Checklist</p>
+      <h1 class="article-title">Before our first <em>meeting.</em></h1>
+      <p class="article-sub">Everything we ask you to do before we gather together for the first time. Simple, meaningful, and you are going to love it.</p>
+    </div>
+    <div class="article-hero-img">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='600'%3E%3Crect fill='%231c1610' width='900' height='600'/%3E%3Ctext x='50%25' y='48%25' text-anchor='middle' fill='%23B8965A' font-family='Georgia' font-size='18' font-style='italic'%3EYour photo here%3C/text%3E%3Ctext x='50%25' y='57%25' text-anchor='middle' fill='%23666' font-family='Georgia' font-size='13'%3EChecklist · Hero%3C/text%3E%3C/svg%3E" alt="Preparing for Bible study" loading="lazy"/>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <a class="back-to-resources reveal" onclick="showPage('hub')" href="#">Back to Resources</a>
+
+    <blockquote class="checklist-intro reveal" style="margin-top:3rem;">
+      Here is everything we ask you to do before we gather together for the first time! Do not worry — it is simple and we believe you are going to love it.
+    </blockquote>
+
+    <div class="check-items reveal">
+      <div class="check-item">
+        <div class="check-circle" onclick="this.classList.toggle('done')"></div>
+        <div class="check-content">
+          <h3 class="check-title">Meet the <em>Writers</em></h3>
+          <p class="check-desc">Read the article Gospel Harmony — Meet the Writers. Get to know the four men God chose to tell the story of Jesus before we begin reading their accounts together.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-circle" onclick="this.classList.toggle('done')"></div>
+        <div class="check-content">
+          <h3 class="check-title">Read <em>Week 1</em></h3>
+          <p class="check-desc">Read the Week 1 assignment — In the Beginning (Luke 1:1–4, John 1:1–18) — found in the Gospel Harmony Reading Plan. Check out the meeting invite for discussion questions we will cover together.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-circle" onclick="this.classList.toggle('done')"></div>
+        <div class="check-content">
+          <h3 class="check-title">Grab Your <em>Journal</em></h3>
+          <p class="check-desc">Bring a journal or notebook to our first meeting! We will be doing a goal setting activity together and you will want to write it down. This can be a journal dedicated specially to your goals — a place where your faith and your purpose live together on the page. (Any notebook works — no need to buy anything new!)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-block reveal" style="margin-top:3rem;">
+      <p><strong>Reminder:</strong> Your ChapterOneEight Home Base — <a href="#" style="color:var(--gold);">Linktree Link</a> — has everything in one place. Bookmark it.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.hub,.article-page').forEach(el => el.classList.remove('active'));
+  const target = document.getElementById(id === 'hub' ? 'hub-page' : id + '-page');
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    setTimeout(initReveal, 100);
+  }
+  const backBtn = document.getElementById('nav-back-btn');
+  if (id === 'hub') {
+    backBtn.textContent = 'Back to Home';
+    backBtn.href = 'chapteroneeight.html';
+    backBtn.onclick = null;
+  } else {
+    backBtn.textContent = 'Back to Resources';
+    backBtn.href = '#';
+    backBtn.onclick = (e) => { e.preventDefault(); showPage('hub'); };
+  }
+}
+
+function initReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.active .reveal').forEach(el => {
+    el.classList.remove('visible');
+    obs.observe(el);
+  });
+}
+
+window.addEventListener('load', initReveal);
+</script>
+</body>
+</html>

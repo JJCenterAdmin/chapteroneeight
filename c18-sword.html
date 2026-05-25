@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Sword — ChapterOneEight</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --alabaster:#F9F6F1;
+  --sand:#D9C9A8;
+  --gold:#B8965A;
+  --tan:#C8BBA0;
+  --jet:#141210;
+  --deep:#0C0A08;
+  --muted:#7A7060;
+  --border:rgba(20,18,16,0.1);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--alabaster);color:var(--jet);font-weight:300;overflow-x:hidden;}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.3rem 4rem;
+  background:rgba(249,246,241,0.95);
+  backdrop-filter:blur(18px);
+  border-bottom:0.5px solid var(--border);
+}
+.nav-logo{font-family:var(--serif);font-size:1rem;font-weight:400;letter-spacing:0.08em;color:var(--jet);text-decoration:none;}
+.nav-logo em{font-style:italic;color:var(--gold);}
+.nav-back{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--jet);}
+.nav-back::before{content:'← ';}
+
+/* PAGE HERO */
+.page-hero{
+  background:var(--jet);padding:7rem 4rem 4rem;
+  margin-top:65px;position:relative;overflow:hidden;
+}
+.page-hero::before{
+  content:'SWORD';
+  position:absolute;font-family:var(--serif);
+  font-size:20rem;font-weight:300;
+  color:rgba(255,255,255,0.025);
+  right:-2rem;bottom:-3rem;
+  letter-spacing:-0.02em;user-select:none;line-height:1;
+}
+.hero-eyebrow{
+  font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:0.7rem;
+}
+.hero-eyebrow::before{content:'';display:block;width:22px;height:0.5px;background:var(--gold);}
+.hero-title{
+  font-family:var(--serif);font-size:clamp(3rem,6vw,6rem);
+  font-weight:300;line-height:1.0;color:rgba(249,246,241,0.92);
+  position:relative;z-index:1;
+}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-body{
+  font-size:0.9rem;line-height:1.85;color:rgba(249,246,241,0.4);
+  max-width:600px;margin-top:1.5rem;position:relative;z-index:1;
+}
+.hero-verse{
+  font-family:var(--serif);font-style:italic;font-size:1rem;
+  color:rgba(249,246,241,0.6);line-height:1.65;
+  margin-top:2rem;padding-left:1.5rem;
+  border-left:1px solid rgba(184,150,90,0.4);
+  max-width:520px;position:relative;z-index:1;
+}
+.hero-verse cite{
+  display:block;margin-top:0.4rem;font-style:normal;
+  font-family:var(--sans);font-size:0.6rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);
+}
+
+/* SEARCH */
+.search-wrap{
+  background:var(--alabaster);
+  padding:2.5rem 4rem;
+  border-bottom:0.5px solid var(--border);
+  position:sticky;top:65px;z-index:100;
+}
+.search-inner{
+  display:flex;align-items:center;gap:1.5rem;
+  flex-wrap:wrap;
+}
+.search-box{
+  flex:1;min-width:240px;
+  position:relative;
+}
+.search-box input{
+  width:100%;
+  font-family:var(--sans);font-size:0.88rem;font-weight:300;
+  color:var(--jet);background:transparent;
+  border:none;border-bottom:1px solid var(--tan);
+  padding:0.7rem 0 0.7rem 2rem;
+  outline:none;transition:border-color 0.2s;
+  letter-spacing:0.05em;
+}
+.search-box input:focus{border-bottom-color:var(--gold);}
+.search-box input::placeholder{color:var(--tan);}
+.search-icon{
+  position:absolute;left:0;top:50%;transform:translateY(-50%);
+  color:var(--tan);font-size:0.85rem;pointer-events:none;
+}
+.search-count{
+  font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;
+  flex-shrink:0;
+}
+.tag-filters{
+  display:flex;gap:0.5rem;flex-wrap:wrap;width:100%;margin-top:0.5rem;
+}
+.tag{
+  font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);border:0.5px solid var(--border);
+  padding:0.35rem 0.8rem;cursor:pointer;
+  transition:all 0.2s;background:transparent;font-family:var(--sans);
+}
+.tag:hover,.tag.active{
+  background:var(--jet);color:var(--alabaster);border-color:var(--jet);
+}
+.clear-btn{
+  font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--gold);background:none;border:none;cursor:pointer;
+  font-family:var(--sans);padding:0.35rem 0;
+  display:none;
+}
+.clear-btn.visible{display:block;}
+
+/* RESULTS GRID */
+.results-wrap{padding:3rem 4rem 6rem;}
+.results-header{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:2rem;padding-bottom:1rem;
+  border-bottom:0.5px solid var(--border);
+}
+.results-label{
+  font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);
+}
+.no-results{
+  text-align:center;padding:5rem 2rem;display:none;
+}
+.no-results-title{
+  font-family:var(--serif);font-size:2rem;font-weight:300;
+  font-style:italic;color:var(--muted);margin-bottom:1rem;
+}
+.no-results p{font-size:0.85rem;color:var(--tan);}
+
+/* PSALM CARDS */
+.psalm-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:1px;
+  background:var(--border);
+  border:0.5px solid var(--border);
+}
+.psalm-card{
+  background:var(--alabaster);
+  padding:2rem 2.2rem;
+  transition:background 0.25s;
+  cursor:pointer;
+  display:flex;flex-direction:column;
+  text-decoration:none;color:inherit;
+}
+.psalm-card:hover{background:#F0EBE0;}
+.psalm-card.hidden{display:none;}
+
+.psalm-ref{
+  font-family:var(--serif);font-size:1.1rem;font-weight:400;
+  color:var(--gold);margin-bottom:0.6rem;letter-spacing:0.02em;
+}
+.psalm-summary{
+  font-size:0.85rem;line-height:1.75;color:var(--jet);
+  opacity:0.8;flex:1;margin-bottom:1.2rem;
+}
+.psalm-tags{
+  display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.2rem;
+}
+.psalm-tag{
+  font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);border:0.5px solid var(--border);
+  padding:0.2rem 0.55rem;
+  transition:all 0.15s;
+}
+.psalm-card:hover .psalm-tag{border-color:var(--tan);}
+.psalm-tag.highlight{
+  background:rgba(184,150,90,0.12);
+  color:var(--gold);border-color:rgba(184,150,90,0.3);
+}
+.psalm-read{
+  font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:0.4rem;
+  margin-top:auto;
+}
+.psalm-read::after{content:'→';transition:transform 0.2s;}
+.psalm-card:hover .psalm-read::after{transform:translateX(4px);}
+
+/* MODAL */
+.modal-overlay{
+  display:none;
+  position:fixed;inset:0;z-index:500;
+  background:rgba(12,10,8,0.75);
+  align-items:center;justify-content:center;
+  padding:2rem;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--alabaster);
+  max-width:620px;width:100%;
+  max-height:88vh;overflow-y:auto;
+  position:relative;
+}
+.modal-header{
+  background:var(--jet);padding:2.5rem 2.5rem 2rem;
+  position:sticky;top:0;z-index:1;
+}
+.modal-eyebrow{
+  font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.8rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.modal-eyebrow::before{content:'';display:block;width:14px;height:0.5px;background:var(--gold);}
+.modal-ref{
+  font-family:var(--serif);font-size:2.5rem;font-weight:300;
+  color:rgba(249,246,241,0.92);line-height:1;
+}
+.modal-ref em{font-style:italic;color:var(--gold);}
+.modal-close{
+  position:absolute;top:1.5rem;right:1.5rem;
+  background:none;border:none;cursor:pointer;
+  color:rgba(249,246,241,0.4);font-size:1.2rem;
+  transition:color 0.2s;font-family:var(--sans);
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+}
+.modal-close:hover{color:rgba(249,246,241,0.9);}
+.modal-body{padding:2.5rem;}
+.modal-summary{
+  font-family:var(--serif);font-size:1.15rem;font-weight:300;
+  line-height:1.7;color:var(--jet);
+  border-left:2px solid var(--gold);
+  padding-left:1.5rem;margin-bottom:2rem;
+}
+.modal-tags-label{
+  font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.8rem;
+}
+.modal-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2.5rem;}
+.modal-tag{
+  font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);border:0.5px solid var(--border);
+  padding:0.3rem 0.7rem;
+}
+.modal-read-btn{
+  display:flex;align-items:center;justify-content:center;gap:0.8rem;
+  width:100%;
+  font-family:var(--sans);font-size:0.7rem;letter-spacing:0.2em;
+  text-transform:uppercase;
+  background:var(--jet);color:var(--alabaster);
+  border:none;padding:1.1rem 2rem;cursor:pointer;
+  text-decoration:none;transition:background 0.2s;
+}
+.modal-read-btn:hover{background:var(--deep);}
+.modal-read-btn::after{content:'↗';}
+
+@media(max-width:768px){
+  nav{padding:1.1rem 1.5rem;}
+  .page-hero{padding:5rem 1.5rem 3rem;}
+  .search-wrap{padding:1.5rem 1.5rem;}
+  .results-wrap{padding:2rem 1.5rem 4rem;}
+  .psalm-grid{grid-template-columns:1fr;}
+  .modal-overlay{padding:1rem;}
+  .modal-body{padding:1.5rem;}
+  .modal-header{padding:2rem 1.5rem 1.5rem;}
+  .tag-filters{gap:0.4rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="chapteroneeight.html"><em>Chapter</em>OneEight</a>
+  <a class="nav-back" href="chapteroneeight.html">Back to Home</a>
+</nav>
+
+<div class="page-hero">
+  <p class="hero-eyebrow">The Sword of the Spirit · Ephesians 6:17</p>
+  <h1 class="hero-title">Our <em>Sword.</em></h1>
+  <p class="hero-body">When the enemy attacks your mind with anxiety, doubt, or toxic lies — do not fight in your own strength. Stand firmly on scripture and declare, "It is written!" Search by keyword, theme, or feeling to find the exact Psalm you need today.</p>
+  <blockquote class="hero-verse">
+    "While praise is beautiful, peaceful, and intimate, the Word reveals it is also a powerful spiritual sound that shifts the atmosphere."
+    <cite>2 Chronicles 20</cite>
+  </blockquote>
+</div>
+
+<div class="search-wrap">
+  <div class="search-inner">
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search by feeling, theme, or keyword — try 'anxiety', 'betrayal', 'healing'..." autocomplete="off" />
+    </div>
+    <span class="search-count" id="searchCount">171 Psalms</span>
+    <button class="clear-btn" id="clearBtn" onclick="clearSearch()">Clear</button>
+  </div>
+  <div class="tag-filters" id="tagFilters">
+    <button class="tag" onclick="filterTag('anxiety')">Anxiety</button>
+    <button class="tag" onclick="filterTag('healing')">Healing</button>
+    <button class="tag" onclick="filterTag('depression')">Depression</button>
+    <button class="tag" onclick="filterTag('warfare')">Warfare</button>
+    <button class="tag" onclick="filterTag('betrayal')">Betrayal</button>
+    <button class="tag" onclick="filterTag('identity')">Identity</button>
+    <button class="tag" onclick="filterTag('justice')">Justice</button>
+    <button class="tag" onclick="filterTag('fear')">Fear</button>
+    <button class="tag" onclick="filterTag('protection')">Protection</button>
+    <button class="tag" onclick="filterTag('praise')">Praise</button>
+    <button class="tag" onclick="filterTag('forgiveness')">Forgiveness</button>
+    <button class="tag" onclick="filterTag('victory')">Victory</button>
+    <button class="tag" onclick="filterTag('waiting')">Waiting</button>
+    <button class="tag" onclick="filterTag('hope')">Hope</button>
+    <button class="tag" onclick="filterTag('grief')">Grief</button>
+    <button class="tag" onclick="filterTag('morning-prayer')">Morning Prayer</button>
+  </div>
+</div>
+
+<div class="results-wrap">
+  <div class="results-header">
+    <span class="results-label" id="resultsLabel">All 171 Psalms</span>
+  </div>
+
+  <div id="noResults" class="no-results">
+    <p class="no-results-title">No Psalms found.</p>
+    <p>Try a different keyword — or <button onclick="clearSearch()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--sans);font-size:0.85rem;letter-spacing:0.05em;">clear the search</button> to see all 171.</p>
+  </div>
+
+  <div class="psalm-grid" id="psalmGrid"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-header">
+      <p class="modal-eyebrow">Sword of the Spirit</p>
+      <h2 class="modal-ref" id="modalRef">Psalms <em>23:1–6</em></h2>
+      <button class="modal-close" onclick="closeModalDirect()" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-summary" id="modalSummary"></p>
+      <p class="modal-tags-label">Keywords & Themes</p>
+      <div class="modal-tags" id="modalTags"></div>
+      <a class="modal-read-btn" id="modalReadBtn" target="_blank" rel="noopener">Read in Bible Gateway (NKJV)</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const PSALMS = [
+  ["1:1-6","Choosing the right counsel and avoiding toxic circles to flourish like a tree by living waters.","alignment, wisdom, protection, choices, prosperity"],
+  ["2:1-12","God laughing at the plots of wicked rulers and establishing His King. Overcoming oppressive systems.","authority, power, victory, justice, rebellion"],
+  ["3:1-8","Sleeping in peace while surrounded by thousands of enemies. God as the lifter of your head.","shield, sleep, enemies, anxiety, deliverance"],
+  ["4:1-8","Finding deep emotional rest and sound sleep when facing distress and false accusations.","peace, rest, insomnia, trust, vindication"],
+  ["5:1-12","A powerful morning prayer for divine favor to surround you like a shield against deceitful workers.","morning-prayer, favor, shield, guidance, protection, attacked"],
+  ["6:1-10","Crying out for physical and emotional healing when bone-weary and facing grief.","healing, mercy, exhaustion, tears, recovery"],
+  ["7:1-17","Appealing to the righteous Judge when falsely accused or hunted by malicious people.","justice, vindication, integrity, defense, traps"],
+  ["8:1-9","Reclaiming your divine identity and authority over creation in the face of the enemy.","identity, majesty, authority, worth, worship"],
+  ["9:1-20","Praising God for dismantling the strongholds of the enemy and executing ultimate justice.","justice, strongholds, praise, victory, triumph"],
+  ["10:1-18","Interceding when God seems distant and the wicked are actively hunting the helpless.","oppression, vulnerability, justice, hope, rescue"],
+  ["11:1-7","Refusing to flee like a bird when foundations shake; anchoring in God's burning testing of hearts.","faith, security, testing, stability, courage"],
+  ["12:1-8","Protection against gaslighting, manipulative speech, and societal moral decline.","truth, protection, lies, flattery, security, manipulative speech, gaslighting"],
+  ["13:1-6","How to pray when you feel forgotten by God and your sorrow threatens to overwhelm you.","waiting, depression, hope, breakthrough, trust, forgotten"],
+  ["14:1-7","Exposing the corruption of godless systems and looking for the sudden salvation of God.","discernment, corruption, rescue, hope, restoration"],
+  ["15:1-5","The strict character qualifications for dwelling in God's holy presence and remaining unshakeable.","holiness, integrity, character, stability, honor"],
+  ["16:1-11","Protecting your inheritance and refusing to sacrifice to false gods; finding absolute fullness of joy.","joy, protection, boundary-lines, inheritance, security"],
+  ["17:1-15","A desperate prayer to be kept as the apple of God's eye, hidden from deadly oppressors.","shadow-of-wings, protection, deliverance, enemies, justice"],
+  ["18:1-50","A massive warfare epic: God parting the heavens in rage to rescue you from strong enemies.","warfare, breakthrough, victory, deliverance, power"],
+  ["19:1-14","The twin shields of natural revelation and clean scripture to guard against hidden faults.","scripture, wisdom, cleansing, mind-renewal, purity"],
+  ["20:1-9","A dynamic battle-cry prayer for victory, remembering God's name while others trust in chariots.","victory, battle-cry, trust, answered-prayer, help"],
+  ["21:1-13","Celebrating an answered breakthrough and the complete scattering of all adversarial plots.","triumph, blessings, crown, strength, victory"],
+  ["22:1-31","Shifting from the absolute agony of feeling abandoned to a global declaration of praise.","suffering, abandonment, breakthrough, prophecy, deliverance"],
+  ["23:1-6","Walking through the shadow of death completely fearless because of the Shepherd's presence and table.","comfort, provision, fear-free, fearless, restoration, abundance"],
+  ["24:1-10","Demanding that ancient gates swing open for the King of Glory, mighty in battle.","ancient-gates, glory, holiness, spiritual-authority, victory"],
+  ["25:1-22","A plea to not be put to shame, navigating confusion with divine direction and covenant mercy.","shame-free, guidance, forgiveness, loneliness, humility"],
+  ["26:1-12","Inviting God to examine and vindicate your integrity while separating from hypocrites.","integrity, examination, innocence, vindication, separation"],
+  ["27:1-14","An ironclad declaration of courage against an army encampment, seeking to gaze at His beauty.","courage, light, salvation, fearless, waiting"],
+  ["28:1-9","Crying out to not be dragged away with the wicked; celebrating God as your saving strength.","strength, shield, rescue, mercy, shepherd"],
+  ["29:1-11","The thunderous voice of God breaking cedar trees and giving supernatural strength and peace.","voice-of-God, power, majesty, storm, shalom"],
+  ["30:1-12","Thanksgiving for healing that pulled you back from the grave; weeping lasts for a night but joy comes.","healing, joy, restoration, mourning-turned-to-dancing, grace"],
+  ["31:1-24","Committing your spirit into God's hands when besieged by slander, terror, and brokenness.","refuge, distress, slander, grief, endurance"],
+  ["32:1-11","The profound relief of confessing hidden sin and being surrounded by songs of deliverance.","forgiveness, confession, transparency, relief, instruction"],
+  ["33:1-22","Exalting God's creative power that frustrates the plans of wicked nations and preserves His people.","praise, creation, faithfulness, hope, frustration-of-enemies"],
+  ["34:1-22","A masterclass in deliverance: God being close to the brokenhearted and saving those crushed in spirit.","brokenhearted, angel-encampment, healing, deliverance, fear-free, fearless"],
+  ["35:1-28","An imprecatory warfare prayer asking God to contend with those who contend with you.","warfare, vindication, legal-battle, contention, victory"],
+  ["36:1-12","Contrasting the toxic plot of the wicked with the boundless, life-giving river of God's delights.","refuge, life-fountain, wicked-plots, love, light"],
+  ["37:1-40","A blueprint for patience: resting in God and not fretting over the temporary success of evildoers.","patience, inheritance, stillness, trust, justice"],
+  ["38:1-22","A heavy penitential cry for healing from physical illness, emotional isolation, and sin.","repentance, disease, isolation, mercy, confession"],
+  ["39:1-13","Recognizing the extreme brevity of human life to cure anxiety and gain true perspective.","mortality, sobriety, perspective, peace, hope"],
+  ["40:1-17","Praising God for pulling you out of the slimy pit of despair and setting your feet on a rock.","pit-of-despair, solid-rock, testimony, rescue, patience"],
+  ["41:1-13","A promise of health and deliverance for those who help the poor, even when betrayed by close friends.","compassion, betrayal, healing, restoration, favor"],
+  ["42:1-11","Curing spiritual depression by commanding your soul to hope in God when waves of grief crash over you.","depression, thirst-for-God, hope, inner-talk, grief"],
+  ["43:1-5","Pleading for God's light and truth to lead you out of oppression and back to the altar of joy.","light, truth, vindication, joy, guidance"],
+  ["44:1-26","A desperate national lament questioning why defeat happened despite faithfulness; pleading for covenant rescue.","lament, spiritual-defeat, awakening, covenant, rescue"],
+  ["45:1-17","Anointed with the oil of joy; celebrating the majestic victory and beauty of the Messianic King.","joy, royalty, beauty, majesty, messiah"],
+  ["46:1-11","Be still and know that He is God; an unshakeable shield when the mountains fall into the sea.","stillness, refuge, river-of-peace, chaos, fortress"],
+  ["47:1-9","Shouting to God with a voice of triumph as He subdues nations under His feet.","shout-of-triumph, kingship, authority, praise, victory"],
+  ["48:1-14","A celebration of Zion as a beautiful, unassailable stronghold that terrifies opposing kings.","stronghold, security, fortress, praise, history"],
+  ["49:1-20","Exposing the vanity of the wealthy who trust in riches; reinforcing that money cannot redeem a soul.","wisdom, wealth-vanity, redemption, mortality, eternity"],
+  ["50:1-23","God calling the earth to judgment, demanding true thanksgiving and heart-obedience over empty ritual.","worship, judgment, thanksgiving, sincerity, correction"],
+  ["51:1-19","The ultimate prayer for internal cleansing, asking for a clean heart and a renewed steadfast spirit.","cleansing, repentance, broken-spirit, clean-heart, restoration"],
+  ["52:1-9","Rebuking an arrogant, boastful destroyer; declaring that you will flourish like a green olive tree.","destruction-of-evildoers, olive-tree, trust, boastful-enemies, safety"],
+  ["53:1-6","Exposing the absolute foolishness of atheism and systemic corruption; praying for sudden restoration.","foolishness, corruption, deliverance, restoration, insight"],
+  ["54:1-7","A sharp battle prayer invoking God's name to destroy strangers who rise up against you.","help, name-of-God, vengeance, deliverance, triumph"],
+  ["55:1-23","Casting heavy burdens on God when broken by the betrayal of a close, trusted companion.","betrayal, heartbreak, anxiety, burden-bearing, shalom"],
+  ["56:1-13","When I am afraid, I will trust in You. God keeping all your tears in a bottle.","fear-conquered, afraid, sad, tears-in-bottle, trust, confidence, fear"],
+  ["57:1-11","Hiding under the shadow of His wings until the storms of destruction pass by; awakening the dawn with praise.","shadow-of-wings, storm-shelter, morning-praise, exaltation, safety"],
+  ["58:1-11","A fierce demand for justice against corrupt judges; breaking the teeth of spiritual predators.","justice, corrupt-systems, spiritual-warfare, judgment, vindication"],
+  ["59:1-17","Singing of God's strength in the morning while bloodthirsty enemies howl like wild dogs around the city.","defense, howl-of-enemies, morning-song, strength, refuge"],
+  ["60:1-12","A prayer after military setback, declaring that with God we will perform valiantly and trample foes.","valiant-deeds, triumph-after-defeat, warfare, strategy, rescue"],
+  ["61:1-8","Lead me to the rock that is higher than I when my heart is completely overwhelmed.","overwhelmed-heart, higher-rock, tower-of-strength, refuge, vows"],
+  ["62:1-12","My soul finds rest in God alone; a warning against trusting in human extortion or status.","silent-rest, rock, fortress, power-belongs-to-God, trust"],
+  ["63:1-11","Seeking God early in a dry and weary land; soul-satisfaction that beats physical hunger.","wilderness-worship, thirst, satisfaction, sanctuary, protection"],
+  ["64:1-10","Protection from secret plots and arrows of slander; God shooting His own arrows of justice.","secret-plots, slander-shield, ambush, justice, sudden-arrows"],
+  ["65:1-13","Praising God for crowning the year with bounty and silencing the roaring of waves and nations.","abundance, harvest, crowning-the-year, peace, creation"],
+  ["66:1-20","Celebrating a trial where you went through fire and water but were brought to a place of rich fulfillment.","fire-and-water, breakthrough, test-passed, praise, answered-prayer"],
+  ["67:1-7","A global prayer for revival, asking for God's saving power to be known across all nations.","revival, global-blessing, harvest, praise, evangelism"],
+  ["68:1-35","Let God arise and His enemies be scattered! A massive victory march for the fatherless and lonely.","warfare, scattered-enemies, fatherless-protector, victory-march, strength"],
+  ["69:1-36","Crying out from deep mire where there is no foothold; dealing with fierce shame and betrayal.","mire, deep-waters, shame, zeal, vindication, rescue"],
+  ["70:1-5","A fast-paced emergency prayer asking God to make haste and deliver you immediately.","emergency-prayer, urgent-help, shame-to-enemies, joy, rescue"],
+  ["71:1-24","A powerful prayer for longevity and strength in old age, refusing to let the enemy say you are abandoned.","aging, lifelong-faithfulness, legacy, revival, hope"],
+  ["72:1-20","A prophetic prayer for a righteous administration that crushes the oppressor and brings flourishing peace.","righteous-governance, peace, justice, prosperity, oppression-ended"],
+  ["73:1-28","Overcoming spiritual envy and bitterness over the prosperity of the wicked by entering the sanctuary.","sanctuary-perspective, envy-broken, near-to-God, strength-of-heart, truth"],
+  ["74:1-23","Pleading with God to remember His covenant when the enemy has ransacked and smashed the sanctuary.","desolation, covenant-plea, spiritual-darkness, remembrance, defense"],
+  ["75:1-12","Warning the arrogant that promotion comes from God alone, who holds the cup of judgment.","promotion, sovereignty, humility, judgment-cup, authority"],
+  ["76:1-12","God breaking the flashing arrows and shields of war; the wrath of man praising Him.","breaking-weapons, majesty, wrath-subdued, victory"],
+  ["77:1-20","Overcoming a crisis of faith by actively remembering the ancient wonders and footsteps of God in the sea.","crisis-of-faith, remembrance, unseen-footsteps, comfort, historical-power"],
+  ["78:1-72","A detailed historical breakdown of generation-to-generation faithfulness versus human rebellion.","legacy, history, rebellion, instruction, shepherd-heart"],
+  ["79:1-13","Crying out for mercy and defilement cleansing after enemies have laid waste to holy ground.","mercy, cleansing, reproach-removed, vindication, urgent-help"],
+  ["80:1-19","Restore us, O God; let Your face shine upon the broken vine that we may be saved.","restoration, shining-face, revival, broken-vine, salvation"],
+  ["81:1-16","God's lament over a stubborn people; a promise of supernatural honey from the rock if they listen.","honey-from-the-rock, listening, stubbornness-broken, provision, warning"],
+  ["82:1-8","God standing in the heavenly courtroom, rebuking corrupt spiritual and human authorities who exploit the poor.","courtroom, justice, poor-defended, authority, vindication"],
+  ["83:1-18","A warfare prayer against a multi-national confederacy plotted to wipe out your name completely.","confederacy, warfare, naming-enemies, storm-of-God, sovereign-triumph"],
+  ["84:1-12","The deep beauty of dwelling in His courts; going from strength to strength through the valley of weeping.","courts-of-God, strength-to-strength, valley-of-tears, pilgrimage, shield"],
+  ["85:1-13","Where mercy and truth meet, righteousness and peace kiss. A blueprint for corporate revival.","revival, shalom, mercy-and-truth, restoration, righteousness"],
+  ["86:1-17","A poor and needy prayer for an undivided heart and a token of God's goodness to confuse enemies.","undivided-heart, token-of-favor, mercy, poor-and-needy, comfort"],
+  ["87:1-7","Celebrating the global citizens of Zion; God recording the birthplace of the redeemed.","identity, Zion, global-kingdom, registration, joy"],
+  ["88:1-18","The darkest lament in the book: praying through deep depression and isolation when darkness is your only friend.","depression, isolation, unresolved-grief, daily-cry, endurance"],
+  ["89:1-52","Wrestling with the apparent failure of God's covenant promises while anchoring in His eternal throne.","covenant, throne, dark-season, faithfulness, praise-anyway"],
+  ["90:1-17","A prayer of Moses: teaching us to number our days to gain wisdom and establish the work of our hands.","wisdom, numbering-days, brevity, favor, legacy"],
+  ["91:1-16","The ultimate security shield: dwelling in the secret place, protected from plagues, traps, and terrors.","secret-place, angel-protection, pestilence-shield, long-life, victory"],
+  ["92:1-15","Flourishing like a palm tree and staying full of sap and green even in old age.","vitality, palm-tree, morning-praise, destruction-of-foes, legacy"],
+  ["93:1-5","The Lord reigns clothed in majesty; His throne is mightier than the pounding breakers of the sea.","majesty, unshakeable, roaring-floods, holiness, sovereignty"],
+  ["94:1-23","God the avenger rising up against systemic injustice and comforting the anxious soul.","avenger, comfort, anxiety, systemic-evil, stronghold"],
+  ["95:1-11","A warning against hardening your heart like Meribah while entering His presence with thanksgiving.","thanksgiving, warning, hard-heart, worship, rest"],
+  ["96:1-13","Singing a new song to declare His glory among the nations; nature rejoicing at His coming judgment.","new-song, glory, global-praise, creation-joy, justice"],
+  ["97:1-12","Clouds and thick darkness surround Him; fire goes before Him to burn up adversaries.","fire-of-God, deliverance, light-sown, righteousness, victory"],
+  ["98:1-9","The Lord has made His victory known; rivers clapping their hands in victory.","victory, clap-hands, salvation, righteousness, joy"],
+  ["99:1-9","The Lord reigns, let the nations tremble. Exalting His footstool and remembering intercessors.","holiness, tremble, footstool, answered-intercession, justice"],
+  ["100:1-5","Entering His gates with thanksgiving and His courts with praise; His mercy is everlasting.","thanksgiving, praise, gates, sheep-of-His-pasture, faithfulness"],
+  ["101:1-8","A vow of personal and administrative integrity; banishing slander and deceit from your house.","integrity, boundaries, house-cleansing, slander-free, leadership"],
+  ["102:1-28","A prayer of the afflicted when faint, looking past personal distress to the eternal rebuilding of Zion.","affliction, restoration, eternity, broken-strength, hope"],
+  ["103:1-22","Commanding your soul to bless the Lord and forget not His benefits: healing, redemption, and youth renewed.","benefits, healing, youth-renewed, compassion, soul-blessing"],
+  ["104:1-35","A majestic meditation on God's detailed preservation and feeding of all creation.","creation, providence, nature, majesty, renewal"],
+  ["105:1-45","Reviewing the covenant history from Abraham to Joseph, showing how God broke the power of kingdoms to fulfill promises.","covenant-history, providential-testing, chains-broken, deliverance, legacy"],
+  ["106:1-48","A confession of national rebellion and short memory, saved repeatedly by God's intense covenant mercy.","confession, short-memory, mercy, rescue, remembrance"],
+  ["107:1-43","Let the redeemed of the Lord say so! Stories of rescue from deserts, prison chains, illness, and storms.","redeemed, chains-snapped, storm-silenced, desert-turning, testimony"],
+  ["108:1-13","A determined heart awakening the dawn; declaring that human help is worthless but with God we win.","heart-fixed, dawn-awakened, victory, human-help-vanity, warfare"],
+  ["109:1-31","A fierce imprecatory plea against a deceitful accuser who repaid love with hatred.","accusation-shattered, imprecatory, advocacy, poor-defended, justice"],
+  ["110:1-7","The ultimate Messianic warfare roadmap: sit at my right hand until I make your enemies a footstool.","footstool, messiah, priesthood, warfare, dominion"],
+  ["111:1-10","Praising the detailed works of God; the fear of the Lord as the absolute beginning of wisdom.","wisdom, works-of-God, covenant, praise, understanding"],
+  ["112:1-10","The profile of a righteous warrior: secure, generous, and completely unafraid of bad news.","no-fear-of-bad-news, generosity, security, light-in-darkness, triumph"],
+  ["113:1-9","God seating the poor with princes and turning the barren woman into a joyful mother.","barrenness-healed, exaltation, poor-raised, mercy, praise"],
+  ["114:1-8","The mountains skipping like rams and Jordan turning back at the presence of the Lord.","presence, obstacles-removed, skipping-mountains, power, exodus"],
+  ["115:1-18","Not to us but to Your name give glory. Exposing dead idols and blessing those who trust God.","idols-exposed, glory, blessing, trust, shield"],
+  ["116:1-19","I love the Lord because He heard my voice; breaking the cords of death and paying vows of thanksgiving.","death-broken, thanksgiving, tears-wiped, answered-cry, recovery"],
+  ["117:1-2","The shortest chapter: an explosive call for all nations to praise God's enduring kindness.","global-praise, kindness, truth, short-burst, victory"],
+  ["118:1-29","The stone the builders rejected becoming the chief cornerstone. In the name of the Lord I cut them off!","cornerstone, battle-victory, rejected-to-exalted, breakthrough, gates-of-righteousness"],
+  ["119:1-8","The foundational blueprint for a life free from shame. Aligning your daily walk with God's truth.","integrity, protection, alignment, shame-free, obedience"],
+  ["119:9-16","Guarding your mind and heart against internal and external contamination. Scripture as active defense.","purity, mind-control, temptation, heart-guard, memory"],
+  ["119:17-24","Standing firm when facing rejection, critical authorities, or systemic opposition.","rejection, bad-counsel, identity, resilience, outsiders"],
+  ["119:25-32","Crying out to God when you feel emotionally paralyzed, depressed, or crushed by the weight of life.","depression, grief, brokenness, emotional-healing, renewal, depressed"],
+  ["119:33-40","A prayer to break the grip of materialism, worthless distractions, and selfish ambition.","focus, materialism, distraction, integrity, desire"],
+  ["119:41-48","Overcoming the fear of man and finding the boldness to speak truth to power. True spiritual liberty.","boldness, fear-of-man, freedom, confidence, intimidation"],
+  ["119:49-56","Finding supernatural comfort and hope in the middle of severe affliction. Remembering God's past faithfulness.","hope, affliction, midnight-prayer, comfort, memories"],
+  ["119:57-64","Choosing your inner circle wisely and rushing back to God after a setback. Divine boundaries against traps.","boundaries, spiritual-traps, community, restoration, urgency"],
+  ["119:65-72","Processing the goodness of pain. Recognizing how affliction can break pride and realign your life with God's purpose.","suffering, pride-broken, growth-in-pain, perspective, realignment"],
+  ["119:73-80","Seeking emotional stability and divine comfort when facing public humiliation or unfair treatment.","humiliation, shame, justice, reassurance, emotional-stability"],
+  ["119:81-88","For when you are at your absolute breaking point, waiting for deliverance while enemies dig pits for you.","breaking-point, burnout, exhaustion, spiritual-warfare, patience"],
+  ["119:89-96","Anchoring your soul in the eternal, unchanging nature of God when the world around you is chaotic.","stability, chaos, eternal-truth, shifting-world, security"],
+  ["119:97-104","Gaining supernatural intelligence, discernment, and wisdom that outsmarts your enemies.","wisdom, supernatural-intelligence, discernment, outsmarting-enemies"],
+  ["119:105-112","Finding clear direction when walking through a dark, uncertain season where a single misstep could lead to a trap.","guidance, darkness, uncertainty, direction, traps"],
+  ["119:113-120","Declaring God as your ultimate hiding place and shield against double-minded, toxic people.","hiding-place, shield, toxic-people, boundary-setting, protection"],
+  ["119:121-128","Interceding when oppression has reached a boiling point and it feels like time for God to execute justice.","oppression, injustice, divine-intervention, vindication"],
+  ["119:129-136","A desperate plea for spiritual breakthrough and emotional healing, grieved by the brokenness of the world.","breakthrough, emotional-pain, weeping, favor, light"],
+  ["119:137-144","Finding absolute certainty in God's righteousness and truth when consumed by zeal and worn down by deceit.","righteousness, zeal, worn-down, truth, validation"],
+  ["119:145-152","Cry of the night watchman. Early morning and late night desperate prayers for salvation.","midnight-cry, anxiety, insomnia, close-presence, deliverance"],
+  ["119:153-160","Pleading your legal case before the court of heaven. Asking God to defend, redeem, and revive you.","legal-battle, advocacy, redemption, revival, rescue"],
+  ["119:161-168","Finding bulletproof peace and spiritual stability that cannot be offended, even under persecution.","unshakeable-peace, persecution, offense-free, security, joy"],
+  ["119:169-176","The ultimate closing prayer: admitting vulnerability like a stray sheep, begging for deliverance.","vulnerability, restoration, praise, rescue, spiritual-guidance"],
+  ["120:1-7","Crying out against lying lips and deceitful tongues while dwelling among hostile agitators.","deceitful-tongues, peace-seeker, hostile-environment, warfare, rescue"],
+  ["121:1-8","My help comes from the Lord; He will not let your foot slip or the sun smite you.","keeper, shade, protection, journey-safety, help"],
+  ["122:1-9","Pray for the peace of Jerusalem; seeking the spiritual and structural prosperity of God's community.","peace, prosperity, community, unity, house-of-God"],
+  ["123:1-4","Lifting eyes to the heavenly throne while enduring the contempt and ridicule of arrogant people.","mockery-shield, mercy, endurance, focus, deliverance"],
+  ["124:1-8","If the Lord had not been on our side, the waters would have engulfed us. The snare is broken!","snare-broken, escape, divine-alliance, rescue, help"],
+  ["125:1-5","Those who trust in the Lord are like Mount Zion, which cannot be shaken but endures forever.","unshakeable, surrounding-protection, stability, peace, trust"],
+  ["126:1-6","Those who sow in tears will reap with songs of joy. Captivity restored like streams in the Negev.","tears-to-joy, harvest, restoration, dreamers, laughter"],
+  ["127:1-5","Unless the Lord builds the house, its builders labor in vain. Children as arrows in a warrior's hand.","house-builder, arrows, legacy, sleep, productivity"],
+  ["128:1-6","The blessings of domestic peace, fruitfulness, and structural longevity for those who walk in His ways.","family-blessing, fruitfulness, long-life, peace, labor-rewarded"],
+  ["129:1-8","They have greatly oppressed me from my youth, but they have not gained the victory; cords cut.","resilience, cords-cut, oppression-overcome, victory, perseverance"],
+  ["130:1-8","Out of the depths I cry to You; waiting for the Lord more than watchmen wait for the morning.","out-of-the-depths, forgiveness, waiting, watchman, redemption"],
+  ["131:1-3","Calming and quieting the soul like a weaned child, breaking the power of pride and ambition.","quiet-soul, humility, peace, stillness, contentment"],
+  ["132:1-18","Pleading God's promises to David; clothing priests with salvation and enemies with shame.","covenant, rest, resting-place, clothing-of-shame, horn-of-David"],
+  ["133:1-3","How good and pleasant it is when brothers dwell in unity; there God commands the blessing.","unity, commanded-blessing, anointing-oil, community, harmony"],
+  ["134:1-3","Lift up your hands in the sanctuary and bless the Lord during the night watches.","night-watch, sanctuary-blessing, praise, service, devotion"],
+  ["135:1-21","Praising God's sovereignty over weather and history, mocking the utter helplessness of handmade idols.","sovereignty, idols-exposed, history, praise, deliverance"],
+  ["136:1-26","The great epic of enduring mercy: His love endures forever through every act of creation and warfare.","enduring-love, warfare-mercy, creation, faithfulness, historical-victory"],
+  ["137:1-9","Weeping by the rivers of Babylon, refusing to sing sacred songs for captors; remembering Zion.","grief, exile, remembrance, captivity, identity"],
+  ["138:1-8","Praising God before the false gods; the Lord will perfect that which concerns me.","perfection, boldness, answers, purpose, protection"],
+  ["139:1-24","Search me, O God. Fearfully and wonderfully made; no escape from His omnipresent light and defense.","omnipresence, identity, deep-knowledge, search-me, protection"],
+  ["140:1-13","Protection from violent men who sharpen their tongues like vipers; maintaining the cause of the afflicted.","violent-men, poison-tongues, warfare, protection, justice"],
+  ["141:1-10","Set a guard over my mouth; let my prayer rise as incense while avoiding the delicacies of evildoers.","mouth-guard, incense-prayer, temptation-shield, trap-escape, discipline"],
+  ["142:1-7","A desperate cry from the cave when no one cares for my soul; pulling me out of prison to praise.","cave-prayer, prison-escape, isolation, rescue, stronghold"],
+  ["143:1-12","When your spirit is faint and enemies crush your life into the ground; teach me to do Your will.","faint-spirit, guidance, rescue, enemy-crushed, spiritual-refreshment"],
+  ["144:1-15","Blessed be the Lord my Rock, who trains my hands for war and my fingers for battle.","warfare-training, fortress, rescue, prosperity, victory"],
+  ["145:1-21","A massive alphabetical praise text declaring that God satisfies the desire of every living thing.","generation-praise, satisfaction, goodness, majesty, compassion"],
+  ["146:1-10","Do not put your trust in human princes; praise the Lord who executes justice for the oppressed.","no-trust-in-princes, justice, healing, blind-eyes, oppression-broken"],
+  ["147:1-20","He heals the brokenhearted and binds up their wounds while counting and naming the stars.","healing, brokenhearted, stars-named, restoration, strength"],
+  ["148:1-14","A call for all created things — angels, sun, moon, sea monsters, and kings — to praise His name.","praise, creation, angels, exalting-His-people, worship"],
+  ["149:1-9","Praising God with dancing while holding a two-edged sword in hand to execute vengeance on demonic powers.","two-edged-sword, high-praise, warfare, vengeance, victory"],
+  ["150:1-6","The grand finale: praise Him with trumpet, harp, lyre, tambourine, strings, pipe, and loud crashing cymbals!","cymbals, high-praise, instruments, final-victory, breath"],
+];
+
+let currentFilter = '';
+let currentSearch = '';
+
+function bgUrl(verse) {
+  return `https://www.biblegateway.com/passage/?search=Psalm+${encodeURIComponent(verse)}&version=NKJV`;
+}
+
+function renderCards(query, tag) {
+  const grid = document.getElementById('psalmGrid');
+  const noRes = document.getElementById('noResults');
+  const count = document.getElementById('searchCount');
+  const label = document.getElementById('resultsLabel');
+  const q = (query || '').toLowerCase().trim();
+  const t = (tag || '').toLowerCase().trim();
+
+  let visible = 0;
+  grid.innerHTML = '';
+
+  PSALMS.forEach(([verse, summary, keywords]) => {
+    const searchStr = `${verse} ${summary} ${keywords}`.toLowerCase();
+    const matchQ = !q || searchStr.includes(q);
+    const matchT = !t || keywords.toLowerCase().includes(t) || summary.toLowerCase().includes(t);
+
+    if (!matchQ || !matchT) return;
+    visible++;
+
+    const tags = keywords.split(',').map(k => k.trim()).filter(Boolean);
+    const tagHtml = tags.map(k => {
+      const isMatch = q && k.toLowerCase().includes(q) || t && k.toLowerCase().includes(t);
+      return `<span class="psalm-tag${isMatch ? ' highlight' : ''}">${k}</span>`;
+    }).join('');
+
+    const card = document.createElement('div');
+    card.className = 'psalm-card';
+    card.innerHTML = `
+      <div class="psalm-ref">Psalms ${verse}</div>
+      <p class="psalm-summary">${summary}</p>
+      <div class="psalm-tags">${tagHtml}</div>
+      <span class="psalm-read">Read scripture</span>
+    `;
+    card.addEventListener('click', () => openModal(verse, summary, keywords));
+    grid.appendChild(card);
+  });
+
+  count.textContent = `${visible} Psalm${visible !== 1 ? 's' : ''}`;
+  label.textContent = q || t
+    ? `${visible} result${visible !== 1 ? 's' : ''} for "${q || t}"`
+    : `All ${visible} Psalms`;
+  noRes.style.display = visible === 0 ? 'block' : 'none';
+  grid.style.display = visible === 0 ? 'none' : 'grid';
+}
+
+function openModal(verse, summary, keywords) {
+  document.getElementById('modalRef').innerHTML = `Psalms <em>${verse}</em>`;
+  document.getElementById('modalSummary').textContent = summary;
+  const tags = keywords.split(',').map(k => k.trim()).filter(Boolean);
+  document.getElementById('modalTags').innerHTML = tags.map(k => `<span class="modal-tag">${k}</span>`).join('');
+  document.getElementById('modalReadBtn').href = bgUrl(verse);
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function filterTag(tag) {
+  if (currentFilter === tag) {
+    currentFilter = '';
+    document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+  } else {
+    currentFilter = tag;
+    document.querySelectorAll('.tag').forEach(t => {
+      t.classList.toggle('active', t.textContent.toLowerCase() === tag.toLowerCase());
+    });
+  }
+  document.getElementById('clearBtn').classList.toggle('visible', !!(currentFilter || currentSearch));
+  renderCards(currentSearch, currentFilter);
+}
+
+function clearSearch() {
+  currentSearch = '';
+  currentFilter = '';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+  document.getElementById('clearBtn').classList.remove('visible');
+  renderCards('', '');
+}
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  currentSearch = this.value;
+  document.getElementById('clearBtn').classList.toggle('visible', !!(currentSearch || currentFilter));
+  renderCards(currentSearch, currentFilter);
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModalDirect();
+});
+
+renderCards('', '');
+</script>
+</body>
+</html>
