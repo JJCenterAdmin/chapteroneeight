@@ -336,9 +336,8 @@ nav{
     <span class="results-label" id="resultsLabel">Bible Verses</span>
   </div>
 
-  <div id="noResults" class="no-results">
-    <p class="no-results-title">No Psalms found.</p>
-    <p>Try a different keyword — or <button onclick="clearSearch()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--sans);font-size:0.85rem;letter-spacing:0.05em;">clear the search</button> to see all Psalms.</p>
+  <div id="noResults" class="no-results">No verses found. Try a different word to see all verses.<p class="no-results-title">No verses found.</p>
+    <p>Try a different keyword — or <button onclick="clearSearch()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--sans);font-size:0.85rem;letter-spacing:0.05em;">clear the search</button> to see all verses.</p>
   </div>
 
   <div class="psalm-grid" id="psalmGrid"></div>
@@ -369,6 +368,8 @@ nav{
 let PSALMS = [];
 
 // Load scriptures from JSON — add new verses to scriptures.json only
+let dataReady = false;
+
 fetch('scriptures.json')
   .then(r => r.json())
   .then(data => {
@@ -378,10 +379,11 @@ fetch('scriptures.json')
       s.keywords,
       s.kjv
     ]);
-    renderPsalms();
+    dataReady = true;
+    renderCards(currentSearch, currentFilter);
   })
-  .catch(() => {
-    console.warn('Could not load scriptures.json');
+  .catch(err => {
+    console.warn('Could not load scriptures.json', err);
   });
 
 let currentFilter = '';
@@ -465,6 +467,7 @@ function closeModalDirect() {
 }
 
 function filterTag(tag) {
+  if(!dataReady) return;
   if (currentFilter === tag) {
     currentFilter = '';
     document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
