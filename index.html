@@ -527,7 +527,7 @@ body{
 
 /* ── RESOURCES ── */
 #page-resources{background:var(--black);}
-.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);margin-top:2rem;}
+.res-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);margin-top:2rem;}
 .res-card{background:var(--black);padding:2rem 1.6rem;display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:background 0.2s;}
 .res-card:hover{background:var(--black-soft);}
 .res-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-glow) 0%,transparent 50%);opacity:0;transition:opacity 0.25s;}
@@ -997,6 +997,12 @@ body{
           <div class="res-title">Reading <em>Plan</em></div>
           <div class="res-desc">Gospel Harmony reading plan May through June 2026. Seven weeks across all four Gospels.</div>
           <span class="res-arrow">View</span>
+        </a>
+        <a href="c18-resources.html" class="res-card reveal d3" style="background:rgba(201,168,76,0.05);border:0.5px solid rgba(201,168,76,0.25);">
+          <div class="res-num" style="color:rgba(201,168,76,0.5);">+</div>
+          <div class="res-title">See <em>More</em></div>
+          <div class="res-desc">Playlists, study guides, reading plans and everything for your growth.</div>
+          <span class="res-arrow">View All</span>
         </a>
       </div>
     </div>
