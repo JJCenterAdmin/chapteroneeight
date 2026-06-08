@@ -149,15 +149,17 @@ body{
   width:calc(100vw - var(--sidebar));
   height:100vh;
   overflow-y:auto;
+  overflow-x:hidden;
   background:var(--black);
 }
 
 /* ── PAGES ── */
 .page{
   display:none;
-  min-height:100vh;
 }
-.page.active{display:block;}
+.page.active{
+  display:block;
+}
 
 /* ── HOME ── */
 #page-home{
@@ -194,24 +196,25 @@ body{
 .home-eyebrow::before{content:'';display:block;width:22px;height:0.5px;background:var(--gold);}
 .home-title{
   font-family:var(--serif);
-  font-size:clamp(3.5rem,6vw,7rem);
-  font-weight:300;line-height:0.92;color:var(--white);
+  font-size:clamp(3.8rem,6.5vw,7.5rem);
+  font-weight:300;line-height:0.92;color:#FFFFFF;
   opacity:0;animation:fadeUp 1.1s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
 }
 .home-title em{font-style:italic;color:var(--gold);display:block;}
 .home-verse{
   font-family:var(--serif);font-style:italic;
-  font-size:0.95rem;color:var(--white-dim);
-  line-height:1.8;margin-top:1.5rem;
+  font-size:1.15rem;color:rgba(245,240,255,0.88);
+  line-height:1.85;margin-top:1.5rem;
   padding-left:1.2rem;
-  border-left:1.5px solid var(--purple-mid);
-  max-width:480px;
+  border-left:2px solid var(--purple-mid);
+  max-width:520px;
   opacity:0;animation:fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
 }
 .home-verse cite{
-  display:block;margin-top:0.4rem;font-style:normal;
-  font-family:var(--sans);font-size:0.55rem;
-  letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-dim);
+  display:block;margin-top:0.5rem;font-style:normal;
+  font-family:var(--sans);font-size:0.65rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);
 }
 .home-actions{
   display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;
@@ -426,7 +429,7 @@ body{
   font-weight:300;line-height:1.0;color:var(--white);margin-bottom:1rem;
 }
 .sec-title em{font-style:italic;color:var(--gold);}
-.sec-body{font-size:0.88rem;line-height:1.9;color:var(--white-dim);max-width:560px;}
+.sec-body{font-size:0.95rem;line-height:1.9;color:rgba(245,240,255,0.85);max-width:560px;}
 
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:2rem;}
 .col-block{background:var(--black);padding:2.5rem 2rem;position:relative;overflow:hidden;}
@@ -444,7 +447,7 @@ body{
 .col-label::before{content:'';display:block;width:12px;height:0.5px;background:var(--gold);}
 .col-title{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--white);margin-bottom:0.7rem;line-height:1.2;}
 .col-title em{font-style:italic;color:var(--gold);}
-.col-body{font-size:0.82rem;line-height:1.85;color:var(--white-dim);}
+.col-body{font-size:0.88rem;line-height:1.85;color:rgba(245,240,255,0.82);}
 
 .quote-block{
   background:var(--black-soft);
@@ -516,7 +519,7 @@ body{
 }
 .path-title{font-family:var(--serif);font-size:1.7rem;font-weight:400;color:var(--white);line-height:1.1;margin-bottom:0.7rem;position:relative;z-index:1;}
 .path-title em{font-style:italic;color:var(--gold);}
-.path-body{font-size:0.8rem;line-height:1.85;color:var(--white-dim);flex:1;margin-bottom:1.2rem;position:relative;z-index:1;}
+.path-body{font-size:0.88rem;line-height:1.85;color:rgba(245,240,255,0.82);flex:1;margin-bottom:1.2rem;position:relative;z-index:1;}
 .path-detail{display:flex;gap:0.6rem;margin-bottom:0.5rem;align-items:flex-start;position:relative;z-index:1;}
 .path-dash{color:var(--gold);font-size:0.65rem;margin-top:0.1rem;flex-shrink:0;}
 .path-text{font-size:0.75rem;color:var(--white-dim);line-height:1.5;}
@@ -533,7 +536,7 @@ body{
 .res-lock{font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--purple-light);border:0.5px solid var(--purple-mid);padding:0.18rem 0.5rem;display:inline-block;margin-bottom:0.5rem;width:fit-content;position:relative;z-index:1;}
 .res-title{font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--white);line-height:1.2;margin-bottom:0.4rem;position:relative;z-index:1;}
 .res-title em{font-style:italic;color:var(--gold);}
-.res-desc{font-size:0.72rem;line-height:1.7;color:var(--white-faint);flex:1;margin-bottom:0.8rem;position:relative;z-index:1;}
+.res-desc{font-size:0.8rem;line-height:1.7;color:rgba(245,240,255,0.75);flex:1;margin-bottom:0.8rem;position:relative;z-index:1;}
 .res-arrow{font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:0.4rem;position:relative;z-index:1;}
 .res-arrow::after{content:'→';transition:transform 0.2s;}
 .res-card:hover .res-arrow::after{transform:translateX(4px);}
@@ -607,14 +610,17 @@ body{
 
 /* Mobile layout overrides */
 @media(max-width:768px){
-  body{flex-direction:column;overflow:auto;height:auto;}
+  body{flex-direction:column;overflow:hidden;height:100vh;}
   .sidebar{display:none;}
   .main{
-    margin-left:0;width:100%;
-    height:auto;overflow:visible;
-    padding-bottom:70px;
+    margin-left:0;
+    width:100%;
+    height:calc(100vh - 58px);
+    overflow-y:auto;
+    overflow-x:hidden;
   }
-  .page{min-height:auto;}
+  .page{display:none;}
+  .page.active{display:block;padding-bottom:80px;}
   .home-cards{display:none;}
   .home-top{padding:2.5rem 1.5rem 1.5rem;}
   .fan-cards{flex-direction:column;align-items:center;padding:1.5rem;}
@@ -634,15 +640,15 @@ body{
 
 /* ── FAN CARDS ── */
 #page-home{flex-direction:column;justify-content:flex-start;align-items:stretch;}
-.home-top{padding:3.5rem 4rem 2rem;position:relative;z-index:1;max-width:680px;}
+.home-top{padding:2.5rem 4rem 1.5rem;position:relative;z-index:1;max-width:680px;}
 .fan-cards{
   display:flex;align-items:flex-end;justify-content:center;
-  gap:0;padding:0 2rem 3rem;
+  gap:0;padding:0 2rem 1.5rem;
   position:relative;z-index:1;flex:1;
   opacity:0;animation:fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.9s forwards;
 }
 .fan-card{
-  width:210px;min-height:400px;
+  width:210px;min-height:260px;
   border:0.5px solid rgba(201,168,76,0.15);
   background:#12121A;cursor:pointer;
   transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
@@ -656,31 +662,31 @@ body{
 .fan-left{transform:rotate(-5deg) translateX(18px) translateY(18px);z-index:1;margin-right:-18px;}
 .fan-center{
   transform:scale(1.07);border-color:var(--gold);
-  z-index:3;width:230px;min-height:440px;background:#1C1C2A;
+  z-index:3;width:230px;min-height:290px;background:#1C1C2A;
 }
 .fan-center::before{opacity:1;}
 .fan-right{transform:rotate(5deg) translateX(-18px) translateY(18px);z-index:1;margin-left:-18px;}
 .fan-card:hover{transform:rotate(0deg) translateY(-14px) scale(1.05);border-color:var(--gold);z-index:4;}
 .fan-center:hover{transform:translateY(-14px) scale(1.09);z-index:4;}
-.fan-card-inner{padding:1.8rem 1.5rem;height:100%;display:flex;flex-direction:column;position:relative;z-index:1;}
-.fan-card-num{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:rgba(201,168,76,0.15);line-height:1;margin-bottom:0.7rem;}
-.fan-card-title{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--white);line-height:1.1;margin-bottom:0.4rem;}
+.fan-card-inner{padding:1.4rem 1.3rem;height:100%;display:flex;flex-direction:column;position:relative;z-index:1;}
+.fan-card-num{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:rgba(201,168,76,0.3);line-height:1;margin-bottom:0.7rem;}
+.fan-card-title{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:#FFFFFF;line-height:1.1;margin-bottom:0.5rem;}
 .fan-card-title em{font-style:italic;color:var(--gold);}
-.fan-card-sub{font-size:0.7rem;line-height:1.6;color:var(--white-faint);margin-bottom:1rem;}
-.fan-card-arrow{font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-top:auto;transition:letter-spacing 0.2s;cursor:pointer;}
+.fan-card-sub{font-size:0.82rem;line-height:1.6;color:rgba(245,240,255,0.75);margin-bottom:1rem;}
+.fan-card-arrow{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-top:auto;padding-top:0.8rem;transition:letter-spacing 0.2s;cursor:pointer;font-weight:400;}
 .fan-card:hover .fan-card-arrow{letter-spacing:0.28em;}
 
 /* Fan search */
 .fan-search-wrap{position:relative;margin-bottom:0.6rem;}
 .fan-search-wrap input{
-  width:100%;font-family:var(--sans);font-size:0.78rem;font-weight:300;
-  color:var(--white);background:rgba(255,255,255,0.04);
-  border:0.5px solid rgba(201,168,76,0.2);
-  padding:0.6rem 0.7rem 0.6rem 1.8rem;
+  width:100%;font-family:var(--sans);font-size:0.82rem;font-weight:300;
+  color:#FFFFFF;background:rgba(255,255,255,0.07);
+  border:0.5px solid rgba(201,168,76,0.3);
+  padding:0.65rem 0.7rem 0.65rem 1.8rem;
   outline:none;transition:border-color 0.2s;
 }
 .fan-search-wrap input:focus{border-color:var(--gold);}
-.fan-search-wrap input::placeholder{color:var(--white-faint);font-size:0.7rem;}
+.fan-search-wrap input::placeholder{color:rgba(245,240,255,0.45);font-size:0.75rem;}
 .fan-search-icon{position:absolute;left:0.5rem;top:50%;transform:translateY(-50%);color:rgba(201,168,76,0.45);font-size:0.75rem;pointer-events:none;}
 .fan-results{display:flex;flex-direction:column;max-height:160px;overflow-y:auto;margin-bottom:0.4rem;}
 .fan-result-item{padding:0.5rem 0.4rem;border-bottom:0.5px solid rgba(201,168,76,0.07);cursor:pointer;transition:background 0.15s;}
@@ -780,7 +786,7 @@ body{
     <!-- THREE FANNED CARDS -->
     <div class="fan-cards">
       <!-- LEFT: About -->
-      <div class="fan-card fan-left" onclick="showPage('about')">
+      <div class="fan-card fan-left" onclick="showPage('about');document.getElementById('main').scrollTop=0;">
         <div class="fan-card-inner">
           <div class="fan-card-num">01</div>
           <div class="fan-card-title"><em>About</em></div>
@@ -803,7 +809,7 @@ body{
         </div>
       </div>
       <!-- RIGHT: Resources -->
-      <div class="fan-card fan-right" onclick="showPage('resources')">
+      <div class="fan-card fan-right" onclick="showPage('resources');document.getElementById('main').scrollTop=0;">
         <div class="fan-card-inner">
           <div class="fan-card-num">03</div>
           <div class="fan-card-title"><em>Resources</em></div>
@@ -971,48 +977,6 @@ body{
 </main>
 
 <script>
-function showPage(name){
-  // Hide all pages
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  // Show target page
-  const page = document.getElementById('page-' + name);
-  if(page){
-    page.classList.add('active');
-    document.getElementById('main').scrollTo({top:0,behavior:'smooth'});
-    setTimeout(initReveal, 80);
-  }
-  // Update nav active state
-  const pages = ['home','about','sword','resources'];
-  document.querySelectorAll('.nav-link').forEach((link, i) => {
-    link.classList.toggle('active', pages[i] === name);
-  });
-}
-
-function setMobileActive(btn){
-  document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function initReveal(){
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
-    });
-  },{threshold:0.08, root:document.getElementById('main')});
-  document.querySelectorAll('.page.active .reveal,.page.active .rl,.page.active .rr').forEach(el => {
-    el.classList.remove('visible');
-    obs.observe(el);
-  });
-}
-
-document.querySelectorAll('.stag').forEach(tag => {
-  tag.addEventListener('click', () => {
-    document.querySelectorAll('.stag').forEach(t => t.classList.remove('active'));
-    tag.classList.add('active');
-    window.location.href = 'c18-sword.html';
-  });
-});
-
 const PSALMS = [
   ["1:1-6","Choosing the right counsel and avoiding toxic circles to flourish like a tree by living waters.","alignment, wisdom, protection, choices, prosperity"],
   ["2:1-12","God laughing at the plots of wicked rulers and establishing His King. Overcoming oppressive systems.","authority, power, victory, justice, rebellion"],
@@ -1187,113 +1151,133 @@ const PSALMS = [
   ["150:1-6","The grand finale: praise Him with trumpet, harp, lyre, tambourine, strings, pipe, and loud crashing cymbals!","cymbals, high-praise, instruments, final-victory, breath"],
 ];
 
-// ── HOME SEARCH ──
-
-function bgUrl(verse){
-  return `https://www.biblegateway.com/passage/?search=Psalm+${encodeURIComponent(verse)}&version=NKJV`;
+// ── PAGE NAVIGATION ──
+function showPage(name){
+  const main = document.getElementById('main');
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Show target page
+  const page = document.getElementById('page-' + name);
+  if(page){
+    page.classList.add('active');
+    if(main){
+      if(name === 'home'){
+        // Home — scroll to top
+        main.scrollTop = 0;
+      } else {
+        // All other pages — scroll to top of that page content instantly
+        main.scrollTop = 0;
+        // Then after a tiny delay scroll down to the page body content
+        setTimeout(() => {
+          const pageBody = page.querySelector('.page-body');
+          if(pageBody){
+            main.scrollTo({
+              top: pageBody.offsetTop - 20,
+              behavior: 'smooth'
+            });
+          }
+        }, 60);
+      }
+    }
+    setTimeout(initReveal, 80);
+  }
+  // Update nav
+  const pages = ['home','about','sword','resources'];
+  document.querySelectorAll('.nav-link').forEach((link, i) => {
+    link.classList.toggle('active', pages[i] === name);
+  });
+  document.querySelectorAll('.mobile-nav-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', pages[i] === name);
+  });
 }
 
-document.getElementById('homeSearch').addEventListener('input', function(){
-  const q = this.value.toLowerCase().trim();
-  const resultsEl = document.getElementById('homeResults');
-  resultsEl.innerHTML = '';
-  if(q.length < 2) return;
+function setMobileActive(btn){
+  document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
 
-  // Search through psalms data from c18-sword page
-  const matches = [];
-  if(typeof PSALMS !== 'undefined'){
-    PSALMS.forEach(([verse, summary, keywords]) => {
-      const searchStr = `${verse} ${summary} ${keywords}`.toLowerCase();
-      if(searchStr.includes(q)) matches.push([verse, summary, keywords]);
+// ── REVEAL ANIMATIONS ──
+function initReveal(){
+  const main = document.getElementById('main');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
     });
-  }
+  },{threshold:0.08, root:main});
+  document.querySelectorAll('.page.active .reveal,.page.active .rl,.page.active .rr').forEach(el => {
+    el.classList.remove('visible');
+    obs.observe(el);
+  });
+}
 
-  if(matches.length === 0){
-    resultsEl.innerHTML = `<div class="fan-no-results">No results for "${q}" — try a single word like "fear" or "healing"</div>`;
-    return;
-  }
-
-  matches.slice(0, 3).forEach(([verse, summary, keywords]) => {
-    const item = document.createElement('div');
-    item.className = 'fan-result-item';
-    item.innerHTML = `<div class="fan-result-ref">Psalms ${verse}</div><div class="fan-result-desc">${summary.substring(0,80)}${summary.length > 80 ? '...' : ''}</div>`;
-    item.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openHomeModal(verse, summary, keywords);
-    });
-    resultsEl.appendChild(item);
+// ── SWORD KEYWORD TAGS ──
+document.querySelectorAll('.stag').forEach(tag => {
+  tag.addEventListener('click', () => {
+    window.location.href = 'c18-sword.html';
   });
 });
 
+// ── HOME LIVE SEARCH ──
+const homeSearchEl = document.getElementById('homeSearch');
+if(homeSearchEl){
+  homeSearchEl.addEventListener('input', function(e){
+    e.stopPropagation();
+    const q = this.value.toLowerCase().trim();
+    const resultsEl = document.getElementById('homeResults');
+    resultsEl.innerHTML = '';
+    if(q.length < 2) return;
+    const matches = PSALMS.filter(([verse, summary, keywords]) =>
+      (verse + ' ' + summary + ' ' + keywords).toLowerCase().includes(q)
+    );
+    if(matches.length === 0){
+      resultsEl.innerHTML = '<div class="fan-no-results">No results — try a word like "fear" or "healing"</div>';
+      return;
+    }
+    matches.slice(0, 3).forEach(([verse, summary, keywords]) => {
+      const item = document.createElement('div');
+      item.className = 'fan-result-item';
+      item.innerHTML = '<div class="fan-result-ref">Psalms ' + verse + '</div><div class="fan-result-desc">' + summary.substring(0,80) + '...</div>';
+      item.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        openHomeModal(verse, summary, keywords);
+      });
+      resultsEl.appendChild(item);
+    });
+  });
+}
+
+// ── HOME MODAL ──
 function openHomeModal(verse, summary, keywords){
-  document.getElementById('homeModalRef').innerHTML = `Psalms <em>${verse}</em>`;
+  document.getElementById('homeModalRef').innerHTML = 'Psalms <em>' + verse + '</em>';
   document.getElementById('homeModalSummary').textContent = summary;
   const tags = keywords.split(',').map(k => k.trim()).filter(Boolean);
-  document.getElementById('homeModalTags').innerHTML = tags.map(k => `<span class="home-modal-tag">${k}</span>`).join('');
-  document.getElementById('homeModalBtn').href = bgUrl(verse);
+  document.getElementById('homeModalTags').innerHTML = tags.map(k => '<span class="home-modal-tag">' + k + '</span>').join('');
+  document.getElementById('homeModalBtn').href = 'https://www.biblegateway.com/passage/?search=Psalm+' + encodeURIComponent(verse) + '&version=NKJV';
   document.getElementById('homeModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
 }
 
-function closeHomeModal(e){
-  if(e.target === document.getElementById('homeModal')) closeHomeModalDirect();
+function closeHomeModal(){
+  document.getElementById('homeModal').classList.remove('open');
+  if(homeSearchEl){ homeSearchEl.value = ''; }
+  document.getElementById('homeResults').innerHTML = '';
 }
-
-
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeHomeModalDirect();
-});
-
-
-
-
-// Live home search
-document.getElementById('homeSearch').addEventListener('input', function(e) {
-  e.stopPropagation();
-  const q = this.value.toLowerCase().trim();
-  const resultsEl = document.getElementById('homeResults');
-  resultsEl.innerHTML = '';
-  if(q.length < 2) return;
-  const matches = PSALMS.filter(([verse, summary, keywords]) =>
-    (verse + ' ' + summary + ' ' + keywords).toLowerCase().includes(q)
-  );
-  if(matches.length === 0) {
-    resultsEl.innerHTML = '<div class="fan-no-results">No results — try a word like "fear" or "healing"</div>';
-    return;
-  }
-  matches.slice(0, 3).forEach(([verse, summary, keywords]) => {
-    const item = document.createElement('div');
-    item.className = 'fan-result-item';
-    item.innerHTML = `<div class="fan-result-ref">Psalms ${verse}</div><div class="fan-result-desc">${summary.substring(0,75)}...</div>`;
-    item.addEventListener('click', (ev) => {
-      ev.stopPropagation();
-      openHomeModal(verse, summary, keywords);
-    });
-    resultsEl.appendChild(item);
-  });
-});
-
-
-
-
 
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeHomeModal(); });
 
-// iOS PWA install banner
+// ── PWA + iOS BANNER ──
 window.addEventListener('load', () => {
+  initReveal();
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
+  }
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
   const isStandalone = window.navigator.standalone;
-  if(isIOS && !isStandalone) {
+  if(isIOS && !isStandalone){
     setTimeout(() => {
       const banner = document.getElementById('iosBanner');
       if(banner) banner.style.display = 'flex';
     }, 3000);
   }
-});
-
-window.addEventListener('load', () => {
-  initReveal();
-  if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
 });
 </script>
 
