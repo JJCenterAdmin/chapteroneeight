@@ -8,37 +8,40 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --alabaster:#F9F6F1;
-  --sand:#D9C9A8;
-  --gold:#B8965A;
-  --tan:#C8BBA0;
-  --jet:#141210;
-  --deep:#0C0A08;
-  --muted:#7A7060;
-  --border:rgba(20,18,16,0.1);
+  --alabaster:#0A0A0F;
+  --sand:#1C1C2A;
+  --gold:#C9A84C;
+  --tan:#5C2D9E;
+  --jet:#F5F0FF;
+  --deep:#0A0A0F;
+  --muted:rgba(245,240,255,0.55);
+  --border:rgba(201,168,76,0.12);
+  --purple:#3D1F6B;
+  --purple-mid:#5C2D9E;
+  --purple-light:#8B5FD4;
   --serif:'Cormorant Garamond',Georgia,serif;
   --sans:'Jost',sans-serif;
 }
 html{scroll-behavior:smooth;}
-body{font-family:var(--sans);background:var(--alabaster);color:var(--jet);font-weight:300;overflow-x:hidden;}
+body{font-family:var(--sans);background:#12121A;color:var(--jet);font-weight:300;overflow-x:hidden;}
 
 nav{
   position:fixed;top:0;left:0;right:0;z-index:200;
   display:flex;align-items:center;justify-content:space-between;
   padding:1.3rem 4rem;
-  background:rgba(249,246,241,0.95);
+  background:rgba(10,10,15,0.95);
   backdrop-filter:blur(18px);
-  border-bottom:0.5px solid var(--border);
+  border-bottom:0.5px solid rgba(201,168,76,0.1);
 }
-.nav-logo{font-family:var(--serif);font-size:1rem;font-weight:400;letter-spacing:0.08em;color:var(--jet);text-decoration:none;}
+.nav-logo{font-family:var(--serif);font-size:1rem;font-weight:400;letter-spacing:0.08em;color:var(--jet);text-decoration:none;} 
 .nav-logo em{font-style:italic;color:var(--gold);}
-.nav-back{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
-.nav-back:hover{color:var(--jet);}
+.nav-back{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,240,255,0.45);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--gold);}
 .nav-back::before{content:'← ';}
 
 /* PAGE HERO */
 .page-hero{
-  background:var(--jet);padding:7rem 4rem 4rem;
+  background:#12121A;padding:7rem 4rem 4rem;
   margin-top:65px;position:relative;overflow:hidden;
 }
 .page-hero::before{
@@ -78,11 +81,11 @@ nav{
   text-transform:uppercase;color:var(--gold);
 }
 
-/* SEARCH */
+/* SEARCH — main event */
 .search-wrap{
-  background:var(--alabaster);
-  padding:2.5rem 4rem;
-  border-bottom:0.5px solid var(--border);
+  background:#0A0A0F;
+  padding:3rem 4rem 2rem;
+  border-bottom:0.5px solid rgba(201,168,76,0.1);
   position:sticky;top:65px;z-index:100;
 }
 .search-inner{
@@ -90,28 +93,28 @@ nav{
   flex-wrap:wrap;
 }
 .search-box{
-  flex:1;min-width:240px;
+  flex:1;min-width:280px;
   position:relative;
 }
 .search-box input{
   width:100%;
-  font-family:var(--sans);font-size:0.88rem;font-weight:300;
+  font-family:var(--serif);font-size:1.6rem;font-weight:300;
   color:var(--jet);background:transparent;
-  border:none;border-bottom:1px solid var(--tan);
-  padding:0.7rem 0 0.7rem 2rem;
-  outline:none;transition:border-color 0.2s;
-  letter-spacing:0.05em;
+  border:none;border-bottom:1px solid rgba(201,168,76,0.3);
+  padding:0.8rem 0 0.8rem 2.8rem;
+  outline:none;transition:border-color 0.3s;
+  letter-spacing:0.02em;font-style:italic;
 }
 .search-box input:focus{border-bottom-color:var(--gold);}
-.search-box input::placeholder{color:var(--tan);}
+.search-box input::placeholder{color:rgba(245,240,255,0.2);font-style:italic;}
 .search-icon{
   position:absolute;left:0;top:50%;transform:translateY(-50%);
-  color:var(--tan);font-size:0.85rem;pointer-events:none;
+  color:rgba(201,168,76,0.4);font-size:1.4rem;pointer-events:none;
 }
 .search-count{
-  font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
+  font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
   color:var(--muted);white-space:nowrap;
-  flex-shrink:0;
+  flex-shrink:0;display:none;
 }
 .tag-filters{
   display:flex;gap:0.5rem;flex-wrap:wrap;width:100%;margin-top:0.5rem;
@@ -123,7 +126,7 @@ nav{
   transition:all 0.2s;background:transparent;font-family:var(--sans);
 }
 .tag:hover,.tag.active{
-  background:var(--jet);color:var(--alabaster);border-color:var(--jet);
+  background:var(--purple-mid);color:#F5F0FF;border-color:var(--purple-mid);
 }
 .clear-btn{
   font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;
@@ -138,7 +141,7 @@ nav{
 .results-header{
   display:flex;justify-content:space-between;align-items:baseline;
   margin-bottom:2rem;padding-bottom:1rem;
-  border-bottom:0.5px solid var(--border);
+  border-bottom:0.5px solid rgba(201,168,76,0.1);
 }
 .results-label{
   font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);
@@ -161,7 +164,7 @@ nav{
   border:0.5px solid var(--border);
 }
 .psalm-card{
-  background:var(--alabaster);
+  background:#12121A;
   padding:2rem 2.2rem;
   transition:background 0.25s;
   cursor:pointer;
@@ -211,7 +214,7 @@ nav{
 }
 .modal-overlay.open{display:flex;}
 .modal{
-  background:var(--alabaster);
+  background:#12121A;
   max-width:620px;width:100%;
   max-height:88vh;overflow-y:auto;
   position:relative;
@@ -265,7 +268,7 @@ nav{
   border:none;padding:1.1rem 2rem;cursor:pointer;
   text-decoration:none;transition:background 0.2s;
 }
-.modal-read-btn:hover{background:var(--deep);}
+.modal-read-btn:hover{background:#0A0A0F;}
 .modal-read-btn::after{content:'↗';}
 
 @media(max-width:768px){
@@ -293,8 +296,8 @@ nav{
   <h1 class="hero-title">Our <em>Sword.</em></h1>
   <p class="hero-body">When the enemy attacks your mind with anxiety, doubt, or toxic lies — do not fight in your own strength. Stand firmly on scripture and declare, "It is written!" Search by keyword, theme, or feeling to find the exact Psalm you need today.</p>
   <blockquote class="hero-verse">
-    "While praise is beautiful, peaceful, and intimate, the Word reveals it is also a powerful spiritual sound that shifts the atmosphere."
-    <cite>2 Chronicles 20</cite>
+    "Put on salvation as your helmet, and take the sword of the Spirit, which is the word of God."
+    <cite>Ephesians 6:17 NLT</cite>
   </blockquote>
 </div>
 
@@ -304,7 +307,7 @@ nav{
       <span class="search-icon">⌕</span>
       <input type="text" id="searchInput" placeholder="Search by feeling, theme, or keyword — try 'anxiety', 'betrayal', 'healing'..." autocomplete="off" />
     </div>
-    <span class="search-count" id="searchCount">171 Psalms</span>
+    <span class="search-count" id="searchCount"></span>
     <button class="clear-btn" id="clearBtn" onclick="clearSearch()">Clear</button>
   </div>
   <div class="tag-filters" id="tagFilters">
@@ -329,12 +332,12 @@ nav{
 
 <div class="results-wrap">
   <div class="results-header">
-    <span class="results-label" id="resultsLabel">All 171 Psalms</span>
+    <span class="results-label" id="resultsLabel">All Psalms</span>
   </div>
 
   <div id="noResults" class="no-results">
     <p class="no-results-title">No Psalms found.</p>
-    <p>Try a different keyword — or <button onclick="clearSearch()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--sans);font-size:0.85rem;letter-spacing:0.05em;">clear the search</button> to see all 171.</p>
+    <p>Try a different keyword — or <button onclick="clearSearch()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--sans);font-size:0.85rem;letter-spacing:0.05em;">clear the search</button> to see all Psalms.</p>
   </div>
 
   <div class="psalm-grid" id="psalmGrid"></div>
