@@ -354,7 +354,7 @@ nav{
     <div class="modal-body">
       <p class="modal-summary" id="modalSummary"></p>
       <div id="modalKJVWrap" style="margin-top:1.2rem;margin-bottom:1.2rem;">
-        <p style="font-size:0.55rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;font-family:'Jost',sans-serif;">King James Version</p>
+        <p style="font-size:0.55rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;font-family:Jost,sans-serif;">King James Version</p>
         <p id="modalKJV" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;font-weight:300;line-height:1.9;color:#FFFFFF;border-left:2px solid rgba(92,45,158,0.8);padding-left:1.2rem;font-style:italic;"></p>
       </div>
       <p class="modal-tags-label">Keywords & Themes</p>
@@ -370,11 +370,7 @@ let PSALMS = [];
 // Load scriptures from JSON — add new verses to scriptures.json only
 let dataReady = false;
 
-// Show loading state immediately
-window.addEventListener('DOMContentLoaded', () => {
-  const grid = document.getElementById('psalmGrid');
-  if(grid) grid.innerHTML = '<div style="padding:2rem;color:rgba(245,240,255,0.4);font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;">Loading verses...</div>';
-});
+// Scriptures load via fetch below
 
 fetch('/scriptures.json')
   .then(r => r.json())
@@ -473,7 +469,19 @@ function closeModalDirect() {
 }
 
 function filterTag(tag) {
-  if(PSALMS.length === 0){ setTimeout(() => filterTag(tag), 200); return; }
+  if(PSALMS.length === 0){
+    let attempts = 0;
+    const wait = setInterval(() => {
+      attempts++;
+      if(PSALMS.length > 0){
+        clearInterval(wait);
+        filterTag(tag);
+      } else if(attempts > 20){
+        clearInterval(wait);
+      }
+    }, 100);
+    return;
+  }
   if (currentFilter === tag) {
     currentFilter = '';
     document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
