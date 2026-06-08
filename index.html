@@ -857,6 +857,10 @@ body{
         </div>
         <div class="home-modal-body">
           <p class="home-modal-summary" id="homeModalSummary"></p>
+        <div id="homeModalKJVWrap" style="margin-top:1.2rem;margin-bottom:1.2rem;">
+          <p style="font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;font-family:'Jost',sans-serif;">King James Version</p>
+          <p id="homeModalKJV" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:0.95rem;font-weight:300;line-height:1.85;color:#FFFFFF;border-left:2px solid #5C2D9E;padding-left:1.2rem;font-style:italic;"></p>
+        </div>
           <p class="home-modal-tags-label">Keywords & Themes</p>
           <div class="home-modal-tags" id="homeModalTags"></div>
           <a class="home-modal-btn" id="homeModalBtn" target="_blank" rel="noopener">Read in Bible Gateway (NKJV) ↗</a>
@@ -1260,20 +1264,20 @@ if(homeSearchEl){
     const resultsEl = document.getElementById('homeResults');
     resultsEl.innerHTML = '';
     if(q.length < 2) return;
-    const matches = PSALMS.filter(([verse, summary, keywords]) =>
+    const matches = PSALMS.filter(([verse, summary, keywords, kjv]) =>
       (verse + ' ' + summary + ' ' + keywords).toLowerCase().includes(q)
     );
     if(matches.length === 0){
       resultsEl.innerHTML = '<div class="fan-no-results">No results — try a word like "fear" or "healing"</div>';
       return;
     }
-    matches.slice(0, 3).forEach(([verse, summary, keywords]) => {
+    matches.slice(0, 3).forEach(([verse, summary, keywords, kjv]) => {
       const item = document.createElement('div');
       item.className = 'fan-result-item';
       item.innerHTML = '<div class="fan-result-ref">Psalms ' + verse + '</div><div class="fan-result-desc">' + summary.substring(0,80) + '...</div>';
       item.addEventListener('click', (ev) => {
         ev.stopPropagation();
-        openHomeModal(verse, summary, keywords);
+        openHomeModal(verse, summary, keywords, kjv);
       });
       resultsEl.appendChild(item);
     });
@@ -1281,12 +1285,21 @@ if(homeSearchEl){
 }
 
 // ── HOME MODAL ──
-function openHomeModal(verse, summary, keywords){
+function openHomeModal(verse, summary, keywords, kjv){
   document.getElementById('homeModalRef').innerHTML = 'Psalms <em>' + verse + '</em>';
   document.getElementById('homeModalSummary').textContent = summary;
   const tags = keywords.split(',').map(k => k.trim()).filter(Boolean);
   document.getElementById('homeModalTags').innerHTML = tags.map(k => '<span class="home-modal-tag">' + k + '</span>').join('');
   document.getElementById('homeModalBtn').href = 'https://www.biblegateway.com/passage/?search=Psalm+' + encodeURIComponent(verse) + '&version=NKJV';
+  // Show KJV text
+  const kjvWrap = document.getElementById('homeModalKJVWrap');
+  const kjvEl = document.getElementById('homeModalKJV');
+  if(kjvEl && kjv){
+    kjvEl.textContent = kjv;
+    if(kjvWrap) kjvWrap.style.display = 'block';
+  } else if(kjvWrap){
+    kjvWrap.style.display = 'none';
+  }
   document.getElementById('homeModal').classList.add('open');
 }
 
