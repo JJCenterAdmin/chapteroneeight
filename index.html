@@ -830,7 +830,7 @@ body{
           <div class="fan-card-sub">Search scripture by feeling, theme or keyword.</div>
           <div class="fan-search-wrap">
             <span class="fan-search-icon">⌕</span>
-            <input type="text" id="homeSearch" placeholder="anxiety, healing, fear..." autocomplete="off" onclick="event.stopPropagation()"/>
+            <input type="text" id="homeSearch" placeholder="Search by keyword — try 'anxiety', 'healing', 'fear'..." autocomplete="off" onclick="event.stopPropagation()"/>
           </div>
           <div class="fan-results" id="homeResults"></div>
           <div class="fan-card-arrow" onclick="showPage('sword');event.stopPropagation()">Full Search →</div>
@@ -906,7 +906,7 @@ body{
     <div class="page-body">
       <div class="sword-search-wrap reveal">
         <span class="sword-icon">⌕</span>
-        <input type="text" placeholder="Search by keyword, theme or feeling — try 'anxiety', 'healing', 'betrayal'..." onfocus="window.location.href='c18-sword.html'" readonly/>
+        <input type="text" placeholder="Search by keyword — try 'anxiety', 'healing', 'fear'..." onfocus="window.location.href='c18-sword.html'" readonly/>
       </div>
       <div class="tag-row reveal d1">
         <button class="stag active">Anxiety</button>
@@ -1018,7 +1018,7 @@ body{
 let PSALMS = [];
 
 // Load scriptures from JSON
-fetch('scriptures.json')
+fetch('/scriptures.json')
   .then(r => r.json())
   .then(data => {
     PSALMS = data.map(s => [
