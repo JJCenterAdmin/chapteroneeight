@@ -733,6 +733,16 @@ body{
   .fan-card,.fan-center{width:100%;min-height:auto;transform:none !important;margin:0;}
   .fan-center{width:100%;}
 }
+
+.btn-install{
+  font-family:var(--sans);font-size:0.65rem;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--white);
+  background:transparent;
+  border:0.5px solid rgba(245,240,255,0.25);
+  padding:0.85rem 1.5rem;cursor:pointer;
+  transition:all 0.2s;
+}
+.btn-install:hover{border-color:var(--gold);color:var(--gold);}
 </style>
 </head>
 <body>
@@ -781,6 +791,24 @@ body{
       <div class="home-actions">
         <a href="SLACK_LINK_HERE" target="_blank" class="btn-gold">Join the Community</a>
         <a href="#" onclick="showPage('sword');return false;" class="btn-outline">Our Sword</a>
+        <button class="btn-install" id="installBtn" onclick="showInstallHelp()" style="display:none;">
+          📱 Add to Home Screen
+        </button>
+      </div>
+
+      <!-- Install instructions popup -->
+      <div id="installHelp" style="display:none;margin-top:1rem;background:#1C1C2A;border:0.5px solid rgba(201,168,76,0.3);padding:1.2rem 1.5rem;max-width:400px;">
+        <div id="installHelpIOS" style="display:none;">
+          <p style="font-family:'Jost',sans-serif;font-size:0.82rem;color:#F5F0FF;line-height:1.7;margin-bottom:0.5rem;">
+            <strong style="color:#C9A84C;">iPhone:</strong> Tap the <strong style="color:#C9A84C;">Share ↑</strong> button at the bottom of Safari, then tap <strong style="color:#C9A84C;">"Add to Home Screen"</strong>
+          </p>
+        </div>
+        <div id="installHelpAndroid" style="display:none;">
+          <p style="font-family:'Jost',sans-serif;font-size:0.82rem;color:#F5F0FF;line-height:1.7;margin-bottom:0.5rem;">
+            <strong style="color:#C9A84C;">Android:</strong> Tap the <strong style="color:#C9A84C;">⋮ menu</strong> in Chrome, then tap <strong style="color:#C9A84C;">"Add to Home Screen"</strong>
+          </p>
+        </div>
+        <button onclick="document.getElementById('installHelp').style.display='none'" style="background:none;border:none;color:rgba(245,240,255,0.4);font-size:0.7rem;cursor:pointer;font-family:'Jost',sans-serif;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;">Dismiss</button>
       </div>
     </div>
     <!-- THREE FANNED CARDS -->
@@ -1263,6 +1291,27 @@ function closeHomeModal(){
 }
 
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeHomeModal(); });
+
+
+// Show install button on mobile
+window.addEventListener('load', () => {
+  const isMobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent);
+  const isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+  const installBtn = document.getElementById('installBtn');
+  if(isMobile && !isStandalone && installBtn){
+    installBtn.style.display = 'inline-block';
+  }
+});
+
+function showInstallHelp(){
+  const help = document.getElementById('installHelp');
+  const ios = document.getElementById('installHelpIOS');
+  const android = document.getElementById('installHelpAndroid');
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if(ios) ios.style.display = isIOS ? 'block' : 'none';
+  if(android) android.style.display = isIOS ? 'none' : 'block';
+  if(help) help.style.display = help.style.display === 'none' ? 'block' : 'none';
+}
 
 // ── PWA + iOS BANNER ──
 window.addEventListener('load', () => {
