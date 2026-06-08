@@ -306,7 +306,7 @@ nav{
   <div class="search-inner">
     <div class="search-box">
       <span class="search-icon">⌕</span>
-      <input type="text" id="searchInput" placeholder="Search by feeling, theme, or keyword — try 'anxiety', 'betrayal', 'healing'..." autocomplete="off" />
+      <input type="text" id="searchInput" placeholder="Search by keyword — try 'anxiety', 'healing', 'fear'..." autocomplete="off" />
     </div>
     <span class="search-count" id="searchCount"></span>
     <button class="clear-btn" id="clearBtn" onclick="clearSearch()">Clear</button>
@@ -386,7 +386,7 @@ fetch('/scriptures.json')
       s.kjv
     ]);
     dataReady = true;
-    renderCards(currentSearch, currentFilter);
+    renderCards(currentSearch || '', currentFilter || '');
   })
   .catch(err => {
     console.warn('Could not load scriptures.json', err);
@@ -473,7 +473,7 @@ function closeModalDirect() {
 }
 
 function filterTag(tag) {
-  if(!dataReady) return;
+  if(PSALMS.length === 0){ setTimeout(() => filterTag(tag), 200); return; }
   if (currentFilter === tag) {
     currentFilter = '';
     document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
