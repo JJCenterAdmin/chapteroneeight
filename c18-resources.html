@@ -8,33 +8,39 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --alabaster:#F9F6F1;
-  --sand:#D9C9A8;
-  --gold:#B8965A;
-  --tan:#C8BBA0;
-  --jet:#141210;
-  --deep:#0C0A08;
-  --muted:#7A7060;
-  --border:rgba(20,18,16,0.1);
+  --alabaster:#0A0A0F;
+  --sand:#1C1C2A;
+  --gold:#C9A84C;
+  --gold-light:#E8C97A;
+  --tan:#5C2D9E;
+  --jet:#F5F0FF;
+  --deep:#0A0A0F;
+  --muted:rgba(245,240,255,0.55);
+  --border:rgba(201,168,76,0.12);
+  --purple:#3D1F6B;
+  --purple-mid:#5C2D9E;
+  --purple-light:#8B5FD4;
+  --cream:#12121A;
+  --warm-white:#0A0A0F;
   --serif:'Cormorant Garamond',Georgia,serif;
   --sans:'Jost',sans-serif;
 }
 html{scroll-behavior:smooth;}
-body{font-family:var(--sans);background:var(--alabaster);color:var(--jet);font-weight:300;overflow-x:hidden;}
+body{font-family:var(--sans);background:#0A0A0F;color:#F5F0FF;font-weight:300;overflow-x:hidden;}
 
 /* NAV */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:200;
   display:flex;align-items:center;justify-content:space-between;
   padding:1.3rem 4rem;
-  background:rgba(249,246,241,0.93);
+  background:rgba(10,10,15,0.96);
   backdrop-filter:blur(18px);
-  border-bottom:0.5px solid var(--border);
+  border-bottom:0.5px solid rgba(201,168,76,0.1);
 }
-.nav-logo{font-family:var(--serif);font-size:1rem;font-weight:400;letter-spacing:0.08em;color:var(--jet);text-decoration:none;}
+.nav-logo{font-family:var(--serif);font-size:1rem;font-weight:400;letter-spacing:0.08em;color:#F5F0FF;text-decoration:none;}
 .nav-logo em{font-style:italic;color:var(--gold);}
-.nav-back{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s;}
-.nav-back:hover{color:var(--jet);}
+.nav-back{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,240,255,0.55);text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s;}
+.nav-back:hover{color:#F5F0FF;}
 .nav-back::before{content:'←';}
 
 /* REVEAL */
@@ -48,7 +54,7 @@ nav{
 
 /* PAGE HERO */
 .page-hero{
-  min-height:55vh;background:var(--jet);
+  min-height:55vh;background:#12121A;
   display:flex;flex-direction:column;justify-content:flex-end;
   padding:5rem 4rem 4rem;margin-top:65px;
   position:relative;overflow:hidden;
@@ -91,11 +97,11 @@ nav{
   margin:4rem;
 }
 .resource-card{
-  background:var(--alabaster);padding:3rem 2.5rem;
+  background:#0A0A0F;padding:3rem 2.5rem;
   cursor:pointer;transition:background 0.3s;
   display:flex;flex-direction:column;
 }
-.resource-card:hover{background:#F2EDE4;}
+.resource-card:hover{background:#1C1C2A;}
 .resource-num{
   font-family:var(--serif);font-size:3rem;font-weight:300;
   color:var(--sand);line-height:1;margin-bottom:1.5rem;
@@ -106,10 +112,10 @@ nav{
 }
 .resource-title{
   font-family:var(--serif);font-size:1.5rem;font-weight:400;
-  color:var(--jet);line-height:1.2;margin-bottom:0.8rem;
+  color:#F5F0FF;line-height:1.2;margin-bottom:0.8rem;
 }
 .resource-title em{font-style:italic;}
-.resource-desc{font-size:0.82rem;line-height:1.8;color:var(--muted);flex:1;margin-bottom:2rem;}
+.resource-desc{font-size:0.82rem;line-height:1.8;color:rgba(245,240,255,0.55);flex:1;margin-bottom:2rem;}
 .resource-cta{
   font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;
   color:var(--gold);display:flex;align-items:center;gap:0.5rem;
@@ -122,7 +128,7 @@ nav{
 .article-page.active{display:block;}
 
 .article-hero{
-  min-height:60vh;background:var(--jet);
+  min-height:60vh;background:#12121A;
   display:grid;grid-template-columns:1fr 1fr;
   margin-top:65px;overflow:hidden;
 }
@@ -157,12 +163,12 @@ nav{
 
 .article-intro{
   font-family:var(--serif);font-size:1.25rem;font-weight:300;
-  line-height:1.75;color:var(--jet);
+  line-height:1.75;color:#F5F0FF;
   border-left:2px solid var(--gold);padding-left:2rem;
   margin-bottom:4rem;
 }
 
-.writer-section{margin-bottom:5rem;padding-bottom:5rem;border-bottom:0.5px solid var(--border);}
+.writer-section{margin-bottom:5rem;padding-bottom:5rem;border-bottom:0.5px solid rgba(201,168,76,0.1);}
 .writer-section:last-child{border-bottom:none;}
 .writer-label{
   font-size:0.58rem;letter-spacing:0.35em;text-transform:uppercase;
@@ -172,29 +178,29 @@ nav{
 .writer-label::before{content:'';display:block;width:16px;height:0.5px;background:var(--gold);}
 .writer-name{
   font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);
-  font-weight:300;line-height:1.05;color:var(--jet);margin-bottom:2rem;
+  font-weight:300;line-height:1.05;color:#F5F0FF;margin-bottom:2rem;
 }
 .writer-name em{font-style:italic;color:var(--gold);}
 .writer-body p{
-  font-size:0.95rem;line-height:1.9;color:var(--jet);
+  font-size:0.95rem;line-height:1.9;color:#F5F0FF;
   margin-bottom:1.4rem;opacity:0.85;
 }
 .writer-pull{
   font-family:var(--serif);font-size:1.3rem;font-weight:300;
-  font-style:italic;color:var(--jet);line-height:1.5;
+  font-style:italic;color:#F5F0FF;line-height:1.5;
   padding:2rem 2rem 2rem 2.5rem;
   border-left:2px solid var(--gold);
-  background:#F2EDE4;margin:2.5rem 0;
+  background:#1C1C2A;margin:2.5rem 0;
 }
 .section-heading{
   font-family:var(--serif);font-size:1.1rem;font-weight:400;
-  color:var(--jet);margin:2.5rem 0 1rem;
+  color:#F5F0FF;margin:2.5rem 0 1rem;
 }
 .unique-list{list-style:none;margin:1rem 0 1.5rem;}
 .unique-list li{
-  font-size:0.88rem;line-height:1.75;color:var(--muted);
+  font-size:0.88rem;line-height:1.75;color:rgba(245,240,255,0.55);
   padding:0.7rem 0 0.7rem 1.5rem;
-  border-bottom:0.5px solid var(--border);
+  border-bottom:0.5px solid rgba(201,168,76,0.1);
   position:relative;
 }
 .unique-list li::before{
@@ -202,19 +208,19 @@ nav{
 }
 .sources-block{
   margin-top:2rem;padding:1.5rem 2rem;
-  background:#F2EDE4;border-left:2px solid var(--sand);
+  background:#1C1C2A;border-left:2px solid var(--sand);
 }
 .sources-title{
   font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:0.8rem;
+  color:rgba(245,240,255,0.55);margin-bottom:0.8rem;
 }
 .sources-block ol{padding-left:1.2rem;}
-.sources-block li{font-size:0.75rem;line-height:1.65;color:var(--muted);margin-bottom:0.3rem;}
+.sources-block li{font-size:0.75rem;line-height:1.65;color:rgba(245,240,255,0.55);margin-bottom:0.3rem;}
 .sources-block a{color:var(--gold);text-decoration:none;}
 
 /* READING PLAN */
 .prayer-block{
-  background:var(--jet);padding:3rem 4rem;margin:0 0 4rem;
+  background:#12121A;padding:3rem 4rem;margin:0 0 4rem;
   position:relative;overflow:hidden;
 }
 .prayer-block::before{
@@ -231,36 +237,36 @@ nav{
 .prayer-text strong{font-style:normal;color:rgba(249,246,241,0.9);font-weight:400;}
 
 .plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);}
-.week-card{background:var(--alabaster);padding:2.2rem 2rem;transition:background 0.25s;}
-.week-card:hover{background:#F2EDE4;}
+.week-card{background:#0A0A0F;padding:2.2rem 2rem;transition:background 0.25s;}
+.week-card:hover{background:#1C1C2A;}
 .week-num{font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
-.week-date{font-family:var(--serif);font-size:0.78rem;color:var(--muted);margin-bottom:0.3rem;font-style:italic;}
+.week-date{font-family:var(--serif);font-size:0.78rem;color:rgba(245,240,255,0.55);margin-bottom:0.3rem;font-style:italic;}
 .week-theme{
   font-family:var(--serif);font-size:1.25rem;font-weight:400;
-  color:var(--jet);line-height:1.2;margin-bottom:1rem;
+  color:#F5F0FF;line-height:1.2;margin-bottom:1rem;
 }
 .week-readings{list-style:none;}
 .week-readings li{
-  font-size:0.8rem;line-height:1.6;color:var(--muted);
-  padding:0.3rem 0;border-bottom:0.5px solid var(--border);
+  font-size:0.8rem;line-height:1.6;color:rgba(245,240,255,0.55);
+  padding:0.3rem 0;border-bottom:0.5px solid rgba(201,168,76,0.1);
 }
 .week-readings li:last-child{border-bottom:none;}
 
 /* CHECKLIST */
 .checklist-intro{
   font-family:var(--serif);font-size:1.15rem;font-weight:300;
-  line-height:1.75;color:var(--jet);max-width:600px;
+  line-height:1.75;color:#F5F0FF;max-width:600px;
   border-left:2px solid var(--gold);padding-left:2rem;
   margin-bottom:3.5rem;
 }
 .check-items{display:flex;flex-direction:column;gap:1px;}
 .check-item{
-  background:var(--alabaster);padding:2.5rem 3rem;
+  background:#0A0A0F;padding:2.5rem 3rem;
   display:flex;align-items:flex-start;gap:2rem;
-  border-bottom:0.5px solid var(--border);
+  border-bottom:0.5px solid rgba(201,168,76,0.1);
   transition:background 0.25s;
 }
-.check-item:hover{background:#F2EDE4;}
+.check-item:hover{background:#1C1C2A;}
 .check-circle{
   width:36px;height:36px;border:1px solid var(--tan);
   border-radius:50%;flex-shrink:0;margin-top:0.2rem;
@@ -272,16 +278,16 @@ nav{
 .check-content{}
 .check-title{
   font-family:var(--serif);font-size:1.3rem;font-weight:400;
-  color:var(--jet);margin-bottom:0.5rem;
+  color:#F5F0FF;margin-bottom:0.5rem;
 }
 .check-title em{font-style:italic;}
-.check-desc{font-size:0.88rem;line-height:1.8;color:var(--muted);}
+.check-desc{font-size:0.88rem;line-height:1.8;color:rgba(245,240,255,0.55);}
 
 /* WELCOME ARTICLE */
 .mustard-pull{
   font-family:var(--serif);font-size:1.6rem;font-weight:300;
-  font-style:italic;color:var(--jet);line-height:1.45;
-  padding:3rem 3rem 3rem 4rem;background:#F2EDE4;
+  font-style:italic;color:#F5F0FF;line-height:1.45;
+  padding:3rem 3rem 3rem 4rem;background:#1C1C2A;
   border-left:3px solid var(--gold);margin:3rem 0;
 }
 
@@ -289,19 +295,19 @@ nav{
 .back-to-resources{
   display:inline-flex;align-items:center;gap:0.5rem;
   font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;margin:3rem 0 0 0;
+  color:rgba(245,240,255,0.55);text-decoration:none;margin:3rem 0 0 0;
   transition:color 0.2s;
 }
-.back-to-resources:hover{color:var(--jet);}
+.back-to-resources:hover{color:#F5F0FF;}
 .back-to-resources::before{content:'←';}
 
 /* NOTE BLOCK */
 .note-block{
-  padding:2rem 2.5rem;background:#F2EDE4;
+  padding:2rem 2.5rem;background:#1C1C2A;
   border-left:2px solid var(--sand);margin-bottom:3rem;
 }
-.note-block p{font-size:0.88rem;line-height:1.8;color:var(--muted);}
-.note-block strong{color:var(--jet);font-weight:400;}
+.note-block p{font-size:0.88rem;line-height:1.8;color:rgba(245,240,255,0.55);}
+.note-block strong{color:#F5F0FF;font-weight:400;}
 
 @media(max-width:900px){
   nav{padding:1.1rem 1.5rem;}
@@ -321,8 +327,8 @@ nav{
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="chapteroneeight.html"><em>Chapter</em>OneEight</a>
-  <a class="nav-back" href="chapteroneeight.html" id="nav-back-btn">Back to Home</a>
+  <a class="nav-logo" href="index.html"><em>Chapter</em>OneEight</a>
+  <a class="nav-back" href="index.html" id="nav-back-btn">Back to Home</a>
 </nav>
 
 <!-- ════════════════════════════════════════
@@ -425,16 +431,16 @@ nav{
       <p>Think about the mustard seed. It is one of the smallest seeds that exists — yet it grows into one of the largest trees. But what makes it powerful is not just its height. It is the depth of its roots. Roots so deep that no storm, no wind and no force can pull it out of the ground. That is the kind of faith we are building here at ChapterOneEight.</p>
       <p>That is why we are starting here. Not to just feel good about God — but to know Him so deeply that our faith becomes a ROOT. Something that holds us when life tries to shake us. Something that feeds us when seasons get dry. Something that cannot be moved no matter what comes.</p>
       <p>To do this we will be using an approach called <strong>Gospel Harmony</strong> — rather than reading one Gospel at a time we will walk through all four together following the actual timeline of Jesus' life and bringing in each writer as their account aligns. Same story. Four perspectives. One complete and unshakeable picture of Jesus.</p>
-      <p style="font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--jet);">Get ready sis. Your roots are about to go DEEP.</p>
+      <p style="font-family:var(--serif);font-size:1.1rem;font-weight:400;color:#F5F0FF;">Get ready sis. Your roots are about to go DEEP.</p>
     </div>
 
     <div style="border-top:0.5px solid var(--border);margin-top:4rem;padding-top:3rem;" class="reveal">
       <p class="article-eyebrow">What Is Included</p>
       <h3 class="section-heading" style="font-size:1.4rem;margin-top:0.5rem;">Your study packet contains three articles:</h3>
       <ul class="unique-list" style="margin-top:1.5rem;">
-        <li><strong style="color:var(--jet);font-weight:400;">Gospel Harmony — Meet the Writers</strong> — an introduction to Matthew, Mark, Luke and John. Who they were, who they wrote for and what makes each one unique.</li>
-        <li><strong style="color:var(--jet);font-weight:400;">Gospel Harmony Reading Plan</strong> — May 2026 through June 2026 — your weekly reading plan following the timeline of Jesus' life across all four Gospels simultaneously.</li>
-        <li><strong style="color:var(--jet);font-weight:400;">First Meeting Checklist</strong> — everything you need to do before we gather together.</li>
+        <li><strong style="color:#F5F0FF;font-weight:400;">Gospel Harmony — Meet the Writers</strong> — an introduction to Matthew, Mark, Luke and John. Who they were, who they wrote for and what makes each one unique.</li>
+        <li><strong style="color:#F5F0FF;font-weight:400;">Gospel Harmony Reading Plan</strong> — May 2026 through June 2026 — your weekly reading plan following the timeline of Jesus' life across all four Gospels simultaneously.</li>
+        <li><strong style="color:#F5F0FF;font-weight:400;">First Meeting Checklist</strong> — everything you need to do before we gather together.</li>
       </ul>
     </div>
   </div>
@@ -461,7 +467,7 @@ nav{
 
     <div class="note-block reveal" style="margin-top:3rem;">
       <p><strong>A note before you read:</strong> The information shared here has been gathered from trusted Bible study resources. This is a starting point — a foundation to help you understand who wrote each Gospel, why they wrote it, and the unique perspective each writer brings to the story of Jesus. Every source is cited so you can explore further. The goal is not to be the final word — but to open the door to a greater hunger for God's Word.</p>
-      <p style="margin-top:0.8rem;font-family:var(--serif);font-style:italic;color:var(--jet);">"Study this Book of Instruction continually." — Joshua 1:8 NLT</p>
+      <p style="margin-top:0.8rem;font-family:var(--serif);font-style:italic;color:#F5F0FF;">"Study this Book of Instruction continually." — Joshua 1:8 NLT</p>
     </div>
 
     <!-- MATTHEW -->
