@@ -1,11 +1,12 @@
-const CACHE = 'c18-v2';
+const CACHE = 'c18-v3';
 const ASSETS = [
   '/',
   '/index.html',
   '/c18-sword.html',
   '/c18-resources.html',
   '/c18-icon.png',
-  '/manifest.json'
+  '/manifest.json',
+  '/scriptures.json'
 ];
 
 // Install — cache all assets
