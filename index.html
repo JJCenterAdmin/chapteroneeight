@@ -1275,8 +1275,10 @@ window.addEventListener('load', () => {
   if(isIOS && !isStandalone){
     setTimeout(() => {
       const banner = document.getElementById('iosBanner');
-      if(banner) banner.style.display = 'flex';
-    }, 3000);
+      if(banner){
+        banner.style.cssText += ';display:flex !important;';
+      }
+    }, 1500);
   }
 });
 </script>
