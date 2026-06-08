@@ -140,17 +140,7 @@ body{
   border-top:0.5px solid var(--border);
   flex-shrink:0;position:relative;z-index:1;
 }
-.btn-signin{
-  display:block;width:100%;
-  font-family:var(--sans);font-size:0.6rem;
-  letter-spacing:0.2em;text-transform:uppercase;
-  text-align:center;color:var(--black);
-  background:var(--gold);border:none;
-  padding:0.65rem 1rem;cursor:pointer;
-  text-decoration:none;transition:opacity 0.2s;
-  margin-bottom:0.6rem;
-}
-.btn-signin:hover{opacity:0.85;}
+
 
 
 /* ── MAIN RIGHT PANEL ── */
@@ -438,6 +428,61 @@ body{
   .res-grid{grid-template-columns:1fr 1fr;}
   .psalm-cards{grid-template-columns:1fr;}
 }
+
+/* ── MOBILE BOTTOM NAV ── */
+.mobile-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(10,10,15,0.97);
+  backdrop-filter:blur(20px);
+  border-top:0.5px solid rgba(201,168,76,0.15);
+  z-index:500;
+  padding:0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom));
+}
+.mobile-nav-inner{
+  display:flex;justify-content:space-around;align-items:center;
+}
+.mobile-nav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:0.25rem;
+  background:none;border:none;cursor:pointer;
+  padding:0.4rem 0.8rem;font-family:var(--sans);
+  transition:all 0.2s;
+  flex:1;
+}
+.mobile-nav-icon{
+  font-size:1.1rem;line-height:1;
+  transition:transform 0.2s;
+}
+.mobile-nav-label{
+  font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(245,240,255,0.35);transition:color 0.2s;
+}
+.mobile-nav-btn.active .mobile-nav-label{color:var(--gold);}
+.mobile-nav-btn.active .mobile-nav-icon{transform:translateY(-2px);}
+.mobile-nav-btn:hover .mobile-nav-label{color:var(--white-dim);}
+
+/* Mobile layout overrides */
+@media(max-width:768px){
+  body{flex-direction:column;overflow:auto;height:auto;}
+  .sidebar{display:none;}
+  .main{
+    margin-left:0;width:100%;
+    height:auto;overflow:visible;
+    padding-bottom:70px;
+  }
+  .page{min-height:auto;}
+  .home-cards{display:none;}
+  .home-content{padding:3rem 1.5rem 2rem;}
+  .home-title{font-size:clamp(3rem,12vw,5rem);}
+  .page-hero{padding:2.5rem 1.5rem 2rem;}
+  .page-body{padding:1.5rem;}
+  .two-col,.path-cards{grid-template-columns:1fr;}
+  .res-grid{grid-template-columns:1fr 1fr;}
+  .psalm-cards{grid-template-columns:1fr;}
+  .mobile-nav{display:block;}
+  .home-glow-1{width:300px;height:300px;}
+  .home-glow-2{width:200px;height:200px;}
+}
 </style>
 </head>
 <body>
@@ -456,17 +501,16 @@ body{
     <button class="nav-link active" onclick="showPage('home')"><span class="nav-link-dot"></span>Home</button>
     <button class="nav-link" onclick="showPage('about')"><span class="nav-link-dot"></span>About</button>
     <button class="nav-link" onclick="showPage('sword')"><span class="nav-link-dot"></span>Our Sword</button>
-    <button class="nav-link" onclick="showPage('join')"><span class="nav-link-dot"></span>Join Us</button>
+    <!-- Join Us hidden until approval -->
     <button class="nav-link" onclick="showPage('resources')"><span class="nav-link-dot"></span>Resources</button>
 
     <div class="nav-divider"></div>
     <p class="nav-section-label">Connect</p>
-    <a class="nav-link-ext" href="https://www.vcmidc.org" target="_blank"><span class="nav-link-dot"></span>VCMIDC Church</a>
+
     <a class="nav-link-ext" href="https://toriroche.com" target="_blank"><span class="nav-link-dot"></span>ToriRoche.com</a>
   </nav>
 
   <div class="sidebar-bottom">
-    <a class="btn-signin" href="#">Sign In</a>
   </div>
 </aside>
 
@@ -485,7 +529,7 @@ body{
         <cite>Joshua 1:8 AMPC</cite>
       </blockquote>
       <div class="home-actions">
-        <a href="#" onclick="showPage('join');return false;" class="btn-gold">Join the Community</a>
+        <a href="SLACK_LINK_HERE" target="_blank" class="btn-gold">Join the Community</a>
         <a href="#" onclick="showPage('sword');return false;" class="btn-outline">Our Sword</a>
       </div>
     </div>
@@ -501,11 +545,12 @@ body{
         <div class="home-float-card-title">Our <em>Sword</em></div>
         <div class="home-float-card-sub">Search scripture</div>
       </div>
-      <div class="home-float-card" onclick="showPage('join')">
+      <div class="home-float-card" onclick="showPage('resources')">
         <div class="home-float-card-num">03</div>
-        <div class="home-float-card-title"><em>Join Us</em></div>
-        <div class="home-float-card-sub">Find your path</div>
+        <div class="home-float-card-title"><em>Resources</em></div>
+        <div class="home-float-card-sub">Study materials</div>
       </div>
+
     </div>
   </div>
 
@@ -594,7 +639,7 @@ body{
           <div class="path-detail"><span class="path-dash">—</span><span class="path-text"><strong>Where:</strong> Google Meet · link upon approval</span></div>
           <div class="path-detail"><span class="path-dash">—</span><span class="path-text"><strong>Who:</strong> Open to all · no cap</span></div>
           <div style="margin-top:1.5rem;position:relative;z-index:1;">
-            <a href="#" class="btn-gold">Apply to Join</a>
+            <a href="SLACK_LINK_HERE" target="_blank" class="btn-gold">Request to Join</a>
           </div>
         </div>
         <div class="path-card rr">
@@ -604,9 +649,9 @@ body{
           <p class="path-body">A monthly Saturday morning experience. DJ set, healthy brunch, testimony, and deep discussion about who God is. Music plays when you walk in. The Word comes when the food does.</p>
           <div class="path-detail"><span class="path-dash">—</span><span class="path-text"><strong>When:</strong> Monthly · Saturdays · 11am–2pm</span></div>
           <div class="path-detail"><span class="path-dash">—</span><span class="path-text"><strong>Where:</strong> Chevy Chase, MD · Penthouse</span></div>
-          <div class="path-detail"><span class="path-dash">—</span><span class="path-text"><strong>RSVP:</strong> Through VCMIDC · Capped at 12</span></div>
+          <div class="path-detail"><span class="path-dash">—</span><span class="path-text"><strong>Capacity:</strong> Limited · By invitation</span></div>
           <div style="margin-top:1.5rem;position:relative;z-index:1;">
-            <a href="https://www.vcmidc.org" target="_blank" class="btn-outline">RSVP Through Church</a>
+            <a href="#" class="btn-outline">Request to Join</a>
           </div>
         </div>
       </div>
@@ -660,10 +705,15 @@ function showPage(name){
     setTimeout(initReveal, 80);
   }
   // Update nav active state
-  const pages = ['home','about','sword','join','resources'];
+  const pages = ['home','about','sword','resources'];
   document.querySelectorAll('.nav-link').forEach((link, i) => {
     link.classList.toggle('active', pages[i] === name);
   });
+}
+
+function setMobileActive(btn){
+  document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 }
 
 function initReveal(){
@@ -691,5 +741,27 @@ window.addEventListener('load', () => {
   if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
 });
 </script>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-inner">
+    <button class="mobile-nav-btn active" onclick="showPage('home');setMobileActive(this)">
+      <span class="mobile-nav-icon">✦</span>
+      <span class="mobile-nav-label">Home</span>
+    </button>
+    <button class="mobile-nav-btn" onclick="showPage('about');setMobileActive(this)">
+      <span class="mobile-nav-icon">◎</span>
+      <span class="mobile-nav-label">About</span>
+    </button>
+    <button class="mobile-nav-btn" onclick="showPage('sword');setMobileActive(this)">
+      <span class="mobile-nav-icon">⚔</span>
+      <span class="mobile-nav-label">Our Sword</span>
+    </button>
+    <button class="mobile-nav-btn" onclick="showPage('resources');setMobileActive(this)">
+      <span class="mobile-nav-icon">📖</span>
+      <span class="mobile-nav-label">Resources</span>
+    </button>
+  </div>
+</nav>
 </body>
 </html>
