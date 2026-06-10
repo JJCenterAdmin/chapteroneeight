@@ -1070,7 +1070,7 @@ function showPage(id) {
     target.classList.add('active');
     window.scrollTo({top: 0, behavior: 'smooth'});
     setTimeout(initReveal, 100);
-    if(id === 'readingplan') setTimeout(function(){ if(window.populateCurrentWeek) window.populateCurrentWeek(); }, 80);
+    if(id === 'readingplan') setTimeout(function(){ if(window.populateCurrentWeek) window.populateCurrentWeek(); }, 200);
   }
   const backBtn = document.getElementById('nav-back-btn');
   if (id === 'hub') {
@@ -1108,6 +1108,7 @@ window.addEventListener('DOMContentLoaded', () => {
     showPage('welcome');
   } else if(hash === '#readingplan') {
     showPage('readingplan');
+    setTimeout(function(){ if(window.populateCurrentWeek) window.populateCurrentWeek(); }, 300);
   } else if(hash === '#spotify') {
     // Scroll to spotify card and highlight it
     setTimeout(() => {
@@ -1115,6 +1116,13 @@ window.addEventListener('DOMContentLoaded', () => {
       if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 300);
   }
+  // Populate current week if reading plan is visible on load
+  setTimeout(function(){
+    const rp = document.getElementById('readingplan-page');
+    if(rp && rp.classList.contains('active') && window.populateCurrentWeek){
+      window.populateCurrentWeek();
+    }
+  }, 350);
 });
 </script>
 
