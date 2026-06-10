@@ -1100,31 +1100,7 @@ window.addEventListener('load', initReveal);
 </script>
 
 
-<script>
-// Handle deep links from index page
-window.addEventListener('DOMContentLoaded', () => {
-  const hash = window.location.hash;
-  if(hash === '#welcome') {
-    showPage('welcome');
-  } else if(hash === '#readingplan') {
-    showPage('readingplan');
-    setTimeout(function(){ if(window.populateCurrentWeek) window.populateCurrentWeek(); }, 300);
-  } else if(hash === '#spotify') {
-    // Scroll to spotify card and highlight it
-    setTimeout(() => {
-      const el = document.getElementById('spotify');
-      if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 300);
-  }
-  // Populate current week if reading plan is visible on load
-  setTimeout(function(){
-    const rp = document.getElementById('readingplan-page');
-    if(rp && rp.classList.contains('active') && window.populateCurrentWeek){
-      window.populateCurrentWeek();
-    }
-  }, 350);
-});
-</script>
+
 
 <script>
 // ── CURRENT WEEK HERO ────────────────────────────────────────────────────────
@@ -1189,6 +1165,30 @@ window.populateCurrentWeek = function(){
   }
   if(dateEl) dateEl.textContent = 'Meeting · ' + c18FormatDate(w.date);
 };
+
+// Handle deep links from index page
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash;
+  if(hash === '#welcome') {
+    showPage('welcome');
+  } else if(hash === '#readingplan') {
+    showPage('readingplan');
+    setTimeout(function(){ if(window.populateCurrentWeek) window.populateCurrentWeek(); }, 300);
+  } else if(hash === '#spotify') {
+    // Scroll to spotify card and highlight it
+    setTimeout(() => {
+      const el = document.getElementById('spotify');
+      if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300);
+  }
+  // Populate current week if reading plan is visible on load
+  setTimeout(function(){
+    const rp = document.getElementById('readingplan-page');
+    if(rp && rp.classList.contains('active') && window.populateCurrentWeek){
+      window.populateCurrentWeek();
+    }
+  }, 350);
+});
 </script>
 </body>
 </html>
