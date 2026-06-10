@@ -151,12 +151,13 @@ nav{
   font-size:0.85rem;line-height:1.8;
   color:rgba(249,246,241,0.38);margin-top:1.2rem;max-width:380px;
 }
-.article-hero-img{overflow:hidden;position:relative;}
+.article-hero-img{overflow:hidden;position:relative;} #currentWeekHero{background:#0D0D14 !important;overflow:visible;} #currentWeekHero::after{display:none !important;}
 .article-hero-img img{width:100%;height:100%;object-fit:cover;opacity:0.5;}
 .article-hero-img::after{
   content:'';position:absolute;inset:0;
   background:linear-gradient(to right,var(--jet) 0%,transparent 40%);
 }
+#currentWeekHero::after{display:none !important;background:none !important;}
 
 /* ARTICLE BODY */
 .article-body{max-width:780px;margin:0 auto;padding:5rem 2rem 7rem;}
@@ -603,10 +604,10 @@ nav{
       <p class="article-sub">From the beginning of creation to the resurrection of Jesus Christ.</p>
     </div>
     <div class="article-hero-img" id="currentWeekHero" style="background:#0D0D14;border-radius:12px;padding:2rem 2.2rem;display:flex;flex-direction:column;justify-content:center;">
-      <p id="heroWeekLabel" style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:#C9922A;margin-bottom:0.6rem;font-family:'Jost',sans-serif;">Loading...</p>
-      <h3 id="heroWeekTheme" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.6rem;font-weight:400;color:#F5F0FF;margin-bottom:1rem;line-height:1.3;"></h3>
+      <p id="heroWeekLabel" style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:#C9922A !important;margin-bottom:0.6rem;font-family:Jost,sans-serif;">Loading...</p>
+      <h3 id="heroWeekTheme" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.6rem;font-weight:400;color:#F5F0FF !important;margin-bottom:1rem;line-height:1.3;"></h3>
       <ul id="heroWeekReadings" style="list-style:none;padding:0;margin:0;border-left:2px solid rgba(201,168,76,0.3);padding-left:1rem;"></ul>
-      <p id="heroWeekDate" style="font-size:0.72rem;color:rgba(245,240,255,0.45);margin-top:1.2rem;font-family:'Jost',sans-serif;"></p>
+      <p id="heroWeekDate" style="font-size:0.72rem;color:rgba(245,240,255,0.6) !important;margin-top:1.2rem;font-family:Jost,sans-serif;"></p>
     </div>
   </div>
 
