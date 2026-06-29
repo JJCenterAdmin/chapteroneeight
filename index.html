@@ -762,7 +762,8 @@ body{
     <button class="nav-link" onclick="showPage('about')"><span class="nav-link-dot"></span>About</button>
     <button class="nav-link" onclick="showPage('sword')"><span class="nav-link-dot"></span>Our Sword</button>
     <!-- Join Us hidden until approval -->
-    <button class="nav-link" onclick="showPage('resources')"><span class="nav-link-dot"></span>Resources</button>
+    <button class="nav-link" onclick="showPage('resources')"><span class="nav-link-dot"></span>Monday Bible Study</button>
+    <button class="nav-link" onclick="showPage('bookclub')"><span class="nav-link-dot"></span>Thursday Book Club</button>
 
     <div class="nav-divider"></div>
     <p class="nav-section-label">Connect</p>
@@ -836,12 +837,21 @@ body{
           <div class="fan-card-arrow" onclick="showPage('sword');event.stopPropagation()">Full Search →</div>
         </div>
       </div>
-      <!-- RIGHT: Resources -->
+      <!-- RIGHT: Monday Bible Study -->
       <div class="fan-card fan-right" onclick="showPage('resources');document.getElementById('main').scrollTop=0;">
         <div class="fan-card-inner">
           <div class="fan-card-num">03</div>
-          <div class="fan-card-title"><em>Resources</em></div>
-          <div class="fan-card-sub">Gospel Harmony study materials and reading plans.</div>
+          <div class="fan-card-title">Monday Night <em>Bible Study</em></div>
+          <div class="fan-card-sub">Gospel Harmony study materials, reading plans, and group resources.</div>
+          <div class="fan-card-arrow">Explore →</div>
+        </div>
+      </div>
+      <!-- CARD 4: Thursday Book Club -->
+      <div class="fan-card fan-right" style="margin-left:0.8rem;" onclick="showPage('bookclub');document.getElementById('main').scrollTop=0;">
+        <div class="fan-card-inner">
+          <div class="fan-card-num">04</div>
+          <div class="fan-card-title">Thursday <em>Book Club</em></div>
+          <div class="fan-card-sub">DMV Café — in-person book club gathering. Details coming soon.</div>
           <div class="fan-card-arrow">Explore →</div>
         </div>
       </div>
@@ -976,9 +986,9 @@ body{
   <!-- RESOURCES -->
   <div class="page" id="page-resources">
     <div class="page-hero">
-      <p class="eyebrow reveal">Study Resources</p>
-      <h2 class="sec-title reveal d1">Everything for your <em>growth.</em></h2>
-      <p class="sec-body reveal d2">Gospel Harmony study materials, reading plans, and more. Study materials open to all.</p>
+      <p class="eyebrow reveal">Monday Night · Bible Study Group</p>
+      <h2 class="sec-title reveal d1">Monday Night <em>Bible Study.</em></h2>
+      <p class="sec-body reveal d2">Gospel Harmony study materials, reading plans, and group resources. Open to all.</p>
     </div>
     <div class="page-body">
       <div class="res-grid">
@@ -997,7 +1007,7 @@ body{
         <a href="c18-resources.html#readingplan" class="res-card reveal d2">
           <div class="res-num">03</div>
           <div class="res-title">Reading <em>Plan</em></div>
-          <div class="res-desc">Gospel Harmony reading plan May through June 2026. Seven weeks across all four Gospels.</div>
+          <div class="res-desc">35 Weeks — The Complete Gospel Harmony. From creation to resurrection across all four Gospels.</div>
           <span class="res-arrow">View</span>
         </a>
         <a href="c18-resources.html" class="res-card reveal d3" style="background:rgba(201,168,76,0.05);border:0.5px solid rgba(201,168,76,0.25);">
@@ -1007,6 +1017,44 @@ body{
           <span class="res-arrow">View All</span>
         </a>
       </div>
+    </div>
+  </div>
+
+  <!-- THURSDAY BOOK CLUB PAGE -->
+  <div class="page" id="page-bookclub">
+    <div class="page-hero">
+      <p class="eyebrow reveal">Thursday · In Person · DMV Café</p>
+      <h2 class="sec-title reveal d1">Thursday <em>Book Club.</em></h2>
+      <p class="sec-body reveal d2">An in-person gathering over good food and the Word. Details and session schedule coming soon.</p>
+    </div>
+    <div class="page-body">
+
+      <!-- UPCOMING SESSION HERO -->
+      <div style="background:#12121A;border:0.5px solid rgba(201,168,76,0.2);padding:2.5rem 2.5rem 2rem;margin-bottom:2rem;" class="reveal">
+        <p style="font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;font-family:var(--sans);">Up Next · Session Details</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;">
+          <div>
+            <p style="font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,255,0.35);margin-bottom:0.4rem;font-family:var(--sans);">Date</p>
+            <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;color:#F5F0FF;" id="thursdayDate">Coming Soon</p>
+          </div>
+          <div>
+            <p style="font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,255,0.35);margin-bottom:0.4rem;font-family:var(--sans);">Location</p>
+            <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;color:#F5F0FF;" id="thursdayCafe">TBA</p>
+            <p style="font-size:0.72rem;color:rgba(245,240,255,0.4);margin-top:0.2rem;" id="thursdayAddress"></p>
+          </div>
+          <div>
+            <p style="font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,255,0.35);margin-bottom:0.4rem;font-family:var(--sans);">Expected Reading</p>
+            <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;color:#F5F0FF;" id="thursdayReading">TBA</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMING SOON MESSAGE -->
+      <div class="quote-block reveal">
+        <p class="quote-text">"The Book of the Law shall not depart out of thy mouth; but thou shalt meditate therein day and night, that thou mayest observe to do according to all that is written therein."</p>
+        <span class="quote-ref">Joshua 1:8 AMPC · Full schedule coming soon</span>
+      </div>
+
     </div>
   </div>
 
@@ -1059,7 +1107,7 @@ function showPage(name){
     setTimeout(initReveal, 80);
   }
   // Update nav
-  const pages = ['home','about','sword','resources'];
+  const pages = ['home','about','sword','resources','bookclub'];
   document.querySelectorAll('.nav-link').forEach((link, i) => {
     link.classList.toggle('active', pages[i] === name);
   });
@@ -1207,7 +1255,11 @@ window.addEventListener('load', () => {
     </button>
     <button class="mobile-nav-btn" onclick="showPage('resources');setMobileActive(this)">
       <span class="mobile-nav-icon">📖</span>
-      <span class="mobile-nav-label">Resources</span>
+      <span class="mobile-nav-label">Bible Study</span>
+    </button>
+    <button class="mobile-nav-btn" onclick="showPage('bookclub');setMobileActive(this)">
+      <span class="mobile-nav-icon">☕</span>
+      <span class="mobile-nav-label">Book Club</span>
     </button>
   </div>
 </nav>
