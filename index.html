@@ -1170,7 +1170,7 @@ body{
   <!-- ── JUST ANOTHER LOVE STORY ── -->
   <div class="page" id="page-substack">
     <div class="page-hero">
-      <p class="eyebrow reveal">Substack · The Calligraphy of Surrender</p>
+      <p class="eyebrow reveal">Substack · Just Another Love Story</p>
       <h2 class="sec-title reveal d1">Just Another <em>Love Story.</em></h2>
       <p class="sec-body reveal d2">Welcome to my space — a corner of the internet where faith, love, and everyday life meet.</p>
     </div>
@@ -1402,11 +1402,11 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape') closeHomeModa
         excerpt.textContent = (tmp.textContent||'').substring(0,200).trim() + '...';
       }
       if(link) link.href = post.link || 'https://itstoriroche.substack.com';
-      if(cardSub) cardSub.textContent = post.title ? post.title.substring(0,60) + (post.title.length>60?'...':'') : 'Latest post from The Calligraphy of Surrender';
+      if(cardSub) cardSub.textContent = post.title ? post.title.substring(0,60) + (post.title.length>60?'...':'') : 'Latest post from Just Another Love Story';
     })
     .catch(function(){
       var sub = document.getElementById('substackCardSub');
-      if(sub) sub.textContent = 'The Calligraphy of Surrender — Read on Substack';
+      if(sub) sub.textContent = 'Just Another Love Story — Read on Substack';
     });
 })();
 
