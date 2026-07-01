@@ -623,7 +623,7 @@ body{
   .page.active{display:block;padding-bottom:80px;}
   .home-cards{display:none;}
   .home-top{padding:2.5rem 1.5rem 1.5rem;}
-  .fan-cards{flex-direction:column;align-items:center;padding:1.5rem;}
+  .fan-cards{flex-direction:row;}
   .fan-card,.fan-center{width:90%;min-height:auto;transform:none !important;margin:0 0 1rem 0;}
   .fan-center{width:90%;}
   .home-top{padding:2.5rem 1.5rem 1.5rem;}
@@ -729,9 +729,8 @@ body{
 /* Mobile fan */
 @media(max-width:768px){
   .home-top{padding:2.5rem 1.5rem 1.5rem;}
-  .fan-cards{flex-direction:column;align-items:center;padding:1rem 1.5rem 2rem;gap:0.8rem;}
-  .fan-card,.fan-center{width:100%;min-height:auto;transform:none !important;margin:0;}
-  .fan-center{width:100%;}
+  .fan-cards{flex-direction:row;}
+  .fan-card,.fan-center{min-height:auto;}
 }
 
 .btn-install{
@@ -743,6 +742,72 @@ body{
   transition:all 0.2s;
 }
 .btn-install:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── SIX-CARD FAN — desktop ── */
+#fanCards {
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:0.5rem 1rem 2rem;
+  position:relative;z-index:1;
+  gap:0;
+  flex-wrap:nowrap;
+  overflow:visible;
+}
+/* Each card slightly smaller to fit 6 */
+#fanCards .fan-card {
+  width:175px;
+  min-height:240px;
+  flex-shrink:0;
+}
+/* Fan rotations — left cluster */
+.fan-c1 { transform:rotate(-8deg) translateX(28px) translateY(24px); z-index:1; margin-right:-22px; }
+.fan-c2 { transform:rotate(-4deg) translateX(14px) translateY(10px); z-index:2; margin-right:-18px; border-color:rgba(201,168,76,0.4); }
+/* Center card */
+.fan-c3 { transform:scale(1.07); z-index:3; border-color:var(--gold); background:var(--black-soft); width:195px; min-height:275px; margin-right:-18px; }
+/* Right cluster */
+.fan-c4 { transform:rotate(4deg) translateX(-14px) translateY(10px); z-index:2; margin-right:-22px; }
+.fan-c5 { transform:rotate(8deg) translateX(-28px) translateY(24px); z-index:1; margin-right:-22px; }
+.fan-c6 { transform:rotate(12deg) translateX(-40px) translateY(36px); z-index:0; }
+
+/* Hover any card — bring forward */
+#fanCards .fan-card:hover {
+  transform:rotate(0deg) translateY(-14px) scale(1.05);
+  border-color:var(--gold);
+  z-index:10;
+}
+.fan-c3:hover { transform:translateY(-14px) scale(1.09); }
+
+/* ── MOBILE: horizontal scroll row ── */
+@media(max-width:768px){
+  #fanCards {
+    flex-direction:row !important;
+    overflow-x:auto !important;
+    overflow-y:visible !important;
+    justify-content:flex-start !important;
+    align-items:center !important;
+    padding:1rem 1.5rem 1.5rem;
+    gap:0.8rem;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    flex-wrap:nowrap !important;
+  }
+  #fanCards .fan-card,
+  #fanCards .fan-c1,
+  #fanCards .fan-c2,
+  #fanCards .fan-c3,
+  #fanCards .fan-c4,
+  #fanCards .fan-c5,
+  #fanCards .fan-c6 {
+    transform:none !important;
+    margin:0 !important;
+    width:72vw !important;
+    min-width:72vw !important;
+    min-height:auto !important;
+    scroll-snap-align:center;
+    flex-shrink:0;
+  }
+}
 </style>
 </head>
 <body>
@@ -761,15 +826,13 @@ body{
     <button class="nav-link active" onclick="showPage('home')"><span class="nav-link-dot"></span>Home</button>
     <button class="nav-link" onclick="showPage('about')"><span class="nav-link-dot"></span>About</button>
     <button class="nav-link" onclick="showPage('sword')"><span class="nav-link-dot"></span>Our Sword</button>
-    <!-- Join Us hidden until approval -->
-    <button class="nav-link" onclick="showPage('resources')"><span class="nav-link-dot"></span>Monday Bible Study</button>
+    <button class="nav-link" onclick="showPage('biblestudy')"><span class="nav-link-dot"></span>Monday Bible Study</button>
     <button class="nav-link" onclick="showPage('bookclub')"><span class="nav-link-dot"></span>Thursday Book Club</button>
-
+    <button class="nav-link" onclick="showPage('substack')"><span class="nav-link-dot"></span>Just Another Love Story</button>
+    <button class="nav-link" onclick="showPage('resources')"><span class="nav-link-dot"></span>Resources</button>
     <div class="nav-divider"></div>
     <p class="nav-section-label">Connect</p>
-
     <a class="nav-link-ext" href="https://toriroche.com" target="_blank"><span class="nav-link-dot"></span>ToriRoche.com</a>
-
   </nav>
 
 <div class="sidebar-bottom"></div>
@@ -790,7 +853,6 @@ body{
         <cite>Joshua 1:8 AMPC</cite>
       </blockquote>
       <div class="home-actions">
-        <a href="mailto:hellotoriroche@gmail.com?subject=I%20want%20to%20Join%20C18" target="_blank" class="btn-gold">Join the Community</a>
         <a href="#" onclick="showPage('sword');return false;" class="btn-outline">Our Sword</a>
         <button class="btn-install" id="installBtn" onclick="showInstallHelp()" style="display:none;">
           📱 Add to Home Screen
@@ -812,10 +874,10 @@ body{
         <button onclick="document.getElementById('installHelp').style.display='none'" style="background:none;border:none;color:rgba(245,240,255,0.4);font-size:0.7rem;cursor:pointer;font-family:'Jost',sans-serif;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;">Dismiss</button>
       </div>
     </div>
-    <!-- THREE FANNED CARDS -->
-    <div class="fan-cards">
-      <!-- LEFT: About -->
-      <div class="fan-card fan-left" onclick="showPage('about');document.getElementById('main').scrollTop=0;">
+    <!-- SIX CARDS -->
+    <!-- Desktop: fanned left/center/right visible, others peek; Mobile: horizontal scroll -->
+    <div class="fan-cards" id="fanCards">
+      <div class="fan-card fan-c1" onclick="showPage('about');document.getElementById('main').scrollTop=0;">
         <div class="fan-card-inner">
           <div class="fan-card-num">01</div>
           <div class="fan-card-title"><em>About</em></div>
@@ -823,41 +885,54 @@ body{
           <div class="fan-card-arrow">Explore →</div>
         </div>
       </div>
-      <!-- CENTER: Our Sword with live search -->
-      <div class="fan-card fan-center" id="swordCard">
+      <div class="fan-card fan-c2" id="swordCard">
         <div class="fan-card-inner">
           <div class="fan-card-num">02</div>
           <div class="fan-card-title">Our <em>Sword</em></div>
           <div class="fan-card-sub">Search scripture by feeling, theme or keyword.</div>
           <div class="fan-search-wrap">
             <span class="fan-search-icon">⌕</span>
-            <input type="text" id="homeSearch" placeholder="Search by keyword — try 'anxiety', 'healing', 'fear'..." autocomplete="off" onclick="event.stopPropagation()"/>
+            <input type="text" id="homeSearch" placeholder="Try 'anxiety', 'healing'..." autocomplete="off" onclick="event.stopPropagation()"/>
           </div>
           <div class="fan-results" id="homeResults"></div>
           <div class="fan-card-arrow" onclick="showPage('sword');event.stopPropagation()">Full Search →</div>
         </div>
       </div>
-      <!-- RIGHT: Monday Bible Study -->
-      <div class="fan-card fan-right" onclick="showPage('resources');document.getElementById('main').scrollTop=0;">
+      <div class="fan-card fan-c3" onclick="showPage('biblestudy');document.getElementById('main').scrollTop=0;">
         <div class="fan-card-inner">
           <div class="fan-card-num">03</div>
           <div class="fan-card-title">Monday Night <em>Bible Study</em></div>
-          <div class="fan-card-sub">Gospel Harmony study materials, reading plans, and group resources.</div>
-          <div class="fan-card-arrow">Explore →</div>
+          <div class="fan-card-sub" id="bsCardSub">Up next — loading session details...</div>
+          <div class="fan-card-arrow">View Details →</div>
         </div>
       </div>
-      <!-- CARD 4: Thursday Book Club -->
-      <div class="fan-card fan-right" style="margin-left:0.8rem;" onclick="showPage('bookclub');document.getElementById('main').scrollTop=0;">
+      <div class="fan-card fan-c4" onclick="showPage('bookclub');document.getElementById('main').scrollTop=0;">
         <div class="fan-card-inner">
           <div class="fan-card-num">04</div>
           <div class="fan-card-title">Thursday <em>Book Club</em></div>
-          <div class="fan-card-sub">DMV Café — in-person book club gathering. Details coming soon.</div>
-          <div class="fan-card-arrow">Explore →</div>
+          <div class="fan-card-sub">DMV Café — in-person gathering. See upcoming session details.</div>
+          <div class="fan-card-arrow">View Details →</div>
+        </div>
+      </div>
+      <div class="fan-card fan-c5" onclick="showPage('substack');document.getElementById('main').scrollTop=0;">
+        <div class="fan-card-inner">
+          <div class="fan-card-num">05</div>
+          <div class="fan-card-title">Just Another <em>Love Story</em></div>
+          <div class="fan-card-sub" id="substackCardSub">Loading latest post...</div>
+          <div class="fan-card-arrow">Read on Substack →</div>
+        </div>
+      </div>
+      <div class="fan-card fan-c6" onclick="showPage('resources');document.getElementById('main').scrollTop=0;">
+        <div class="fan-card-inner">
+          <div class="fan-card-num">06</div>
+          <div class="fan-card-title"><em>Resources</em></div>
+          <div class="fan-card-sub">C18 worship playlists — Apple Music and Spotify.</div>
+          <div class="fan-card-arrow">Listen →</div>
         </div>
       </div>
     </div>
 
-    <!-- HOME PSALM MODAL -->
+    <!-- HOME PSALM MODAL    <!-- HOME PSALM MODAL -->
     <div class="home-modal-overlay" id="homeModal" onclick="if(event.target===this)closeHomeModal()">
       <div class="home-modal-box">
         <div class="home-modal-header">
@@ -983,78 +1058,160 @@ body{
     </div>
   </div>
 
-  <!-- RESOURCES -->
-  <div class="page" id="page-resources">
+  <!-- ── MONDAY NIGHT BIBLE STUDY ── -->
+  <div class="page" id="page-biblestudy">
     <div class="page-hero">
-      <p class="eyebrow reveal">Monday Night · Bible Study Group</p>
+      <p class="eyebrow reveal">Virtual · Every Monday · 7:30pm EST</p>
       <h2 class="sec-title reveal d1">Monday Night <em>Bible Study.</em></h2>
-      <p class="sec-body reveal d2">Gospel Harmony study materials, reading plans, and group resources. Open to all.</p>
-    </div>
-    <div class="page-body">
-      <div class="res-grid">
-        <a href="c18-resources.html#welcome" class="res-card reveal">
-          <div class="res-num">01</div>
-          <div class="res-title">Welcome to <em>Bible Study</em></div>
-          <div class="res-desc">Start here. Understand our approach and what to expect from ChapterOneEight.</div>
-          <span class="res-arrow">Read</span>
-        </a>
-        <a href="c18-resources.html#spotify" class="res-card reveal d1">
-          <div class="res-num">02</div>
-          <div class="res-title">Spotify <em>Playlist</em></div>
-          <div class="res-desc">Our ChapterOneEight worship playlist — the curated soundtrack to your growth, available on Spotify.</div>
-          <span class="res-arrow">Listen</span>
-        </a>
-        <a href="c18-resources.html#readingplan" class="res-card reveal d2">
-          <div class="res-num">03</div>
-          <div class="res-title">Reading <em>Plan</em></div>
-          <div class="res-desc">35 Weeks — The Complete Gospel Harmony. From creation to resurrection across all four Gospels.</div>
-          <span class="res-arrow">View</span>
-        </a>
-        <a href="c18-resources.html" class="res-card reveal d3" style="background:rgba(201,168,76,0.05);border:0.5px solid rgba(201,168,76,0.25);">
-          <div class="res-num" style="color:rgba(201,168,76,0.5);">+</div>
-          <div class="res-title">See <em>More</em></div>
-          <div class="res-desc">Playlists, study guides, reading plans and everything for your growth.</div>
-          <span class="res-arrow">View All</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- THURSDAY BOOK CLUB PAGE -->
-  <div class="page" id="page-bookclub">
-    <div class="page-hero">
-      <p class="eyebrow reveal">Thursday · In Person · DMV Café</p>
-      <h2 class="sec-title reveal d1">Thursday <em>Book Club.</em></h2>
-      <p class="sec-body reveal d2">An in-person gathering over good food and the Word. Details and session schedule coming soon.</p>
+      <p class="sec-body reveal d2">The Gospel Harmony — reading through the life of Jesus across all four Gospels simultaneously.</p>
     </div>
     <div class="page-body">
 
-      <!-- UPCOMING SESSION HERO -->
-      <div style="background:#12121A;border:0.5px solid rgba(201,168,76,0.2);padding:2.5rem 2.5rem 2rem;margin-bottom:2rem;" class="reveal">
-        <p style="font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;font-family:var(--sans);">Up Next · Session Details</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;">
+      <!-- UP NEXT -->
+      <div style="background:var(--black-mid);border:0.5px solid var(--border);padding:2rem 2.5rem;margin-bottom:2.5rem;" class="reveal">
+        <p style="font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-family:var(--sans);">Up Next · Session Details</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-bottom:1.5rem;">
           <div>
-            <p style="font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,255,0.35);margin-bottom:0.4rem;font-family:var(--sans);">Date</p>
-            <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;color:#F5F0FF;" id="thursdayDate">Coming Soon</p>
+            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Date</p>
+            <p style="font-family:var(--serif);font-size:1.15rem;color:var(--white);">Monday, Jul 6, 2026</p>
           </div>
           <div>
-            <p style="font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,255,0.35);margin-bottom:0.4rem;font-family:var(--sans);">Location</p>
-            <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;color:#F5F0FF;" id="thursdayCafe">TBA</p>
-            <p style="font-size:0.72rem;color:rgba(245,240,255,0.4);margin-top:0.2rem;" id="thursdayAddress"></p>
+            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Location</p>
+            <p style="font-family:var(--serif);font-size:1.15rem;color:var(--white);">Virtual — Check the Invite</p>
+            <button onclick="openJoinModal()" style="margin-top:0.6rem;font-family:var(--sans);font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--black);background:var(--gold);border:none;padding:0.5rem 1rem;cursor:pointer;">I Want to Join</button>
           </div>
           <div>
-            <p style="font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,255,0.35);margin-bottom:0.4rem;font-family:var(--sans);">Expected Reading</p>
-            <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;color:#F5F0FF;" id="thursdayReading">TBA</p>
+            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Expected Reading</p>
+            <p style="font-family:var(--serif);font-size:1rem;color:var(--white);">Week 5 — The Early Days</p>
+            <p style="font-size:0.75rem;color:var(--white-faint);margin-top:0.3rem;line-height:1.6;">Luke 2:8-20 · Luke 2:21-40<br>Matthew 2:1-12 · Matthew 2:13-23<br>Luke 2:41-52</p>
           </div>
         </div>
       </div>
 
-      <!-- COMING SOON MESSAGE -->
-      <div class="quote-block reveal">
-        <p class="quote-text">"The Book of the Law shall not depart out of thy mouth; but thou shalt meditate therein day and night, that thou mayest observe to do according to all that is written therein."</p>
-        <span class="quote-ref">Joshua 1:8 AMPC · Full schedule coming soon</span>
+      <!-- FULL READING PLAN -->
+      <p style="font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-family:var(--sans);" class="reveal">Full Reading Plan · 35 Weeks</p>
+      <a href="c18-resources.html#readingplan" class="btn-gold reveal" style="margin-bottom:2rem;display:inline-block;">View Full Reading Plan →</a>
+
+    </div>
+  </div>
+
+  <!-- ── THURSDAY BOOK CLUB ── -->
+  <div class="page" id="page-bookclub">
+    <div class="page-hero">
+      <p class="eyebrow reveal">Thursday · In Person · DMV Café</p>
+      <h2 class="sec-title reveal d1">Thursday <em>Book Club.</em></h2>
+      <p class="sec-body reveal d2">Weekly in-person gatherings over good conversation, faith, and the Word. 7pm–8pm every Thursday.</p>
+    </div>
+    <div class="page-body">
+
+      <!-- UP NEXT -->
+      <div style="background:var(--black-mid);border:0.5px solid var(--border);padding:2rem 2.5rem;margin-bottom:2.5rem;" class="reveal">
+        <p style="font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-family:var(--sans);">Up Next · Session Details</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1.5rem;">
+          <div>
+            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Session</p>
+            <p style="font-family:var(--serif);font-size:1.15rem;color:var(--white);" id="thursdaySession">Session 1</p>
+          </div>
+          <div>
+            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Date</p>
+            <p style="font-family:var(--serif);font-size:1.15rem;color:var(--white);" id="thursdayDate">Thu, Jul 9, 2026</p>
+          </div>
+          <div>
+            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Location</p>
+            <p style="font-family:var(--serif);font-size:1rem;color:var(--white);" id="thursdayLocation">Café — Details will be shared in our text group</p>
+          </div>
+          <div>
+            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Expected Reading</p>
+            <p style="font-family:var(--serif);font-size:1rem;color:var(--white);" id="thursdayReading">TBD</p>
+          </div>
+        </div>
       </div>
 
+      <!-- FULL SCHEDULE -->
+      <p style="font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-family:var(--sans);" class="reveal">Full Schedule</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);" class="reveal">
+        <div style="background:var(--black);padding:1.5rem 1.8rem;border-bottom:0.5px solid var(--border);">
+          <p style="font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;font-family:var(--sans);">Session 1</p>
+          <p style="font-family:var(--serif);font-size:1.05rem;color:var(--white);margin-bottom:0.3rem;">Thursday, Jul 9, 2026</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);">7pm–8pm · Café — Details in text group</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);margin-top:0.3rem;">Expected Reading: TBD</p>
+        </div>
+        <div style="background:var(--black);padding:1.5rem 1.8rem;border-bottom:0.5px solid var(--border);">
+          <p style="font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;font-family:var(--sans);">Session 2</p>
+          <p style="font-family:var(--serif);font-size:1.05rem;color:var(--white);margin-bottom:0.3rem;">Thursday, Jul 16, 2026</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);">7pm–8pm · Café — Details in text group</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);margin-top:0.3rem;">Expected Reading: TBD</p>
+        </div>
+        <div style="background:var(--black);padding:1.5rem 1.8rem;border-bottom:0.5px solid var(--border);">
+          <p style="font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;font-family:var(--sans);">Session 3</p>
+          <p style="font-family:var(--serif);font-size:1.05rem;color:var(--white);margin-bottom:0.3rem;">Thursday, Jul 23, 2026</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);">7pm–8pm · Café — Details in text group</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);margin-top:0.3rem;">Expected Reading: TBD</p>
+        </div>
+        <div style="background:var(--black);padding:1.5rem 1.8rem;border-bottom:0.5px solid var(--border);">
+          <p style="font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;font-family:var(--sans);">Session 4</p>
+          <p style="font-family:var(--serif);font-size:1.05rem;color:var(--white);margin-bottom:0.3rem;">Thursday, Jul 30, 2026</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);">7pm–8pm · Café — Details in text group</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);margin-top:0.3rem;">Expected Reading: TBD</p>
+        </div>
+        <div style="background:var(--black);padding:1.5rem 1.8rem;border-bottom:0.5px solid var(--border);">
+          <p style="font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;font-family:var(--sans);">Session 5</p>
+          <p style="font-family:var(--serif);font-size:1.05rem;color:var(--white);margin-bottom:0.3rem;">Thursday, Aug 6, 2026</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);">7pm–8pm · Café — Details in text group</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);margin-top:0.3rem;">Expected Reading: TBD</p>
+        </div>
+        <div style="background:var(--black-soft);padding:1.5rem 1.8rem;border:0.5px solid rgba(201,168,76,0.25);">
+          <p style="font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;font-family:var(--sans);">Session 6 · Brunch ✦</p>
+          <p style="font-family:var(--serif);font-size:1.05rem;color:var(--white);margin-bottom:0.3rem;">Saturday, Aug 15, 2026</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);">11am–1pm · Chevy Chase, MD — Details in text group</p>
+          <p style="font-size:0.75rem;color:var(--white-faint);margin-top:0.3rem;">Expected Reading: TBD</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── JUST ANOTHER LOVE STORY ── -->
+  <div class="page" id="page-substack">
+    <div class="page-hero">
+      <p class="eyebrow reveal">Substack · The Calligraphy of Surrender</p>
+      <h2 class="sec-title reveal d1">Just Another <em>Love Story.</em></h2>
+      <p class="sec-body reveal d2">Welcome to my space — a corner of the internet where faith, love, and everyday life meet.</p>
+    </div>
+    <div class="page-body">
+      <div id="substackPost" style="background:var(--black-mid);border:0.5px solid var(--border);padding:2rem 2.5rem;margin-bottom:2rem;" class="reveal">
+        <p style="font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-family:var(--sans);">Most Recent Post</p>
+        <p id="substackPostTitle" style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--white);margin-bottom:0.5rem;">Loading...</p>
+        <p id="substackPostDate" style="font-size:0.65rem;color:var(--white-faint);margin-bottom:1rem;font-family:var(--sans);letter-spacing:0.1em;"></p>
+        <p id="substackPostExcerpt" style="font-size:0.88rem;line-height:1.8;color:rgba(245,240,255,0.7);margin-bottom:1.5rem;"></p>
+        <a id="substackPostLink" href="https://itstoriroche.substack.com" target="_blank" class="btn-gold" style="display:inline-block;">Read Full Post ↗</a>
+      </div>
+      <a href="https://itstoriroche.substack.com" target="_blank" class="btn-outline reveal" style="display:inline-block;">Visit Substack Homepage ↗</a>
+    </div>
+  </div>
+
+  <!-- ── RESOURCES ── -->
+  <div class="page" id="page-resources">
+    <div class="page-hero">
+      <p class="eyebrow reveal">C18 · Playlists</p>
+      <h2 class="sec-title reveal d1"><em>Resources.</em></h2>
+      <p class="sec-body reveal d2">Our ChapterOneEight worship playlists — the curated soundtrack to your growth.</p>
+    </div>
+    <div class="page-body">
+      <div class="res-grid">
+        <a href="https://music.apple.com/us/playlist/chapter-one-eight/pl.u-8aAVo9jtaRg77e" target="_blank" class="res-card reveal">
+          <div class="res-num">01</div>
+          <div class="res-title">Apple Music <em>Playlist</em></div>
+          <div class="res-desc">Our ChapterOneEight worship playlist on Apple Music — intentional, curated to worship, motivate and remind you of who God says you are.</div>
+          <span class="res-arrow">Listen on Apple Music</span>
+        </a>
+        <a href="https://open.spotify.com/playlist/1mKm8fGm9dRZQRjP0YRXAD?si=rZ5wNXlPQKOBAHuT9FOnHw" target="_blank" class="res-card reveal d1">
+          <div class="res-num">02</div>
+          <div class="res-title">Spotify <em>Playlist</em></div>
+          <div class="res-desc">The same curated soundtrack to your growth, available on Spotify wherever you listen.</div>
+          <span class="res-arrow">Listen on Spotify</span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -1107,7 +1264,7 @@ function showPage(name){
     setTimeout(initReveal, 80);
   }
   // Update nav
-  const pages = ['home','about','sword','resources','bookclub'];
+  const pages = ['home','about','sword','biblestudy','bookclub','substack','resources'];
   document.querySelectorAll('.nav-link').forEach((link, i) => {
     link.classList.toggle('active', pages[i] === name);
   });
@@ -1198,6 +1355,86 @@ function closeHomeModal(){
 
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeHomeModal(); });
 
+// ── THURSDAY AUTO-UPDATE ──
+(function(){
+  var THURSDAY = [
+    {session:"Session 1", date:"2026-07-09", time:"7pm–8pm", location:"Café — Details will be shared in our text group", reading:"TBD"},
+    {session:"Session 2", date:"2026-07-16", time:"7pm–8pm", location:"Café — Details will be shared in our text group", reading:"TBD"},
+    {session:"Session 3", date:"2026-07-23", time:"7pm–8pm", location:"Café — Details will be shared in our text group", reading:"TBD"},
+    {session:"Session 4", date:"2026-07-30", time:"7pm–8pm", location:"Café — Details will be shared in our text group", reading:"TBD"},
+    {session:"Session 5", date:"2026-08-06", time:"7pm–8pm", location:"Café — Details will be shared in our text group", reading:"TBD"},
+    {session:"Session 6 · Brunch", date:"2026-08-15", time:"11am–1pm", location:"Chevy Chase, MD — Details will be shared in our text group", reading:"TBD"},
+  ];
+  function parseD(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+  function formatD(s){var mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],p=s.split('-');return mo[+p[1]-1]+' '+parseInt(p[2])+', '+p[0];}
+  var today=new Date();today.setHours(0,0,0,0);
+  var next=THURSDAY.find(function(t){return parseD(t.date)>=today;})||THURSDAY[THURSDAY.length-1];
+  var sEl=document.getElementById('thursdaySession');
+  var dEl=document.getElementById('thursdayDate');
+  var lEl=document.getElementById('thursdayLocation');
+  var rEl=document.getElementById('thursdayReading');
+  if(sEl)sEl.textContent=next.session;
+  if(dEl)dEl.textContent=formatD(next.date)+' · '+next.time;
+  if(lEl)lEl.textContent=next.location;
+  if(rEl)rEl.textContent=next.reading;
+})();
+
+// ── MONDAY BIBLE STUDY CARD SUBTITLE ──
+(function(){
+  var sub = document.getElementById('bsCardSub');
+  if(sub) sub.textContent = 'Up Next — Week 5 · Mon Jul 6 · The Early Days';
+})();
+
+// ── SUBSTACK RSS FETCH ──
+(function(){
+  var FEED = 'https://itstoriroche.substack.com/feed';
+  fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(FEED))
+    .then(function(r){return r.json();})
+    .then(function(data){
+      if(!data.items||!data.items.length) return;
+      var post = data.items[0];
+      var title = document.getElementById('substackPostTitle');
+      var date = document.getElementById('substackPostDate');
+      var excerpt = document.getElementById('substackPostExcerpt');
+      var link = document.getElementById('substackPostLink');
+      var cardSub = document.getElementById('substackCardSub');
+      if(title) title.textContent = post.title || '';
+      if(date) date.textContent = post.pubDate ? new Date(post.pubDate).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '';
+      if(excerpt){
+        var tmp = document.createElement('div');
+        tmp.innerHTML = post.description || post.content || '';
+        excerpt.textContent = (tmp.textContent||'').substring(0,200).trim() + '...';
+      }
+      if(link) link.href = post.link || 'https://itstoriroche.substack.com';
+      if(cardSub) cardSub.textContent = post.title ? post.title.substring(0,60) + (post.title.length>60?'...':'') : 'Latest post from The Calligraphy of Surrender';
+    })
+    .catch(function(){
+      var sub = document.getElementById('substackCardSub');
+      if(sub) sub.textContent = 'The Calligraphy of Surrender — Read on Substack';
+    });
+})();
+
+// ── JOIN MODAL ──
+function openJoinModal(){
+  document.getElementById('joinModal').classList.add('open');
+}
+function closeJoinModal(){
+  document.getElementById('joinModal').classList.remove('open');
+}
+function submitJoinForm(){
+  var fn = document.getElementById('joinFirstName').value.trim();
+  var ln = document.getElementById('joinLastName').value.trim();
+  var em = document.getElementById('joinEmail').value.trim();
+  var wh = document.getElementById('joinWhy').value.trim();
+  if(!fn||!ln||!em){alert('Please fill in your name and email.');return;}
+  var body = 'First Name: '+fn+'\nLast Name: '+ln+'\nEmail: '+em+'\n\nWhy I want to join:\n'+wh;
+  var mailto = 'mailto:roachvictoriaa@gmail.com?subject=Interest%20in%20Joining%20Monday%20Night%20Bible%20Study&body='+encodeURIComponent(body);
+  window.location.href = mailto;
+  closeJoinModal();
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeJoinModal();}});
+
+
 
 // Show install button on mobile
 window.addEventListener('load', () => {
@@ -1240,7 +1477,7 @@ window.addEventListener('load', () => {
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-nav" id="mobileNav">
-  <div class="mobile-nav-inner">
+  <div class="mobile-nav-inner" style="overflow-x:auto;justify-content:flex-start;gap:0;">
     <button class="mobile-nav-btn active" onclick="showPage('home');setMobileActive(this)">
       <span class="mobile-nav-icon">✦</span>
       <span class="mobile-nav-label">Home</span>
@@ -1251,9 +1488,9 @@ window.addEventListener('load', () => {
     </button>
     <button class="mobile-nav-btn" onclick="showPage('sword');setMobileActive(this)">
       <span class="mobile-nav-icon">⚔</span>
-      <span class="mobile-nav-label">Our Sword</span>
+      <span class="mobile-nav-label">Sword</span>
     </button>
-    <button class="mobile-nav-btn" onclick="showPage('resources');setMobileActive(this)">
+    <button class="mobile-nav-btn" onclick="showPage('biblestudy');setMobileActive(this)">
       <span class="mobile-nav-icon">📖</span>
       <span class="mobile-nav-label">Bible Study</span>
     </button>
@@ -1261,7 +1498,49 @@ window.addEventListener('load', () => {
       <span class="mobile-nav-icon">☕</span>
       <span class="mobile-nav-label">Book Club</span>
     </button>
+    <button class="mobile-nav-btn" onclick="showPage('substack');setMobileActive(this)">
+      <span class="mobile-nav-icon">✍</span>
+      <span class="mobile-nav-label">Love Story</span>
+    </button>
+    <button class="mobile-nav-btn" onclick="showPage('resources');setMobileActive(this)">
+      <span class="mobile-nav-icon">🎵</span>
+      <span class="mobile-nav-label">Resources</span>
+    </button>
   </div>
 </nav>
+
+<!-- JOIN MODAL -->
+<div id="joinModal" style="display:none;position:fixed;inset:0;z-index:700;background:rgba(10,10,15,0.88);align-items:center;justify-content:center;padding:2rem;" onclick="if(event.target===this)closeJoinModal()" class="home-modal-overlay">
+  <div style="background:#1C1C2A;border:0.5px solid rgba(201,168,76,0.2);max-width:480px;width:100%;max-height:90vh;overflow-y:auto;">
+    <div style="background:#12121A;padding:1.8rem 2rem;border-bottom:0.5px solid rgba(201,168,76,0.12);position:relative;">
+      <p style="font-size:0.52rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;font-family:var(--sans);">Monday Night Bible Study</p>
+      <h3 style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--white);">Request to <em style="font-style:italic;color:var(--gold);">Join</em></h3>
+      <button onclick="closeJoinModal()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;color:var(--white-faint);font-size:1rem;">✕</button>
+    </div>
+    <div style="padding:1.8rem 2rem 2rem;">
+      <p style="font-size:0.82rem;line-height:1.75;color:var(--white-dim);margin-bottom:1.5rem;font-family:var(--serif);">We would love to have you. Fill in your details and your message will be sent to Victoria.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;">
+        <div>
+          <label style="font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.4rem;font-family:var(--sans);">First Name</label>
+          <input id="joinFirstName" type="text" style="width:100%;font-family:var(--sans);font-size:0.82rem;color:var(--white);background:rgba(255,255,255,0.05);border:0.5px solid rgba(201,168,76,0.25);padding:0.65rem 0.8rem;outline:none;" placeholder="First name"/>
+        </div>
+        <div>
+          <label style="font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.4rem;font-family:var(--sans);">Last Name</label>
+          <input id="joinLastName" type="text" style="width:100%;font-family:var(--sans);font-size:0.82rem;color:var(--white);background:rgba(255,255,255,0.05);border:0.5px solid rgba(201,168,76,0.25);padding:0.65rem 0.8rem;outline:none;" placeholder="Last name"/>
+        </div>
+      </div>
+      <div style="margin-bottom:0.8rem;">
+        <label style="font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.4rem;font-family:var(--sans);">Email Address</label>
+        <input id="joinEmail" type="email" style="width:100%;font-family:var(--sans);font-size:0.82rem;color:var(--white);background:rgba(255,255,255,0.05);border:0.5px solid rgba(201,168,76,0.25);padding:0.65rem 0.8rem;outline:none;" placeholder="your@email.com"/>
+      </div>
+      <div style="margin-bottom:1.5rem;">
+        <label style="font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.4rem;font-family:var(--sans);">Why do you want to join?</label>
+        <textarea id="joinWhy" rows="3" style="width:100%;font-family:var(--sans);font-size:0.82rem;color:var(--white);background:rgba(255,255,255,0.05);border:0.5px solid rgba(201,168,76,0.25);padding:0.65rem 0.8rem;outline:none;resize:vertical;" placeholder="Share a little about yourself and why you want to join..."></textarea>
+      </div>
+      <button onclick="submitJoinForm()" style="width:100%;font-family:var(--sans);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);border:none;padding:0.9rem;cursor:pointer;">Send Request →</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
