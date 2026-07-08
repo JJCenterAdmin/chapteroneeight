@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ChapterOneEight — C18 · Joshua 1:8</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script src="c18-schedule.js"></script>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0A0A0F">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1063,20 +1064,21 @@ body{
         <p style="font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-family:var(--sans);">Up Next · Session Details</p>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-bottom:1.5rem;">
           <div>
-            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Date</p>
-            <p style="font-family:var(--serif);font-size:1.15rem;color:var(--white);">Monday, Jul 6, 2026</p>
+            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Week</p>
+            <p style="font-family:var(--serif);font-size:1.15rem;color:var(--white);" id="bsWeek">Week 5 · Gospel Harmony</p>
           </div>
           <div>
-            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Location</p>
-            <p style="font-family:var(--serif);font-size:1.15rem;color:var(--white);">Virtual — Check the Invite</p>
-            <button onclick="openJoinModal()" style="margin-top:0.6rem;font-family:var(--sans);font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--black);background:var(--gold);border:none;padding:0.5rem 1rem;cursor:pointer;">I Want to Join</button>
+            <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Date</p>
+            <p style="font-family:var(--serif);font-size:1.15rem;color:var(--white);" id="bsDate">Jun 29, 2026</p>
           </div>
           <div>
             <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Expected Reading</p>
-            <p style="font-family:var(--serif);font-size:1rem;color:var(--white);">Week 5 — The Early Days</p>
-            <p style="font-size:0.75rem;color:var(--white-faint);margin-top:0.3rem;line-height:1.6;">Luke 2:8-20 · Luke 2:21-40<br>Matthew 2:1-12 · Matthew 2:13-23<br>Luke 2:41-52</p>
+            <p style="font-family:var(--serif);font-size:1rem;color:var(--white);" id="bsReadingTheme">The Early Days</p>
+            <p style="font-size:0.75rem;color:var(--white-faint);margin-top:0.3rem;line-height:1.6;" id="bsReadingList">Luke 2:8-20 · Luke 2:21-40 · Matthew 2:1-12 · Matthew 2:13-23 · Luke 2:41-52</p>
           </div>
         </div>
+        <p style="font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--white-faint);margin-bottom:0.4rem;font-family:var(--sans);">Virtual — Check the Invite</p>
+        <button onclick="openJoinModal()" style="font-family:var(--sans);font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--black);background:var(--gold);border:none;padding:0.5rem 1rem;cursor:pointer;">I Want to Join</button>
       </div>
 
       <!-- FULL READING PLAN -->
@@ -1370,10 +1372,20 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape') closeHomeModa
   if(rEl)rEl.textContent=next.reading;
 })();
 
-// ── MONDAY BIBLE STUDY CARD SUBTITLE ──
+// ── MONDAY NIGHT BIBLE STUDY — AUTO-UPDATING SESSION DETAILS ──
 (function(){
+  if(typeof c18GetCurrentWeek !== 'function') return;
+  var w = c18GetCurrentWeek();
   var sub = document.getElementById('bsCardSub');
-  if(sub) sub.textContent = 'Up Next — Week 5 · Mon Jul 6 · The Early Days';
+  var weekEl = document.getElementById('bsWeek');
+  var dateEl = document.getElementById('bsDate');
+  var themeEl = document.getElementById('bsReadingTheme');
+  var listEl = document.getElementById('bsReadingList');
+  if(sub) sub.textContent = 'Up Next — Week ' + w.week + ' · ' + c18FormatDate(w.date) + ' · ' + w.theme;
+  if(weekEl) weekEl.textContent = 'Week ' + w.week + ' · Gospel Harmony';
+  if(dateEl) dateEl.textContent = c18FormatDate(w.date);
+  if(themeEl) themeEl.textContent = w.theme;
+  if(listEl) listEl.innerHTML = w.readings.join(' · ');
 })();
 
 // ── SUBSTACK RSS FETCH ──
